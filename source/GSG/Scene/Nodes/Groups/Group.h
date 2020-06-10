@@ -16,21 +16,22 @@
 #ifndef _GENERIC_SCENE_GRAPH_NODES_GROUPS_GROUP_CLASS_H_
 #define _GENERIC_SCENE_GRAPH_NODES_GROUPS_GROUP_CLASS_H_
 
-#include "GSG/Nodes/Node.h"
+#include "GSG/Scene/Nodes/Node.h"
 
 #include <vector>
 
 
 namespace GSG {
+namespace Scene {
 namespace Nodes {
 namespace Groups {
 
 
-class GSG_EXPORT Group : public Node
+class GSG_EXPORT Group : public GSG::Scene::Nodes::Node
 {
 public:
 
-  typedef Node BaseClass;
+  typedef GSG::Scene::Nodes::Node BaseClass;
   typedef Node::RefPtr NodePtr;
   typedef std::vector < NodePtr > Children;
   typedef Children::const_iterator const_iterator;
@@ -108,6 +109,7 @@ private:
 
 } // namespace Groups
 } // namespace Nodes
+} // namespace Scene
 } // namespace GSG
 
 

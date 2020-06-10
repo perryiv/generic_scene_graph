@@ -28,13 +28,14 @@
 #include <mutex>
 #include <set>
 
-namespace GSG { namespace Nodes { namespace Groups { class Group; } } };
+namespace GSG { namespace Scene { namespace Nodes { namespace Groups { class Group; } } } };
 
 #define GSG_DECLARE_NODE_CLASS(class_name) \
   USUL_REFERENCED_CLASS ( class_name )
 
 
 namespace GSG {
+namespace Scene {
 namespace Nodes {
 
 
@@ -79,7 +80,7 @@ public:
 
 protected:
 
-  friend class GSG::Nodes::Groups::Group;
+  friend class GSG::Scene::Nodes::Groups::Group;
 
   Node();
   virtual ~Node();
@@ -98,6 +99,7 @@ private:
 
 
 } // namespace Nodes
+} // namespace Scene
 } // namespace GSG
 
 

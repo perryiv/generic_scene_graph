@@ -18,6 +18,7 @@ set ( CMAKE_POSITION_INDEPENDENT_CODE ON )
 
 # Define a variable that holds all the source files.
 set ( SOURCE_FILES
+  GSG/Nodes/Groups/Group.cpp
   GSG/Nodes/Node.cpp
 )
 

@@ -13,8 +13,8 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifndef _GENERIC_SCENE_GRAPH_NODE_CLASS_H_
-#define _GENERIC_SCENE_GRAPH_NODE_CLASS_H_
+#ifndef _GENERIC_SCENE_GRAPH_NODES_NODE_CLASS_H_
+#define _GENERIC_SCENE_GRAPH_NODES_NODE_CLASS_H_
 
 #include "GSG/Config.h"
 #include "GSG/Export.h"
@@ -26,6 +26,9 @@
 
 #include <atomic>
 #include <mutex>
+#include <set>
+
+namespace GSG { namespace Nodes { namespace Groups { class Group; } } };
 
 #define GSG_DECLARE_NODE_CLASS(class_name) \
   USUL_REFERENCED_CLASS ( class_name )
@@ -40,12 +43,13 @@ class GSG_EXPORT Node : public Usul::Base::Referenced,
 {
 public:
 
+  GSG_DECLARE_NODE_CLASS ( Node );
+
   typedef Usul::Base::Referenced BaseClass;
   typedef std::recursive_mutex Mutex;
   typedef std::lock_guard < Mutex > Guard;
   typedef std::atomic < unsigned int > Flags;
-
-  GSG_DECLARE_NODE_CLASS ( Node );
+  typedef std::set < RefPtr > Parents;
 
   // Flags for this class.
   enum : unsigned int
@@ -67,13 +71,21 @@ public:
   bool isVisible() const { return Usul::Bits::has < unsigned int > ( _flags, VISIBLE ); }
   void setVisible ( bool state ) { _flags = Usul::Bits::set < unsigned int > ( _flags, VISIBLE, state ); }
 
+  // Does this node have the given parent?
+  bool hasParent ( RefPtr ) const;
+
   // Direct access to internal mutex. Use with caution.
   Mutex &mutex() { return _mutex; }
 
 protected:
 
+  friend class GSG::Nodes::Groups::Group;
+
   Node();
   virtual ~Node();
+
+  void _addParent ( RefPtr );
+  void _removeParent ( RefPtr );
 
 private:
 
@@ -81,6 +93,7 @@ private:
 
   mutable Mutex _mutex;
   Flags _flags;
+  Parents _parents;
 };
 
 
@@ -88,4 +101,4 @@ private:
 } // namespace GSG
 
 
-#endif // _GENERIC_SCENE_GRAPH_NODE_CLASS_H_
+#endif // _GENERIC_SCENE_GRAPH_NODES_NODE_CLASS_H_

@@ -9,21 +9,20 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-//  Base class for all scene-graph nodes.
+//  Base class for all scene-graph group nodes.
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#include "GSG/Nodes/Node.h"
+#include "GSG/Nodes/Groups/Group.h"
 
-#include "Usul/Errors/Exceptions.h"
 #include "Usul/Tools/NoThrow.h"
 
 #include <functional>
-#include <stdexcept>
 
 
 namespace GSG {
 namespace Nodes {
+namespace Groups {
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -32,10 +31,8 @@ namespace Nodes {
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-Node::Node() : BaseClass(),
-  _mutex(),
-  _flags ( VISIBLE | INTERSECTABLE | CONTRIBUTE_TO_BOUNDS ),
-  _parents()
+Group::Group() : BaseClass(),
+  _children()
 {
 }
 
@@ -46,9 +43,9 @@ Node::Node() : BaseClass(),
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-Node::~Node()
+Group::~Group()
 {
-  USUL_TOOLS_NO_THROW ( 1591770752, std::bind ( &Node::_destroyNode, this ) );
+  USUL_TOOLS_NO_THROW ( 1591773842, std::bind ( &Group::_destroyGroup, this ) );
 }
 
 
@@ -58,54 +55,34 @@ Node::~Node()
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-void Node::_destroyNode()
+void Group::_destroyGroup()
 {
-  if ( false == _parents.empty() )
+  this->clear();
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Remove all the child nodes.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+void Group::removeAllChildren()
+{
+  Children children;
   {
-    throw Usul::Errors::RuntimeError ( "Destroying node with parents" );
+    Guard guard ( this->mutex() );
+    children = _children;
+    _children.clear();
+  }
+
+  for ( iterator i = children.begin(); i != children.end(); ++i )
+  {
+    NodePtr &node = *i;
+    node->_removeParent ( this );
   }
 }
 
-
-///////////////////////////////////////////////////////////////////////////////
-//
-//  Does this node have the given parent?
-//
-///////////////////////////////////////////////////////////////////////////////
-
-bool Node::hasParent ( RefPtr parent ) const
-{
-  return ( _parents.end() != _parents.find ( parent ) );
-}
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-//  Add the parent.
-//
-///////////////////////////////////////////////////////////////////////////////
-
-void Node::_addParent ( RefPtr parent )
-{
-  if ( true == this->hasParent ( parent ) )
-  {
-    throw Usul::Errors::RuntimeError ( "This node already has the given parent" );
-  }
-  _parents.insert ( parent );
-}
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-//  Remove the parent.
-//
-///////////////////////////////////////////////////////////////////////////////
-
-void Node::_removeParent ( RefPtr parent )
-{
-  _parents.erase ( parent );
-}
-
-
+} // namespace Groups
 } // namespace Nodes
 } // namespace GSG

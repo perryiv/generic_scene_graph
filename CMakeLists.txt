@@ -71,6 +71,9 @@ install (
 # 2) it's build directory.
 find_package ( usul REQUIRED )
 
+# Find boost.
+find_package ( Boost REQUIRED )
+
 # Does the user want strict warnings?
 option ( GENERIC_SCENE_GRAPH_ENABLE_STRICT_WARNINGS "Enable strict warnings" ON )
 if ( GENERIC_SCENE_GRAPH_ENABLE_STRICT_WARNINGS )

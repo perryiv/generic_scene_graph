@@ -8,7 +8,12 @@ etc).
 
 ## Building
 
-You will need [CMake](https://cmake.org/) installed:
+You will need
+[Usul](https://github.com/perryiv/usul),
+[Boost](https://www.boost.org/),
+and
+[CMake](https://cmake.org/)
+installed:
 
     cd /your/path/to/generic_scene_graph
     mkdir build

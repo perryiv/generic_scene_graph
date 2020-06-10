@@ -1,0 +1,30 @@
+
+################################################################################
+#
+#  Copyright (c) 2020, Perry L Miller IV
+#  All rights reserved.
+#  MIT License: https://opensource.org/licenses/mit-license.html
+#
+################################################################################
+
+################################################################################
+#
+#  Define how the project exports itself.
+#
+#  Sources:
+#  https://gitlab.kitware.com/cmake/community/wikis/doc/tutorials/How-to-create-a-ProjectConfig.cmake-file
+#
+################################################################################
+
+# Compute paths
+get_filename_component ( GENERIC_SCENE_GRAPH_CMAKE_DIR ${CMAKE_CURRENT_LIST_FILE} PATH )
+set ( GENERIC_SCENE_GRAPH_INCLUDE_DIRS "@CONFIG_INCLUDE_DIRS@" )
+
+# Include this target cmake file if (and only if) generic_scene_graph is not already defined.
+if ( NOT TARGET generic_scene_graph AND NOT generic_scene_graph_BINARY_DIR )
+  include ( ${GENERIC_SCENE_GRAPH_CMAKE_DIR}/generic_scene_graph_targets.cmake )
+endif()
+
+# A way for projects using generic_scene_graph to easily link against all the libraries.
+# There is only one here, so it doesn't matter much.
+set ( GENERIC_SCENE_GRAPH_LIBRARIES generic_scene_graph )

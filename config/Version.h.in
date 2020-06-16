@@ -20,7 +20,7 @@
 #define _GENERIC_SCENE_GRAPH_VERSION_H_
 
 
-namespace Usul
+namespace GSG
 {
   namespace Version
   {

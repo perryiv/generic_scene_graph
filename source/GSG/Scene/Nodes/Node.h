@@ -64,12 +64,16 @@ public:
   unsigned int getFlags() const { return _flags; }
   void setFlags ( unsigned int flags ) { _flags = flags; }
 
+  // Get/set the state for contributing to the bounds.
+  bool getContributeToBounds() const { return Usul::Bits::has < unsigned int > ( _flags, CONTRIBUTE_TO_BOUNDS ); }
+  void setContributeToBounds ( bool state ) { _flags = Usul::Bits::set < unsigned int > ( _flags, CONTRIBUTE_TO_BOUNDS, state ); }
+
   // Get/set the intersectable state.
-  bool isIntersectable() const { return Usul::Bits::has < unsigned int > ( _flags, INTERSECTABLE ); }
+  bool getIntersectable() const { return Usul::Bits::has < unsigned int > ( _flags, INTERSECTABLE ); }
   void setIntersectable ( bool state ) { _flags = Usul::Bits::set < unsigned int > ( _flags, INTERSECTABLE, state ); }
 
   // Get/set the visible state.
-  bool isVisible() const { return Usul::Bits::has < unsigned int > ( _flags, VISIBLE ); }
+  bool getVisible() const { return Usul::Bits::has < unsigned int > ( _flags, VISIBLE ); }
   void setVisible ( bool state ) { _flags = Usul::Bits::set < unsigned int > ( _flags, VISIBLE, state ); }
 
   // Does this node have the given parent?

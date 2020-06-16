@@ -1,0 +1,34 @@
+{
+  "name": "generic_scene_graph",
+  "version": "0.0.0",
+  "description": "An attempt to make a scene graph that is easy to understand and use, and decoupled from the rendering technology",
+  "scripts": {
+    "build-debug":   "cd build/`hostname`/Debug   && cmake --build .",
+    "build-release": "cd build/`hostname`/Release && cmake --build .",
+    "clear": "node_modules/.bin/clear",
+    "config-debug":   "del-cli build/`hostname`/Debug   && make-dir build/`hostname`/Debug   && cd build/`hostname`/Debug   && cmake ../../.. -DCMAKE_VERBOSE_MAKEFILE=ON -DGENERIC_SCENE_GRAPH_BUILD_TESTS=ON -DGENERIC_SCENE_GRAPH_ENABLE_CODE_COVERAGE=ON -DCMAKE_BUILD_TYPE=Debug   -G Ninja",
+    "config-release": "del-cli build/`hostname`/Release && make-dir build/`hostname`/Release && cd build/`hostname`/Release && cmake ../../.. -DCMAKE_VERBOSE_MAKEFILE=ON -DGENERIC_SCENE_GRAPH_BUILD_TESTS=ON -DGENERIC_SCENE_GRAPH_ENABLE_CODE_COVERAGE=ON -DCMAKE_BUILD_TYPE=Release -G Ninja",
+    "test-debug":   "cd build/`hostname`/Debug/tests   && generic_scene_graph_test_d --abort --use-colour=yes --durations=no",
+    "test-release": "cd build/`hostname`/Release/tests && generic_scene_graph_test   --abort --use-colour=yes --durations=no",
+    "test": "echo Use test-debug or test-release",
+    "watch-debug":   "watch \"npm run clear && npm run build-debug   && npm run test-debug\"   ./ --filter=./watch_filter.js",
+    "watch-release": "watch \"npm run clear && npm run build-release && npm run test-release\" ./ --filter=./watch_filter.js",
+    "watch": "echo Use watch-debug or watch-release"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/perryiv/generic_scene_graph.git"
+  },
+  "author": "Perry L Miller IV",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/perryiv/generic_scene_graph/issues"
+  },
+  "homepage": "https://github.com/perryiv/generic_scene_graph#readme",
+  "devDependencies": {
+    "clear-cli": "^1.0.1",
+    "del-cli": "^3.0.1",
+    "make-dir-cli": "^2.0.0",
+    "watch": "^1.0.2"
+  }
+}

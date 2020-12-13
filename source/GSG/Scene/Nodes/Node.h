@@ -16,7 +16,7 @@
 #ifndef _GENERIC_SCENE_GRAPH_NODES_NODE_CLASS_H_
 #define _GENERIC_SCENE_GRAPH_NODES_NODE_CLASS_H_
 
-#include "GSG/Base/Object.h"
+#include "GSG/Base/Objects/Object.h"
 #include "GSG/Forward.h"
 
 #include "Usul/Bits/Bits.h"
@@ -39,13 +39,13 @@ namespace Scene {
 namespace Nodes {
 
 
-class GSG_EXPORT Node : public GSG::Base::Object
+class GSG_EXPORT Node : public GSG::Base::Objects::Object
 {
 public:
 
   GSG_DECLARE_NODE_CLASS ( Node );
 
-  typedef GSG::Base::Object BaseClass;
+  typedef GSG::Base::Objects::Object BaseClass;
   typedef std::recursive_mutex Mutex;
   typedef std::lock_guard < Mutex > Guard;
   typedef std::atomic < unsigned int > Flags;

@@ -35,7 +35,7 @@ set ( CMAKE_POSITION_INDEPENDENT_CODE ON )
 
 # Define a variable that holds all the source files.
 set ( SOURCE_FILES
-  GSG/Base/Object.cpp
+  GSG/Base/Objects/Object.cpp
   GSG/Scene/Nodes/Groups/Group.cpp
   GSG/Scene/Nodes/Node.cpp
   GSG/Visitors/Visitor.cpp

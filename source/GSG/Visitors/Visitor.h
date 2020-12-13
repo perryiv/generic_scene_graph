@@ -16,7 +16,7 @@
 #ifndef _GENERIC_SCENE_GRAPH_VISITORS_VISITOR_CLASS_H_
 #define _GENERIC_SCENE_GRAPH_VISITORS_VISITOR_CLASS_H_
 
-#include "GSG/Base/Object.h"
+#include "GSG/Base/Objects/Object.h"
 #include "GSG/Forward.h"
 
 #define GSG_DECLARE_VISITOR_CLASS(class_name) \
@@ -30,13 +30,13 @@ namespace GSG {
 namespace Visitors {
 
 
-class GSG_EXPORT Visitor : public GSG::Base::Object
+class GSG_EXPORT Visitor : public GSG::Base::Objects::Object
 {
 public:
 
   GSG_DECLARE_VISITOR_CLASS ( Visitor );
 
-  typedef GSG::Base::Object BaseClass;
+  typedef GSG::Base::Objects::Object BaseClass;
 
   virtual void visit ( GSG::Scene::Nodes::Groups::Group & );
   virtual void visit ( GSG::Scene::Nodes::Node & );

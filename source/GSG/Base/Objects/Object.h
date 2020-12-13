@@ -13,8 +13,8 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifndef _GENERIC_SCENE_GRAPH_BASE_OBJECT_CLASS_H_
-#define _GENERIC_SCENE_GRAPH_BASE_OBJECT_CLASS_H_
+#ifndef _GENERIC_SCENE_GRAPH_BASE_OBJECTS_OBJECT_CLASS_H_
+#define _GENERIC_SCENE_GRAPH_BASE_OBJECTS_OBJECT_CLASS_H_
 
 #include "GSG/Config.h"
 #include "GSG/Export.h"
@@ -32,6 +32,7 @@
 
 namespace GSG {
 namespace Base {
+namespace Objects {
 
 
 class GSG_EXPORT Object : public Usul::Base::Referenced,
@@ -54,8 +55,9 @@ private:
 };
 
 
+} // namespace Objects
 } // namespace Base
 } // namespace GSG
 
 
-#endif // _GENERIC_SCENE_GRAPH_BASE_OBJECT_CLASS_H_
+#endif // _GENERIC_SCENE_GRAPH_BASE_OBJECTS_OBJECT_CLASS_H_

@@ -21,7 +21,10 @@ namespace GSG
 {
   namespace Base
   {
-    class Object;
+    namespace Objects
+    {
+      class Object;
+    }
   }
   namespace Scene
   {

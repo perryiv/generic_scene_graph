@@ -109,6 +109,12 @@ find_package ( usul REQUIRED )
 # Find boost.
 find_package ( Boost REQUIRED )
 
+# Find immer?
+option ( GSG_USE_IMMER_CONTAINERS "Use immer containers" ON )
+if ( GSG_USE_IMMER_CONTAINERS )
+  find_package ( immer REQUIRED )
+endif()
+
 # Does the user want strict warnings?
 option ( GSG_ENABLE_STRICT_WARNINGS "Enable strict warnings" ON )
 if ( GSG_ENABLE_STRICT_WARNINGS )

@@ -26,8 +26,17 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#cmakedefine GENERIC_SCENE_GRAPH_IGNORE_VCPP_WARNING_4251
-#cmakedefine GENERIC_SCENE_GRAPH_IGNORE_VCPP_WARNING_4275
+#cmakedefine GSG_IGNORE_VCPP_WARNING_4251
+#cmakedefine GSG_IGNORE_VCPP_WARNING_4275
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Are we using immer?
+//
+///////////////////////////////////////////////////////////////////////////////
+
+#cmakedefine GSG_USE_IMMER_CONTAINERS
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -38,10 +47,10 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #ifdef _WIN32
-# ifdef GENERIC_SCENE_GRAPH_IGNORE_VCPP_WARNING_4251
+# ifdef GSG_IGNORE_VCPP_WARNING_4251
 #  pragma warning ( disable : 4251 )
 # endif
-# ifdef GENERIC_SCENE_GRAPH_IGNORE_VCPP_WARNING_4275
+# ifdef GSG_IGNORE_VCPP_WARNING_4275
 #  pragma warning ( disable : 4275 )
 # endif
 #endif

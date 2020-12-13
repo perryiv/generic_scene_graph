@@ -13,7 +13,7 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#include "GSG/Base/Object.h"
+#include "GSG/Base/Objects/Object.h"
 
 #include "Usul/Tools/NoThrow.h"
 
@@ -22,6 +22,7 @@
 
 namespace GSG {
 namespace Base {
+namespace Objects {
 
 
 // Add the boilerplate code.
@@ -62,5 +63,6 @@ void Object::_destroyObject()
 }
 
 
+} // namespace Objects
 } // namespace Base
 } // namespace GSG

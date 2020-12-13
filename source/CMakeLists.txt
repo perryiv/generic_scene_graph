@@ -13,13 +13,32 @@
 #
 ################################################################################
 
+# Does the user want to generate code coverage?
+option ( GSG_ENABLE_CODE_COVERAGE
+  "Generate test code coverage in supported configurations" OFF )
+if ( GSG_ENABLE_CODE_COVERAGE )
+  if ( UNIX ) # True for Linux, Mac, and Cygwin.
+    message ( "   -- Generating test code coverage data" )
+    add_compile_options ( -fprofile-arcs -ftest-coverage )
+    if ( "${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" )
+      add_link_options ( --coverage )
+    else() # GCC
+      link_libraries ( gcov )
+    endif()
+  else()
+    message ( WARNING "Test code coverage data not supported with current compiler" )
+  endif()
+endif()
+
 # We want position independent code.
 set ( CMAKE_POSITION_INDEPENDENT_CODE ON )
 
 # Define a variable that holds all the source files.
 set ( SOURCE_FILES
+  GSG/Base/Object.cpp
   GSG/Scene/Nodes/Groups/Group.cpp
   GSG/Scene/Nodes/Node.cpp
+  GSG/Visitors/Visitor.cpp
 )
 
 # Make the library using the source files.
@@ -30,20 +49,21 @@ add_library ( ${PROJECT_NAME} ${SOURCE_FILES} )
 target_compile_definitions ( ${PROJECT_NAME} PRIVATE COMPILING_GENERIC_SCENE_GRAPH )
 
 if ( NOT BUILD_SHARED_LIBS )
-  target_compile_definitions ( ${PROJECT_NAME} PUBLIC GENERIC_SCENE_GRAPH_STATIC_DEFINE )
+  target_compile_definitions ( ${PROJECT_NAME} PUBLIC GSG_STATIC_DEFINE )
 endif()
 
 # Tell cmake that other projects that use this one will need our header files.
 target_include_directories (
   ${PROJECT_NAME} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-  $<BUILD_INTERFACE:${GENERIC_SCENE_GRAPH_CONFIG_DIR_OUTPUT}>
+  $<BUILD_INTERFACE:${GSG_CONFIG_DIR_OUTPUT}>
   $<INSTALL_INTERFACE:include>
 )
 
 # CMake will automatically add -I, -L, and -D (etc) appropriately.
 target_link_libraries ( ${PROJECT_NAME} PUBLIC
   usul
+  Boost::boost
 )
 
 # Bake the version into the file name and create symlinks if appropriate.

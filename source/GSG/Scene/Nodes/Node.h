@@ -16,22 +16,22 @@
 #ifndef _GENERIC_SCENE_GRAPH_NODES_NODE_CLASS_H_
 #define _GENERIC_SCENE_GRAPH_NODES_NODE_CLASS_H_
 
-#include "GSG/Config.h"
-#include "GSG/Export.h"
+#include "GSG/Base/Object.h"
+#include "GSG/Forward.h"
 
-#include "Usul/Base/Referenced.h"
 #include "Usul/Bits/Bits.h"
-#include "Usul/Pointers/Pointers.h"
-#include "Usul/Tools/NoCopying.h"
 
 #include <atomic>
 #include <mutex>
 #include <set>
 
-namespace GSG { namespace Scene { namespace Nodes { namespace Groups { class Group; } } } };
-
 #define GSG_DECLARE_NODE_CLASS(class_name) \
-  USUL_REFERENCED_CLASS ( class_name )
+  GSG_DECLARE_OBJECT_CLASS ( class_name ); \
+  virtual void accept ( GSG::Visitors::Visitor & )
+
+#define GSG_IMPLEMENT_NODE_CLASS(class_name) \
+  GSG_IMPLEMENT_OBJECT_CLASS ( class_name ) \
+  void class_name ::accept ( GSG::Visitors::Visitor &visitor ) { visitor.visit ( *this ); }
 
 
 namespace GSG {
@@ -39,18 +39,17 @@ namespace Scene {
 namespace Nodes {
 
 
-class GSG_EXPORT Node : public Usul::Base::Referenced,
-  public Usul::Tools::NoCopying
+class GSG_EXPORT Node : public GSG::Base::Object
 {
 public:
 
   GSG_DECLARE_NODE_CLASS ( Node );
 
-  typedef Usul::Base::Referenced BaseClass;
+  typedef GSG::Base::Object BaseClass;
   typedef std::recursive_mutex Mutex;
   typedef std::lock_guard < Mutex > Guard;
   typedef std::atomic < unsigned int > Flags;
-  typedef std::set < RefPtr > Parents;
+  typedef std::set < ValidAccessRefPtr > Parents;
 
   // Flags for this class.
   enum : unsigned int
@@ -77,10 +76,10 @@ public:
   void setVisible ( bool state ) { _flags = Usul::Bits::set < unsigned int > ( _flags, VISIBLE, state ); }
 
   // Does this node have the given parent?
-  bool hasParent ( RefPtr ) const;
+  bool hasParent ( const Parents::value_type &parent ) const;
 
   // Direct access to internal mutex. Use with caution.
-  Mutex &mutex() { return _mutex; }
+  Mutex &mutex() const { return _mutex; }
 
 protected:
 
@@ -89,8 +88,9 @@ protected:
   Node();
   virtual ~Node();
 
-  void _addParent ( RefPtr );
-  void _removeParent ( RefPtr );
+  void _addParent ( Node * );
+
+  void _removeParent ( Node * );
 
 private:
 

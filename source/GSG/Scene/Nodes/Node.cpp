@@ -14,6 +14,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include "GSG/Scene/Nodes/Node.h"
+#include "GSG/Visitors/Visitor.h"
 
 #include "Usul/Errors/Exceptions.h"
 #include "Usul/Tools/NoThrow.h"
@@ -25,6 +26,10 @@
 namespace GSG {
 namespace Scene {
 namespace Nodes {
+
+
+// Add the boilerplate code.
+GSG_IMPLEMENT_NODE_CLASS ( Node );
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -74,8 +79,9 @@ void Node::_destroyNode()
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-bool Node::hasParent ( RefPtr parent ) const
+bool Node::hasParent ( const Parents::value_type &parent ) const
 {
+  Guard guard ( this->mutex() );
   return ( _parents.end() != _parents.find ( parent ) );
 }
 
@@ -86,13 +92,24 @@ bool Node::hasParent ( RefPtr parent ) const
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-void Node::_addParent ( RefPtr parent )
+void Node::_addParent ( Node *node )
 {
+  Parents::value_type parent ( node );
+
+  if ( false == parent.valid() )
+  {
+    throw Usul::Errors::RuntimeError ( "Adding invalid parent" );
+  }
+
+  // Guard before checking for an existing parent.
+  Guard guard ( this->mutex() );
+
   if ( true == this->hasParent ( parent ) )
   {
     throw Usul::Errors::RuntimeError ( "This node already has the given parent" );
   }
-  _parents.insert ( parent );
+
+  _parents.insert ( Parents::value_type ( parent ) );
 }
 
 
@@ -102,9 +119,10 @@ void Node::_addParent ( RefPtr parent )
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-void Node::_removeParent ( RefPtr parent )
+void Node::_removeParent ( Node *parent )
 {
-  _parents.erase ( parent );
+  Guard guard ( this->mutex() );
+  _parents.erase ( Parents::value_type ( parent ) );
 }
 
 

@@ -31,8 +31,9 @@ class GSG_EXPORT Group : public GSG::Scene::Nodes::Node
 {
 public:
 
-  typedef GSG::Scene::Nodes::Node BaseClass;
-  typedef Node::RefPtr NodePtr;
+  typedef GSG::Scene::Nodes::Node Node;
+  typedef Node BaseClass;
+  typedef Node::ValidAccessRefPtr NodePtr;
   typedef std::vector < NodePtr > Children;
   typedef Children::const_iterator const_iterator;
   typedef Children::iterator iterator;
@@ -72,6 +73,9 @@ public:
   const_reference front() const;
   reference       front();
 
+  // Get the number of child nodes.
+  size_type getNumChildren() const { return _children.size(); }
+
   // Insert the node before the given position iterator.
   // Throws an exception if the given position iterator is invalid.
   iterator insert ( iterator pos, NodePtr );
@@ -93,7 +97,7 @@ public:
   void removeAllChildren();
 
   // Get the size of the group, which is the number of child nodes.
-  bool size() const { return _children.size(); }
+  size_type size() const { return this->getNumChildren(); }
 
 protected:
 

@@ -14,6 +14,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include "GSG/Scene/Nodes/Groups/Group.h"
+#include "GSG/Visitors/Visitor.h"
 
 #include "Usul/Tools/NoThrow.h"
 
@@ -24,6 +25,10 @@ namespace GSG {
 namespace Scene {
 namespace Nodes {
 namespace Groups {
+
+
+// Add the boilerplate code.
+GSG_IMPLEMENT_NODE_CLASS ( Group );
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -77,12 +82,36 @@ void Group::removeAllChildren()
     _children.clear();
   }
 
-  for ( iterator i = children.begin(); i != children.end(); ++i )
+  for ( auto i = children.begin(); i != children.end(); ++i )
   {
-    NodePtr &node = *i;
-    node->_removeParent ( this );
+    NodePtr &child = *i;
+    child->_removeParent ( this );
   }
 }
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Add the node to the end of the sequence.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+void Group::push_back ( NodePtr node )
+{
+  if ( true == node.valid() )
+  {
+    #if 0
+    #ifdef _DEBUG
+    std::cout << "child node = " << node->getReferenceCount() << ", this = " << this->getReferenceCount() << std::endl;
+    #endif
+    #endif
+
+    Guard guard ( this->mutex() );
+    _children.push_back ( node );
+    node->_addParent ( this );
+  }
+}
+
 
 } // namespace Groups
 } // namespace Nodes

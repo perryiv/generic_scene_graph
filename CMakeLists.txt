@@ -13,14 +13,20 @@
 #
 ################################################################################
 
-# We use the add_compile_definitions command.
-# https://cmake.org/cmake/help/v3.12/release/3.12.html
-cmake_minimum_required ( VERSION 3.12.0 )
+# Without this version or greater we get this error in Azure Pipelines:
+# "make: *** No rule to make target 'test'.  Stop."
+cmake_minimum_required ( VERSION 3.13.0 )
+
+# Get the version from this file.
+file ( STRINGS ${CMAKE_CURRENT_LIST_DIR}/version.txt PROJECT_VERSION )
 
 # The name of this project.
-project ( generic_scene_graph VERSION 0.0.0 LANGUAGES CXX )
+project ( generic_scene_graph VERSION ${PROJECT_VERSION} LANGUAGES CXX )
 
-# Default to building as a shared library.
+# Changes to the version file should trigger a re-configuration.
+set_property ( DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS ${CMAKE_CURRENT_LIST_DIR}/version.txt )
+
+# Default to building as a shared library
 if ( NOT DEFINED BUILD_SHARED_LIBS )
   set ( BUILD_SHARED_LIBS ON )
 endif()
@@ -36,6 +42,11 @@ if ( NOT DEFINED CMAKE_CXX_EXTENSIONS )
   set ( CMAKE_CXX_EXTENSIONS OFF )
 endif()
 
+# Make VC++ more standard compliant.
+if ( MSVC )
+  add_compile_options ( /permissive- /Zc:__cplusplus )
+endif()
+
 # Make default __attribute__ visibility hidden not public to hide non-exported symbols.
 # It is not working on Mac so we disable it.
 if ( NOT APPLE )
@@ -44,27 +55,51 @@ if ( NOT APPLE )
 endif()
 
 # A convenient variable for telling the compiler to use these header files.
-set ( GENERIC_SCENE_GRAPH_CONFIG_DIR_INPUT  ${CMAKE_CURRENT_SOURCE_DIR}/config )
-set ( GENERIC_SCENE_GRAPH_CONFIG_DIR_OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/config )
+set ( GSG_CONFIG_DIR_INPUT  ${CMAKE_CURRENT_SOURCE_DIR}/config )
+set ( GSG_CONFIG_DIR_OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/config )
+
+# Tell CMake to not skip using rpath.
+set ( CMAKE_SKIP_RPATH OFF )
 
 # Set the version.
 configure_file (
-  ${GENERIC_SCENE_GRAPH_CONFIG_DIR_INPUT}/Version.h.in
-  ${GENERIC_SCENE_GRAPH_CONFIG_DIR_OUTPUT}/GSG/Version.h )
+  ${GSG_CONFIG_DIR_INPUT}/Version.h.in
+${GSG_CONFIG_DIR_OUTPUT}/GSG/Version.h )
 
-# Add options here as needed for config file.
+# Tell the linkers to write their output files here.
+set ( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin )
+set ( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib )
+set ( CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib )
+
+# Does the user want to ignore these warning?
+if ( MSVC ) # Also true for Intel compiler. Means "looks like Visual C++".
+  option ( GSG_IGNORE_VCPP_WARNING_4251
+    "Use a pragma to ignore Visual C++ warning 4251" ON )
+  option ( GSG_IGNORE_VCPP_WARNING_4275
+    "Use a pragma to ignore Visual C++ warning 4275" ON )
+endif()
 
 # Now that we have all the configuration options we can write the file.
 configure_file (
-  ${GENERIC_SCENE_GRAPH_CONFIG_DIR_INPUT}/Config.h.in
-  ${GENERIC_SCENE_GRAPH_CONFIG_DIR_OUTPUT}/GSG/Config.h )
+  ${GSG_CONFIG_DIR_INPUT}/Config.h.in
+  ${GSG_CONFIG_DIR_OUTPUT}/GSG/Config.h )
 
-# Install generated files wherever the user specified to install things.
-install (
-  DIRECTORY ${GENERIC_SCENE_GRAPH_CONFIG_DIR_OUTPUT}/GSG
-  DESTINATION include
-  FILES_MATCHING PATTERN "*.h"
-)
+# Does the user want to be able to install this project.
+if ( "${CMAKE_PROJECT_NAME}" STREQUAL "${PROJECT_NAME}" )
+  set ( ${PROJECT_NAME}_INSTALL_DEFAULT ON )
+else()
+  set ( ${PROJECT_NAME}_INSTALL_DEFAULT OFF )
+endif()
+option ( ${PROJECT_NAME}_INSTALL "Able to install ${PROJECT_NAME}" ${${PROJECT_NAME}_INSTALL_DEFAULT} )
+
+if ( ${PROJECT_NAME}_INSTALL )
+  # Install generated files wherever the user specified to install things.
+  install (
+    DIRECTORY ${GSG_CONFIG_DIR_OUTPUT}/GSG
+    DESTINATION include
+    FILES_MATCHING PATTERN "*.h"
+  )
+endif()
 
 # Find and use usul. Set usul_ROOT environment variable to:
 # 1) where it is installed, or
@@ -75,8 +110,8 @@ find_package ( usul REQUIRED )
 find_package ( Boost REQUIRED )
 
 # Does the user want strict warnings?
-option ( GENERIC_SCENE_GRAPH_ENABLE_STRICT_WARNINGS "Enable strict warnings" ON )
-if ( GENERIC_SCENE_GRAPH_ENABLE_STRICT_WARNINGS )
+option ( GSG_ENABLE_STRICT_WARNINGS "Enable strict warnings" ON )
+if ( GSG_ENABLE_STRICT_WARNINGS )
   message ( "   -- Enabling strict warnings" )
   if ( MSVC ) # Also true for Intel compiler. Means "looks like Visual C++".
     add_compile_options ( /W4 )
@@ -86,8 +121,8 @@ if ( GENERIC_SCENE_GRAPH_ENABLE_STRICT_WARNINGS )
 endif()
 
 # Does the user want to treat warnings the same as errors?
-option ( GENERIC_SCENE_GRAPH_TREAT_WARNINGS_LIKE_ERRORS "Treat warnings like errors" ON )
-if ( GENERIC_SCENE_GRAPH_TREAT_WARNINGS_LIKE_ERRORS )
+option ( GSG_TREAT_WARNINGS_LIKE_ERRORS "Treat warnings like errors" ON )
+if ( GSG_TREAT_WARNINGS_LIKE_ERRORS )
   message ( "   -- Treating warnings like errors" )
   if ( MSVC ) # Also true for Intel compiler. Means "looks like Visual C++".
     add_compile_options ( /WX )
@@ -97,10 +132,10 @@ if ( GENERIC_SCENE_GRAPH_TREAT_WARNINGS_LIKE_ERRORS )
 endif()
 
 # Does the user want to build the tests?
-option ( GENERIC_SCENE_GRAPH_BUILD_TESTS "Build the tests" OFF )
+option ( GSG_BUILD_TESTS "Build the tests" OFF )
 
 # Need Catch2 to build the tests
-if ( GENERIC_SCENE_GRAPH_BUILD_TESTS )
+if ( GSG_BUILD_TESTS )
   find_package ( Catch2 REQUIRED )
 endif()
 
@@ -114,7 +149,8 @@ add_compile_definitions ( $<$<CONFIG:Debug>:_DEBUG> )
 
 # Also process the CMakeLists.txt files found in these directories.
 add_subdirectory ( source )
-if ( GENERIC_SCENE_GRAPH_BUILD_TESTS )
+if ( GSG_BUILD_TESTS )
+  enable_testing()
   add_subdirectory ( tests ) # The tests.
 endif()
 

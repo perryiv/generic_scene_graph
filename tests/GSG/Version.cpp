@@ -29,7 +29,7 @@
 TEST_CASE ( "Version should be correct" )
 {
   REQUIRE ( GSG::Version::MAJOR == 0 );
-  REQUIRE ( GSG::Version::MINOR == 0 );
+  REQUIRE ( GSG::Version::MINOR == 1 );
   REQUIRE ( GSG::Version::PATCH == 0 );
-  REQUIRE ( std::string ( GSG::Version::STRING ) == std::string ( "0.0.0" ) );
+  REQUIRE ( std::string ( GSG::Version::STRING ) == std::string ( "0.1.0" ) );
 }

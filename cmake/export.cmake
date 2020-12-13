@@ -39,7 +39,7 @@ configure_file (
 )
 
 # Create export configuration file for the install tree.
-set ( CONFIG_INCLUDE_DIRS \${GENERIC_SCENE_GRAPH_CMAKE_DIR}/${REL_INCLUDE_DIR} )
+set ( CONFIG_INCLUDE_DIRS \${GSG_CMAKE_DIR}/${REL_INCLUDE_DIR} )
 configure_file (
   ${CMAKE_CURRENT_LIST_DIR}/${PROJECT_NAME}-config.cmake.in
   ${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${PROJECT_NAME}-config.cmake @ONLY

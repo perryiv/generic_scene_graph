@@ -13,28 +13,12 @@
 #
 ################################################################################
 
-# Does the user want to generate code coverage?
-option ( GENERIC_SCENE_GRAPH_ENABLE_CODE_COVERAGE
-  "Generate test code coverage in supported configurations" OFF )
-if ( GENERIC_SCENE_GRAPH_ENABLE_CODE_COVERAGE )
-  if ( UNIX ) # True for Linux, Mac, and Cygwin.
-    message ( "   -- Generating test code coverage data" )
-    add_compile_options ( -fprofile-arcs -ftest-coverage )
-    if ( "${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" )
-      add_link_options ( --coverage )
-    else() # GCC
-      link_libraries ( gcov )
-    endif()
-  else()
-    message ( WARNING "Test code coverage data not supported with current compiler" )
-  endif()
-endif()
-
 # Need to include files from this directory.
 include_directories ( ${CMAKE_CURRENT_SOURCE_DIR} )
 
 # Define a variable that holds all the source files.
 set ( SOURCE_FILES
+  ./GSG/Scene/Nodes/Groups/Group.cpp
   ./GSG/Main.cpp
   ./GSG/Version.cpp
 )
@@ -54,3 +38,14 @@ target_link_libraries ( ${PROJECT_NAME}_test PRIVATE
   ${PROJECT_NAME}
   Catch2::Catch2
 )
+
+# Run a custom command to delete all the stale code-coverage files.
+# https://stackoverflow.com/questions/47393377/annoying-error-message-cannot-merge-previous-gcda-file
+# This has to come after the target is declared above.
+if ( GSG_ENABLE_CODE_COVERAGE )
+  if ( "${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" )
+    add_custom_command ( TARGET ${PROJECT_NAME}_test
+      PRE_LINK COMMAND find . -name "*.gcda" -print0 | xargs -0 rm
+    )
+  endif()
+endif()

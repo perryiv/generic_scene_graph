@@ -19,7 +19,7 @@ class GenericSceneGraph(ConanFile):
     scm = {"type": "git", "url": "auto", "revision": "auto"}
     revision_mode = "scm"
     requires = (
-        "boost/1.74.0",
+        "boost/1.71.0",
         "usul/3.5.4@perryiv/stable"
     )
 

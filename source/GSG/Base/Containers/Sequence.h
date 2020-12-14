@@ -9,7 +9,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-//  Sequence container class.
+//  Thread-safe sequence container class.
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -25,6 +25,10 @@
 #include <vector>
 #endif
 
+#include <functional>
+#include <initializer_list>
+#include <mutex>
+
 
 namespace GSG {
 namespace Base {
@@ -35,23 +39,41 @@ template < class T > class Sequence
 {
 public:
 
-  typedef Sequence < T > ThisType;
   #ifdef GSG_USE_IMMER_CONTAINERS
   typedef typename immer::vector < T > InternalVectorType;
   #else
   typedef typename std::vector < T > InternalVectorType;
   #endif
+
+  typedef Sequence < T > ThisType;
+  typedef std::mutex Mutex;
+  typedef std::lock_guard < Mutex > Guard;
   typedef typename InternalVectorType::value_type value_type;
   typedef typename InternalVectorType::size_type size_type;
+  typedef typename InternalVectorType::iterator iterator;
+  typedef typename InternalVectorType::const_iterator const_iterator;
+
+  typedef std::function < void ( const T & ) > ConstCallback;
+  typedef std::function < void ( T & ) > Callback;
 
   Sequence();
+  Sequence ( const std::initializer_list < T > values );
   Sequence ( const Sequence &s );
   ~Sequence();
 
   Sequence &operator = ( const Sequence & );
 
-  bool empty() const { return _v.empty(); }
+  bool operator == ( const Sequence &rhs ) const { return (  true == this->equal ( rhs ) ); }
+  bool operator != ( const Sequence &rhs ) const { return ( false == this->equal ( rhs ) ); }
 
+  bool empty() const { return _v.empty(); }
+  bool equal ( const Sequence &s ) const;
+  void erase ( size_type );
+
+  void forEach ( ConstCallback ) const;
+  void forEach ( Callback );
+
+  // Use with caution.
   const InternalVectorType &getInternalVector() const { return _v; }
   InternalVectorType &      getInternalVector()       { return _v; }
 
@@ -63,6 +85,7 @@ public:
 private:
 
   InternalVectorType _v;
+  mutable Mutex _mutex;
 };
 
 
@@ -72,10 +95,19 @@ private:
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-template < class T > inline Sequence<T>::Sequence() : _v()
+template < class T > inline Sequence<T>::Sequence() :
+  _v(),
+  _mutex()
 {
 }
-template < class T > inline Sequence<T>::Sequence ( const Sequence &s ) : _v ( s._v )
+template < class T > inline Sequence<T>::Sequence ( const std::initializer_list < T > values ) :
+  _v ( values ),
+  _mutex()
+{
+}
+template < class T > inline Sequence<T>::Sequence ( const Sequence &s ) :
+  _v ( s._v ),
+  _mutex()
 {
 }
 
@@ -100,8 +132,97 @@ template < class T > inline Sequence<T>::~Sequence()
 
 template < class T > inline Sequence<T> &Sequence<T>::operator = ( const Sequence &s )
 {
-   _v = s._v;
-   return *this;
+  Guard guard ( _mutex );
+  _v = s._v;
+  return *this;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Are they equal?
+//
+///////////////////////////////////////////////////////////////////////////////
+
+template < class T > inline bool Sequence<T>::equal ( const Sequence &s ) const
+{
+  Guard guard1 ( _mutex );
+  Guard guard2 ( s._mutex );
+  return ( _v == s._v );
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Erase at the position.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+template < class T > inline void Sequence<T>::erase ( size_type index )
+{
+  Guard guard ( _mutex );
+  #ifdef GSG_USE_IMMER_CONTAINERS
+  {
+    typedef immer::flex_vector < T > FlexVector;
+    FlexVector f ( _v );
+    f = f.erase ( index );
+    _v = InternalVectorType ( f.begin(), f.end() );
+  }
+  #else
+  {
+    _v.erase ( index );
+  }
+  #endif
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Iterate through the values.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+template < class T > inline void Sequence<T>::forEach ( ConstCallback fun ) const
+{
+  // Guard the copying of the internal vector.
+  // If we are using immer then this will be fast.
+  InternalVectorType v;
+  {
+    Guard guard ( _mutex );
+    v = _v;
+  }
+
+  // Now loop through the copy.
+  for ( const_iterator i = v.begin(); i != v.end(); ++i )
+  {
+    fun ( *i );
+  }
+}
+template < class T > inline void Sequence<T>::forEach ( Callback fun )
+{
+  // Guard the copying of the internal vector.
+  // If we are using immer then this will be fast.
+  InternalVectorType v;
+  {
+    Guard guard ( _mutex );
+    v = _v;
+  }
+
+  // Now loop through the copy.
+  for ( iterator i = v.begin(); i != v.end(); ++i )
+  {
+    #ifdef GSG_USE_IMMER_CONTAINERS
+
+    // Need a copy to lose the const if using immer.
+    T temp = *i;
+    fun ( temp );
+
+    #else
+
+    fun ( *i );
+
+    #endif
+  }
 }
 
 
@@ -113,6 +234,7 @@ template < class T > inline Sequence<T> &Sequence<T>::operator = ( const Sequenc
 
 template < class T > inline void Sequence<T>::push_front ( const T &v )
 {
+  Guard guard ( _mutex );
   #ifdef GSG_USE_IMMER_CONTAINERS
   {
     typedef immer::flex_vector < T > FlexVector;
@@ -128,6 +250,7 @@ template < class T > inline void Sequence<T>::push_front ( const T &v )
 }
 template < class T > inline void Sequence<T>::push_back ( const T &v )
 {
+  Guard guard ( _mutex );
   #ifdef GSG_USE_IMMER_CONTAINERS
   {
     _v = _v.push_back  ( v );

@@ -102,8 +102,8 @@ protected:
   virtual ~Group();
 
   // Have the visitor traverse the children.
-  void _traverseConst ( GSG::Visitors::Visitor & ) const;
-  void _traverseModify ( GSG::Visitors::Visitor & );
+  virtual void _traverseConst  ( GSG::Visitors::Visitor &, PropertyMap & ) const;
+  virtual void _traverseModify ( GSG::Visitors::Visitor &, PropertyMap & );
 
 private:
 

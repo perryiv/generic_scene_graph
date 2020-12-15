@@ -27,7 +27,7 @@ namespace Buffers {
 
 
 // Add the boilerplate code.
-GSG_IMPLEMENT_BUFFER_CLASS ( Buffer );
+GSG_IMPLEMENT_OBJECT_CLASS ( Buffer );
 
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -86,7 +86,7 @@ void Group::_destroyGroup()
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-void Group::_traverseConst ( GSG::Visitors::Visitor &visitor ) const
+void Group::_traverseConst ( GSG::Visitors::Visitor &visitor, PropertyMap &pm ) const
 {
   // Guard making a copy of the sequence.
   Children children;
@@ -98,10 +98,10 @@ void Group::_traverseConst ( GSG::Visitors::Visitor &visitor ) const
   // Loop through the copy of children.
   for ( auto i = children.begin(); i != children.end(); ++i )
   {
-    (*i)->accept ( visitor );
+    (*i)->accept ( visitor, pm );
   }
 }
-void Group::_traverseModify ( GSG::Visitors::Visitor &visitor )
+void Group::_traverseModify ( GSG::Visitors::Visitor &visitor, PropertyMap &pm )
 {
   // Guard making a copy of the sequence.
   Children children;
@@ -114,7 +114,7 @@ void Group::_traverseModify ( GSG::Visitors::Visitor &visitor )
   for ( auto i = children.begin(); i != children.end(); ++i )
   {
     NodePtr child = *i;
-    child->accept ( visitor );
+    child->accept ( visitor, pm );
   }
 }
 

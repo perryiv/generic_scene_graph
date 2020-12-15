@@ -19,6 +19,8 @@
 #include "GSG/Base/Objects/Object.h"
 #include "GSG/Forward.h"
 
+#include "Usul/Properties/Map.h"
+
 #define GSG_DECLARE_VISITOR_CLASS(class_name) \
   GSG_DECLARE_OBJECT_CLASS ( class_name )
 
@@ -37,18 +39,17 @@ public:
   GSG_DECLARE_VISITOR_CLASS ( Visitor );
 
   typedef GSG::Base::Objects::Object BaseClass;
+  typedef Usul::Properties::Map PropertyMap;
 
-  virtual void visit ( const GSG::Scene::Buffers::Buffer & );
-  virtual void visit ( const GSG::Scene::Nodes::Groups::Group & );
-  virtual void visit ( const GSG::Scene::Nodes::Node & );
-  virtual void visit ( const GSG::Scene::Nodes::Shapes::Geometry & );
-  virtual void visit ( const GSG::Scene::Nodes::Shapes::Shape & );
+  virtual void visit ( const GSG::Scene::Nodes::Groups::Group &, PropertyMap & );
+  virtual void visit ( const GSG::Scene::Nodes::Node &, PropertyMap & );
+  virtual void visit ( const GSG::Scene::Nodes::Shapes::Geometry &, PropertyMap & );
+  virtual void visit ( const GSG::Scene::Nodes::Shapes::Shape &, PropertyMap & );
 
-  virtual void visit ( GSG::Scene::Buffers::Buffer & );
-  virtual void visit ( GSG::Scene::Nodes::Groups::Group & );
-  virtual void visit ( GSG::Scene::Nodes::Node & );
-  virtual void visit ( GSG::Scene::Nodes::Shapes::Geometry & );
-  virtual void visit ( GSG::Scene::Nodes::Shapes::Shape & );
+  virtual void visit ( GSG::Scene::Nodes::Groups::Group &, PropertyMap & );
+  virtual void visit ( GSG::Scene::Nodes::Node &, PropertyMap & );
+  virtual void visit ( GSG::Scene::Nodes::Shapes::Geometry &, PropertyMap & );
+  virtual void visit ( GSG::Scene::Nodes::Shapes::Shape &, PropertyMap & );
 
 protected:
 

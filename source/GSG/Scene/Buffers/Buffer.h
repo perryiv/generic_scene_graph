@@ -21,14 +21,6 @@
 
 #include <mutex>
 
-#define GSG_DECLARE_BUFFER_CLASS(class_name) \
-  GSG_DECLARE_OBJECT_CLASS ( class_name ); \
-  virtual void accept ( GSG::Visitors::Visitor & )
-
-#define GSG_IMPLEMENT_BUFFER_CLASS(class_name) \
-  GSG_IMPLEMENT_OBJECT_CLASS ( class_name ) \
-  void class_name ::accept ( GSG::Visitors::Visitor &visitor ) { visitor.visit ( *this ); }
-
 
 namespace GSG {
 namespace Scene {
@@ -43,7 +35,7 @@ public:
   typedef std::recursive_mutex Mutex;
   typedef std::lock_guard < Mutex > Guard;
 
-  GSG_DECLARE_BUFFER_CLASS ( Buffer );
+  GSG_DECLARE_OBJECT_CLASS ( Buffer );
 
   // Constructor
   Buffer();

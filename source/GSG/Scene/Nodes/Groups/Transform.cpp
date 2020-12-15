@@ -9,12 +9,12 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-//  Base class for all scene visitors.
+//  Group node with a transformation matrix.
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+#include "GSG/Scene/Nodes/Groups/Transform.h"
 #include "GSG/Visitors/Visitor.h"
-#include "GSG/Scene/Nodes/Groups/Group.h"
 
 #include "Usul/Tools/NoThrow.h"
 
@@ -22,20 +22,27 @@
 
 
 namespace GSG {
-namespace Visitors {
+namespace Scene {
+namespace Nodes {
+namespace Groups {
 
 
 // Add the boilerplate code.
-GSG_IMPLEMENT_VISITOR_CLASS ( Visitor );
+GSG_IMPLEMENT_NODE_CLASS ( Transform );
 
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-//  Constructor.
+//  Constructors.
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-Visitor::Visitor() : BaseClass()
+Transform::Transform ( const Matrix44d &matrix ) : BaseClass(),
+  _matrix ( matrix )
+{
+}
+Transform::Transform() : BaseClass(),
+  _matrix()
 {
 }
 
@@ -46,9 +53,9 @@ Visitor::Visitor() : BaseClass()
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-Visitor::~Visitor()
+Transform::~Transform()
 {
-  USUL_TOOLS_NO_THROW ( 1592287229, std::bind ( &Visitor::_destroyVisitor, this ) );
+  USUL_TOOLS_NO_THROW ( 1608022445, std::bind ( &Transform::_destroyTransform, this ) );
 }
 
 
@@ -58,44 +65,47 @@ Visitor::~Visitor()
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-void Visitor::_destroyVisitor()
+void Transform::_destroyTransform()
 {
+  this->removeAllChildren();
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-//  Visit the node.
+//  Get/set the matrix.
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-void Visitor::visit ( const GSG::Scene::Nodes::Groups::Group &group, PropertyMap &pm )
+Transform::Matrix44d Transform::getMatrix() const
 {
-  group._traverseConst ( *this, pm );
+  Guard guard ( this->mutex() );
+  return _matrix;
 }
-void Visitor::visit ( GSG::Scene::Nodes::Groups::Group &group, PropertyMap &pm )
+void Transform::setMatrix ( const Matrix44d &matrix )
 {
-  group._traverseModify ( *this, pm );
-}
-void Visitor::visit ( const GSG::Scene::Nodes::Node &, PropertyMap & )
-{
-}
-void Visitor::visit ( GSG::Scene::Nodes::Node &, PropertyMap & )
-{
-}
-void Visitor::visit ( const GSG::Scene::Nodes::Shapes::Geometry &, PropertyMap & )
-{
-}
-void Visitor::visit ( GSG::Scene::Nodes::Shapes::Geometry &, PropertyMap & )
-{
-}
-void Visitor::visit ( const GSG::Scene::Nodes::Shapes::Shape &, PropertyMap & )
-{
-}
-void Visitor::visit ( GSG::Scene::Nodes::Shapes::Shape &, PropertyMap & )
-{
+  Guard guard ( this->mutex() );
+  _matrix = matrix;
 }
 
 
-} // namespace Visitors
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Have the visitor traverse the children.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+void Transform::_traverseConst ( GSG::Visitors::Visitor &visitor, PropertyMap &pm ) const
+{
+  BaseClass::_traverseConst ( visitor, pm );
+}
+void Transform::_traverseModify ( GSG::Visitors::Visitor &visitor, PropertyMap &pm )
+{
+  BaseClass::_traverseModify ( visitor, pm );
+}
+
+
+} // namespace Groups
+} // namespace Nodes
+} // namespace Scene
 } // namespace GSG

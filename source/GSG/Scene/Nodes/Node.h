@@ -20,20 +20,29 @@
 #include "GSG/Forward.h"
 
 #include "Usul/Bits/Bits.h"
+#include "Usul/Properties/Map.h"
 
 #include <atomic>
 #include <mutex>
 #include <set>
 
-#define GSG_DECLARE_NODE_CLASS(class_name) \
+#define GSG_DECLARE_NODE_CLASS_BASE(class_name) \
   GSG_DECLARE_OBJECT_CLASS ( class_name ); \
   virtual void accept ( GSG::Visitors::Visitor & ) const; \
-  virtual void accept ( GSG::Visitors::Visitor & )
+  virtual void accept ( GSG::Visitors::Visitor &, Usul::Properties::Map & ) const; \
+  virtual void accept ( GSG::Visitors::Visitor &, Usul::Properties::Map::Values & ) const; \
+  virtual void accept ( GSG::Visitors::Visitor & ); \
+  virtual void accept ( GSG::Visitors::Visitor &, Usul::Properties::Map & ); \
+  virtual void accept ( GSG::Visitors::Visitor &, Usul::Properties::Map::Values & )
 
-#define GSG_IMPLEMENT_NODE_CLASS(class_name) \
-  GSG_IMPLEMENT_OBJECT_CLASS ( class_name ) \
-  void class_name ::accept ( GSG::Visitors::Visitor &visitor ) const { visitor.visit ( *this ); } \
-  void class_name ::accept ( GSG::Visitors::Visitor &visitor ) { visitor.visit ( *this ); }
+#define GSG_DECLARE_NODE_CLASS(class_name) \
+  GSG_DECLARE_OBJECT_CLASS ( class_name ); \
+  virtual void accept ( GSG::Visitors::Visitor & ) const override; \
+  virtual void accept ( GSG::Visitors::Visitor &, Usul::Properties::Map & ) const override; \
+  virtual void accept ( GSG::Visitors::Visitor &, Usul::Properties::Map::Values & ) const override; \
+  virtual void accept ( GSG::Visitors::Visitor & ) override; \
+  virtual void accept ( GSG::Visitors::Visitor &, Usul::Properties::Map & ) override; \
+  virtual void accept ( GSG::Visitors::Visitor &, Usul::Properties::Map::Values & ) override
 
 
 namespace GSG {
@@ -45,13 +54,14 @@ class GSG_EXPORT Node : public GSG::Base::Objects::Object
 {
 public:
 
-  GSG_DECLARE_NODE_CLASS ( Node );
+  GSG_DECLARE_NODE_CLASS_BASE ( Node );
 
   typedef GSG::Base::Objects::Object BaseClass;
   typedef std::recursive_mutex Mutex;
   typedef std::lock_guard < Mutex > Guard;
   typedef std::atomic < unsigned int > Flags;
   typedef std::set < ValidAccessRefPtr > Parents;
+  typedef Usul::Properties::Map PropertyMap;
 
   // Flags for this class.
   enum : unsigned int
@@ -107,6 +117,38 @@ private:
 } // namespace Nodes
 } // namespace Scene
 } // namespace GSG
+
+
+#define GSG_IMPLEMENT_NODE_CLASS(class_name) \
+  GSG_IMPLEMENT_OBJECT_CLASS ( class_name ) \
+  void class_name ::accept ( GSG::Visitors::Visitor &visitor ) const \
+  { \
+    Usul::Properties::Map traversalData; \
+    visitor.visit ( *this, traversalData ); \
+  } \
+  void class_name ::accept ( GSG::Visitors::Visitor &visitor, Usul::Properties::Map &traversalData ) const \
+  { \
+    visitor.visit ( *this, traversalData ); \
+  } \
+  void class_name ::accept ( GSG::Visitors::Visitor &visitor, Usul::Properties::Map::Values &values ) const \
+  { \
+    Usul::Properties::Map traversalData ( values ); \
+    visitor.visit ( *this, traversalData ); \
+  } \
+  void class_name ::accept ( GSG::Visitors::Visitor &visitor ) \
+  { \
+    Usul::Properties::Map traversalData; \
+    visitor.visit ( *this, traversalData ); \
+  } \
+  void class_name ::accept ( GSG::Visitors::Visitor &visitor, Usul::Properties::Map &traversalData ) \
+  { \
+    visitor.visit ( *this, traversalData ); \
+  } \
+  void class_name ::accept ( GSG::Visitors::Visitor &visitor, Usul::Properties::Map::Values &values ) \
+  { \
+    Usul::Properties::Map traversalData ( values ); \
+    visitor.visit ( *this, traversalData ); \
+  }
 
 
 #endif // _GENERIC_SCENE_GRAPH_NODES_NODE_CLASS_H_

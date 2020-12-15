@@ -217,6 +217,12 @@ template < class T > inline void Sequence<T>::forEach ( Callback fun )
     T temp = *i;
     fun ( temp );
 
+    // Did the value change?
+    // if ( temp != *i )
+    // {
+    //   *i = temp; // Does not compile because all iterators are const.
+    // }
+
     #else
 
     fun ( *i );
@@ -257,7 +263,7 @@ template < class T > inline void Sequence<T>::push_back ( const T &v )
   }
   #else
   {
-    _v.push_front ( v );
+    _v.push_back ( v );
   }
   #endif
 }

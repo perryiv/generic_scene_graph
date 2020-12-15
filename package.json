@@ -12,14 +12,13 @@
     "config-xcode":   "del-cli build/`hostname`/Xcode   && make-dir build/`hostname`/Xcode   && cd build/`hostname`/Xcode   && cmake ../../.. -DCMAKE_VERBOSE_MAKEFILE=ON -DGSG_BUILD_TESTS=ON -DGSG_ENABLE_CODE_COVERAGE=ON -GXcode",
     "coverage-debug":   "cd build/`hostname` && gcovr",
     "coverage-release": "cd build/`hostname` && gcovr",
+    "echo": "for n in {1..20}; do echo; done",
     "test-debug":   "cd build/`hostname`/Debug/bin         && generic_scene_graph_test_d --abort --use-colour=yes --durations=no",
     "test-release": "cd build/`hostname`/Release/bin       && generic_scene_graph_test   --abort --use-colour=yes --durations=no",
     "test-xcode":   "cd build/`hostname`/Xcode/bin/Debug   && generic_scene_graph_test_d --abort --use-colour=yes --durations=no",
-    "test": "echo Use test-debug, test-release, or test-xcode",
-    "watch-debug":   "watch \"npm run build-debug   && npm run test-debug   && npm run coverage-debug   && echo watching ...\" ./ --filter=./watch_filter.js",
-    "watch-release": "watch \"npm run build-release && npm run test-release && npm run coverage-release && echo watching ...\" ./ --filter=./watch_filter.js",
-    "watch-xcode":   "watch \"npm run build-xcode   && npm run test-xcode                               && echo watching ...\" ./ --filter=./watch_filter.js",
-    "watch": "echo Use watch-debug or watch-release"
+    "watch-debug":   "watch \"npm run echo && npm run build-debug   && npm run test-debug   && npm run coverage-debug   && echo watching ...\" ./ --filter=./watch_filter.js",
+    "watch-release": "watch \"npm run echo && npm run build-release && npm run test-release && npm run coverage-release && echo watching ...\" ./ --filter=./watch_filter.js",
+    "watch-xcode":   "watch \"npm run echo && npm run build-xcode   && npm run test-xcode                               && echo watching ...\" ./ --filter=./watch_filter.js"
   },
   "repository": {
     "type": "git",

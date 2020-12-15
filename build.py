@@ -25,8 +25,7 @@ if __name__ == "__main__":
 
     builder = ConanMultiPackager(
         archs=["x86_64"],
-        build_policy="missing",
-        upload_dependencies=["boost/1.74.0"]
+        build_policy="missing"
     )
     builder.add_common_builds()
     for conf in builder.items:

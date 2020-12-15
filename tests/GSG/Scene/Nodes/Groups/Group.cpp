@@ -69,4 +69,21 @@ TEST_CASE ( "Scene group node" )
     REQUIRE ( false == root->hasParent ( child5 ) );
     REQUIRE ( false == root->hasParent ( Group::Ptr() ) );
   }
+
+  SECTION ( "Can access a child nodes" )
+  {
+    Group::Ptr root ( new Group() );
+
+    Group::Ptr child0 ( new Group() );
+    Group::Ptr child1 ( new Group() );
+
+    root->addChild ( child0 );
+    root->addChild ( child1 );
+
+    REQUIRE ( child0.get() == root->at ( 0 ).get() );
+    REQUIRE ( child1.get() == root->at ( 1 ).get() );
+
+    REQUIRE ( child0.get() == (*root)[0].get() );
+    REQUIRE ( child1.get() == (*root)[1].get() );
+  }
 }

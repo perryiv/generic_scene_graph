@@ -18,7 +18,7 @@
 
 #include "GSG/Scene/Nodes/Node.h"
 
-#include <vector>
+#include <immer/vector.hpp>
 
 
 namespace GSG {
@@ -33,12 +33,12 @@ public:
 
   typedef GSG::Scene::Nodes::Node Node;
   typedef Node BaseClass;
+  typedef BaseClass::Mutex Mutex;
+  typedef BaseClass::Guard Guard;
   typedef Node::ValidAccessRefPtr NodePtr;
-  typedef std::vector < NodePtr > Children;
+  typedef immer::vector < NodePtr > Children;
   typedef Children::const_iterator const_iterator;
   typedef Children::iterator iterator;
-  typedef Children::const_reference const_reference;
-  typedef Children::reference reference;
   typedef Children::size_type size_type;
 
   GSG_DECLARE_NODE_CLASS ( Group );
@@ -49,55 +49,51 @@ public:
   // Add the child node.
   void addChild ( NodePtr child ) { this->push_back ( child ); }
 
-  // Access the child.
-  const_reference at ( size_type ) const;
-  reference       at ( size_type );
+  // Access the child. Throws an exception if the index is out of range.
+  const NodePtr at ( size_type ) const;
+  NodePtr       at ( size_type );
 
   // Get the last node. Throws an exception if the group is empty.
-  const_reference back() const;
-  reference       back();
+  const NodePtr back() const;
+  NodePtr       back();
 
-  // Iterators.
-  const_iterator begin() const { return _children.begin(); }
-  iterator       begin()       { return _children.begin(); }
-  const_iterator end() const   { return _children.end(); }
-  iterator       end()         { return _children.end(); }
+  // Iterators. Use with caution in a multi-threaded environment.
+  const_iterator begin() const;
+  iterator       begin();
+  const_iterator end() const;
+  iterator       end();
 
   // Clear the group.
   void clear() { this->removeAllChildren(); }
 
   // Is the group empty?
-  bool empty() const { return _children.empty(); }
+  bool empty() const;
 
   // Get the first node. Throws an exception if the group is empty.
-  const_reference front() const;
-  reference       front();
+  const NodePtr front() const;
+  NodePtr       front();
 
   // Get the number of child nodes.
-  size_type getNumChildren() const { return _children.size(); }
+  size_type getNumChildren() const { return this->size(); }
 
   // Insert the node before the given position iterator.
-  // Throws an exception if the given position iterator is invalid.
-  iterator insert ( iterator pos, NodePtr );
-  iterator insert ( const_iterator pos, NodePtr );
-  template< class Itr > iterator insert ( iterator pos, Itr first, Itr last);
-  template< class Itr > iterator insert ( const_iterator pos, Itr first, Itr last );
+  template< class Itr >
+  void insert ( size_type pos, Itr first, Itr last);
+  void insert ( size_type pos, NodePtr );
 
   // Access the child.
-  reference       operator[] ( size_type index )       { return this->at ( index ); }
-  const_reference operator[] ( size_type index ) const { return this->at ( index ); }
+  const NodePtr operator[] ( size_type index ) const { return this->at ( index ); }
+  NodePtr       operator[] ( size_type index )       { return this->at ( index ); }
 
-  // Add the node to the end of the sequence.
-  void push_back ( NodePtr );
-
-  // Add the node to the beginning of the sequence.
+  // Add the node to the end or beginning of the sequence.
+  void push_back  ( NodePtr );
   void push_front ( NodePtr );
 
   // Remove all the child nodes.
   void removeAllChildren();
 
   // Get the size of the group, which is the number of child nodes.
-  size_type size() const { return this->getNumChildren(); }
+  size_type size() const;
 
 protected:
 
@@ -109,6 +105,22 @@ private:
 
   Children _children;
 };
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Insert the node before the given position.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+template< class Itr >
+void Group::insert ( size_type pos, Itr first, Itr last)
+{
+  for ( auto i = first; i != last; ++i )
+  {
+    this->insert ( pos++, *i );
+  }
+}
 
 
 } // namespace Groups

@@ -20,6 +20,7 @@ class GenericSceneGraph(ConanFile):
     revision_mode = "scm"
     requires = (
         "boost/1.74.0",
+        "immer/0.4.0@slepasteur/testing",
         "usul/3.5.4@perryiv/stable"
     )
 

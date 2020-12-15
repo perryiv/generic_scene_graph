@@ -82,6 +82,45 @@ void Group::_destroyGroup()
 
 ///////////////////////////////////////////////////////////////////////////////
 //
+//  Have the visitor traverse the children.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+void Group::_traverseConst ( GSG::Visitors::Visitor &visitor ) const
+{
+  // Guard making a copy of the sequence.
+  Children children;
+  {
+    Guard guard ( this->mutex() );
+    children = _children;
+  }
+
+  // Loop through the copy of children.
+  for ( auto i = children.begin(); i != children.end(); ++i )
+  {
+    (*i)->accept ( visitor );
+  }
+}
+void Group::_traverseModify ( GSG::Visitors::Visitor &visitor )
+{
+  // Guard making a copy of the sequence.
+  Children children;
+  {
+    Guard guard ( this->mutex() );
+    children = _children;
+  }
+
+  // Loop through the copy of children.
+  for ( auto i = children.begin(); i != children.end(); ++i )
+  {
+    NodePtr child = *i;
+    child->accept ( visitor );
+  }
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
 //  Remove all the child nodes.
 //
 ///////////////////////////////////////////////////////////////////////////////

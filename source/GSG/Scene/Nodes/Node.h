@@ -27,10 +27,12 @@
 
 #define GSG_DECLARE_NODE_CLASS(class_name) \
   GSG_DECLARE_OBJECT_CLASS ( class_name ); \
+  virtual void accept ( GSG::Visitors::Visitor & ) const; \
   virtual void accept ( GSG::Visitors::Visitor & )
 
 #define GSG_IMPLEMENT_NODE_CLASS(class_name) \
   GSG_IMPLEMENT_OBJECT_CLASS ( class_name ) \
+  void class_name ::accept ( GSG::Visitors::Visitor &visitor ) const { visitor.visit ( *this ); } \
   void class_name ::accept ( GSG::Visitors::Visitor &visitor ) { visitor.visit ( *this ); }
 
 

@@ -23,11 +23,15 @@
 #include "Usul/Pointers/Pointers.h"
 #include "Usul/Tools/NoCopying.h"
 
+#include <string>
+
 #define GSG_DECLARE_OBJECT_CLASS(class_name) \
   USUL_REFERENCED_CLASS ( class_name ); \
-  typedef ValidAccessRefPtr Ptr
+  typedef ValidAccessRefPtr Ptr; \
+  static std::string getClassName()
 
-#define GSG_IMPLEMENT_OBJECT_CLASS(class_name)
+#define GSG_IMPLEMENT_OBJECT_CLASS(class_name) \
+  std::string class_name::getClassName() { return std::string ( #class_name ); }
 
 
 namespace GSG {

@@ -28,11 +28,20 @@ namespace GSG
   }
   namespace Scene
   {
+    namespace Buffers
+    {
+      class Buffer;
+    }
     namespace Nodes
     {
       namespace Groups
       {
         class Group;
+      }
+      namespace Shapes
+      {
+        class Geometry;
+        class Shape;
       }
       class Node;
     }

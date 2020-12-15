@@ -97,7 +97,13 @@ public:
 
 protected:
 
+  friend class GSG::Visitors::Visitor;
+
   virtual ~Group();
+
+  // Have the visitor traverse the children.
+  void _traverseConst ( GSG::Visitors::Visitor & ) const;
+  void _traverseModify ( GSG::Visitors::Visitor & );
 
 private:
 

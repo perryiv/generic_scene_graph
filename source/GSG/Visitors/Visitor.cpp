@@ -69,16 +69,37 @@ void Visitor::_destroyVisitor()
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+void Visitor::visit ( const GSG::Scene::Buffers::Buffer & )
+{
+}
+void Visitor::visit ( GSG::Scene::Buffers::Buffer & )
+{
+}
+void Visitor::visit ( const GSG::Scene::Nodes::Groups::Group &group )
+{
+  group._traverseConst ( *this );
+}
 void Visitor::visit ( GSG::Scene::Nodes::Groups::Group &group )
 {
-  for ( auto node : group )
-  {
-    node->accept ( *this );
-  }
+  group._traverseModify ( *this );
+}
+void Visitor::visit ( const GSG::Scene::Nodes::Node & )
+{
 }
 void Visitor::visit ( GSG::Scene::Nodes::Node & )
 {
-  // Nothing to do.
+}
+void Visitor::visit ( const GSG::Scene::Nodes::Shapes::Geometry & )
+{
+}
+void Visitor::visit ( GSG::Scene::Nodes::Shapes::Geometry & )
+{
+}
+void Visitor::visit ( const GSG::Scene::Nodes::Shapes::Shape & )
+{
+}
+void Visitor::visit ( GSG::Scene::Nodes::Shapes::Shape & )
+{
 }
 
 

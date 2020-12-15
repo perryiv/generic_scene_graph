@@ -38,8 +38,17 @@ public:
 
   typedef GSG::Base::Objects::Object BaseClass;
 
+  virtual void visit ( const GSG::Scene::Buffers::Buffer & );
+  virtual void visit ( const GSG::Scene::Nodes::Groups::Group & );
+  virtual void visit ( const GSG::Scene::Nodes::Node & );
+  virtual void visit ( const GSG::Scene::Nodes::Shapes::Geometry & );
+  virtual void visit ( const GSG::Scene::Nodes::Shapes::Shape & );
+
+  virtual void visit ( GSG::Scene::Buffers::Buffer & );
   virtual void visit ( GSG::Scene::Nodes::Groups::Group & );
   virtual void visit ( GSG::Scene::Nodes::Node & );
+  virtual void visit ( GSG::Scene::Nodes::Shapes::Geometry & );
+  virtual void visit ( GSG::Scene::Nodes::Shapes::Shape & );
 
 protected:
 

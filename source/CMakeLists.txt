@@ -38,6 +38,8 @@ set ( SOURCE_FILES
   GSG/Base/Objects/Object.cpp
   GSG/Scene/Nodes/Groups/Group.cpp
   GSG/Scene/Nodes/Node.cpp
+  GSG/Scene/Nodes/Shapes/Geometry.cpp
+  GSG/Scene/Nodes/Shapes/Shape.cpp
   GSG/Visitors/Visitor.cpp
 )
 

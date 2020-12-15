@@ -20,6 +20,7 @@ include_directories ( ${CMAKE_CURRENT_SOURCE_DIR} )
 set ( SOURCE_FILES
   ./GSG/Base/Containers/Sequence.cpp
   ./GSG/Scene/Nodes/Groups/Group.cpp
+  ./GSG/Scene/Nodes/Shapes/Geometry.cpp
   ./GSG/Main.cpp
   ./GSG/Version.cpp
 )

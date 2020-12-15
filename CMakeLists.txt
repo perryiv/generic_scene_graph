@@ -61,11 +61,6 @@ set ( GSG_CONFIG_DIR_OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/config )
 # Tell CMake to not skip using rpath.
 set ( CMAKE_SKIP_RPATH OFF )
 
-# Set the version.
-configure_file (
-  ${GSG_CONFIG_DIR_INPUT}/Version.h.in
-${GSG_CONFIG_DIR_OUTPUT}/GSG/Version.h )
-
 # Tell the linkers to write their output files here.
 set ( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin )
 set ( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib )
@@ -78,11 +73,6 @@ if ( MSVC ) # Also true for Intel compiler. Means "looks like Visual C++".
   option ( GSG_IGNORE_VCPP_WARNING_4275
     "Use a pragma to ignore Visual C++ warning 4275" ON )
 endif()
-
-# Now that we have all the configuration options we can write the file.
-configure_file (
-  ${GSG_CONFIG_DIR_INPUT}/Config.h.in
-  ${GSG_CONFIG_DIR_OUTPUT}/GSG/Config.h )
 
 # Does the user want to be able to install this project.
 if ( "${CMAKE_PROJECT_NAME}" STREQUAL "${PROJECT_NAME}" )
@@ -113,6 +103,7 @@ find_package ( Boost REQUIRED )
 option ( GSG_USE_IMMER_CONTAINERS "Use immer containers" ON )
 if ( GSG_USE_IMMER_CONTAINERS )
   find_package ( immer REQUIRED )
+  message ( "   -- Using immer" )
 endif()
 
 # Does the user want strict warnings?
@@ -149,6 +140,14 @@ endif()
 if ( NOT DEFINED CMAKE_DEBUG_POSTFIX )
   set ( CMAKE_DEBUG_POSTFIX "_d" )
 endif()
+
+# Now that we have all the configuration options we can write these file.
+configure_file (
+  ${GSG_CONFIG_DIR_INPUT}/Version.h.in
+  ${GSG_CONFIG_DIR_OUTPUT}/GSG/Version.h )
+configure_file (
+  ${GSG_CONFIG_DIR_INPUT}/Config.h.in
+  ${GSG_CONFIG_DIR_OUTPUT}/GSG/Config.h )
 
 # For debug builds we want the _DEBUG preprocessor symbol to be defined.
 add_compile_definitions ( $<$<CONFIG:Debug>:_DEBUG> )

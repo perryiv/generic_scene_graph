@@ -20,8 +20,6 @@
 
 #include "Usul/Math/Matrix44.h"
 
-#include <immer/vector.hpp>
-
 
 namespace GSG {
 namespace Scene {

@@ -18,7 +18,8 @@ include_directories ( ${CMAKE_CURRENT_SOURCE_DIR} )
 
 # Define a variable that holds all the source files.
 set ( SOURCE_FILES
-  ./GSG/Base/Containers/Sequence.cpp
+  ./GSG/Base/Containers/Array.cpp
+  ./GSG/Scene/Buffers/Buffer.cpp
   ./GSG/Scene/Nodes/Groups/Group.cpp
   ./GSG/Scene/Nodes/Shapes/Geometry.cpp
   ./GSG/Main.cpp
@@ -30,10 +31,10 @@ add_executable ( ${PROJECT_NAME}_test ${SOURCE_FILES} )
 
 # Append a "d" to the file name if this is a debug build.
 # Unlike with the library files, this does not happen automatically.
-if ( ( DEFINED CMAKE_DEBUG_POSTFIX ) AND ( NOT ${CMAKE_DEBUG_POSTFIX} STREQUAL "" ) )
+# if ( ( DEFINED CMAKE_DEBUG_POSTFIX ) AND ( NOT ${CMAKE_DEBUG_POSTFIX} STREQUAL "" ) )
+if ( CMAKE_BUILD_TYPE STREQUAL "Debug" )
   set_target_properties ( ${PROJECT_NAME}_test PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX} )
 endif()
-
 
 # Tell cmake we are going to use these libraries.
 # It will automatically add -I, -L, and -D (etc) appropriately.

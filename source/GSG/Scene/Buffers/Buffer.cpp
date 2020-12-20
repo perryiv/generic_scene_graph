@@ -64,6 +64,18 @@ void Buffer::_destroyBuffer()
 }
 
 
-} // namespace Buffer
+// GSG_DEFINE_BUFFER_TYPE ( Int8Array );
+// GSG_DEFINE_BUFFER_TYPE ( Uint8Array );
+// GSG_DEFINE_BUFFER_TYPE ( Int16Array );
+// GSG_DEFINE_BUFFER_TYPE ( Uint16Array );
+// GSG_DEFINE_BUFFER_TYPE ( Int32Array );
+// GSG_DEFINE_BUFFER_TYPE ( Uint32Array );
+// GSG_DEFINE_BUFFER_TYPE ( Int64Array );
+// GSG_DEFINE_BUFFER_TYPE ( Uint64Array );
+// GSG_DEFINE_BUFFER_TYPE ( Float32Array );
+// GSG_DEFINE_BUFFER_TYPE ( Float64Array );
+
+
+} // namespace Buffers
 } // namespace Scene
 } // namespace GSG

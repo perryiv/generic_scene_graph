@@ -91,6 +91,12 @@ if ( ${PROJECT_NAME}_INSTALL )
   )
 endif()
 
+# Set this variable if there is a corresponding environment variable,
+# and if it's not already set.
+if ( ( NOT DEFINED CMAKE_MODULE_PATH ) AND ( DEFINED ENV{CMAKE_MODULE_PATH} ) )
+  set ( CMAKE_MODULE_PATH $ENV{CMAKE_MODULE_PATH} )
+endif()
+
 # Find and use usul. Set usul_ROOT environment variable to:
 # 1) where it is installed, or
 # 2) it's build directory.

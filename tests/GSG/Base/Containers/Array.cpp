@@ -29,7 +29,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 TEMPLATE_TEST_CASE ( "Array container", "",
-  // std::int8_t,
+  std::int8_t,
   std::int16_t,
   std::int32_t,
   std::int64_t,

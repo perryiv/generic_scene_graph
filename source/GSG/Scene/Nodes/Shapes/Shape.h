@@ -30,6 +30,8 @@ class GSG_EXPORT Shape : public GSG::Scene::Nodes::Node
 public:
 
   typedef GSG::Scene::Nodes::Node BaseClass;
+  typedef BaseClass::Mutex Mutex;
+  typedef BaseClass::Guard Guard;
 
   GSG_DECLARE_NODE_CLASS ( Shape );
 

@@ -20,6 +20,8 @@
 #include "GSG/Base/Containers/TypedArrays.h"
 #include "GSG/Scene/Primitives/Primitive.h"
 
+#include <immer/vector.hpp>
+
 
 namespace GSG {
 namespace Scene {
@@ -32,35 +34,42 @@ class GSG_EXPORT Geometry : public GSG::Scene::Nodes::Shapes::Shape
 public:
 
   typedef GSG::Scene::Nodes::Shapes::Shape BaseClass;
+  typedef BaseClass::Mutex Mutex;
+  typedef BaseClass::Guard Guard;
   typedef GSG::Base::Containers::Float32Array Float32Array;
   typedef Float32Array::ValidAccessRefPtr Float32ArrayPtr;
   typedef GSG::Scene::Primitives::Primitive Primitive;
   typedef Primitive::ValidAccessRefPtr PrimitivePtr;
+  typedef immer::vector < PrimitivePtr > PrimitiveArray;
 
   GSG_DECLARE_NODE_CLASS ( Geometry );
 
   Geometry();
 
-  // Get/set the points.
-  const Float32ArrayPtr getPoints() const    { return _points; }
-  Float32ArrayPtr       getPoints()          { return _points; }
-  void                  setPoints ( Float32ArrayPtr );
-
-  // Get/set the normals.
-  const Float32ArrayPtr getNormals() const   { return _normals; }
-  Float32ArrayPtr       getNormals()         { return _normals; }
-  void                  setNormals ( Float32ArrayPtr );
-
   // Get/set the colors.
-  const Float32ArrayPtr getColors() const    { return _colors; }
-  Float32ArrayPtr       getColors()          { return _colors; }
+  const Float32ArrayPtr getColors() const;
+  Float32ArrayPtr       getColors();
   void                  setColors ( Float32ArrayPtr );
 
+  // Get/set the normals.
+  const Float32ArrayPtr getNormals() const;
+  Float32ArrayPtr       getNormals();
+  void                  setNormals ( Float32ArrayPtr );
+
+  // Get/set the points.
+  const Float32ArrayPtr getPoints() const;
+  Float32ArrayPtr       getPoints();
+  void                  setPoints ( Float32ArrayPtr );
+
   // Get/set the texture coordinates.
-  const Float32ArrayPtr getTexCoords() const { return _texCoords; }
-  Float32ArrayPtr       getTexCoords()       { return _texCoords; }
+  const Float32ArrayPtr getTexCoords() const;
+  Float32ArrayPtr       getTexCoords();
   void                  setTexCoords ( Float32ArrayPtr );
 
+  // Add/remove/get the primitive(s).
+  void           addPrimitive    ( PrimitivePtr );
+  void           removePrimitive ( PrimitivePtr );
+  PrimitiveArray getPrimitives() const;
 
 protected:
 
@@ -74,6 +83,7 @@ private:
   Float32ArrayPtr _normals;
   Float32ArrayPtr _colors;
   Float32ArrayPtr _texCoords;
+  PrimitiveArray _primitives;
 };
 
 

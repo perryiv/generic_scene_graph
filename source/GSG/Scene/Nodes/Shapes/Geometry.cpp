@@ -18,6 +18,7 @@
 
 #include "Usul/Tools/NoThrow.h"
 
+#include <algorithm>
 #include <functional>
 
 
@@ -41,7 +42,8 @@ Geometry::Geometry() : BaseClass(),
   _points(),
   _normals(),
   _colors(),
-  _texCoords()
+  _texCoords(),
+  _primitives()
 {
 }
 
@@ -66,10 +68,137 @@ Geometry::~Geometry()
 
 void Geometry::_destroyGeometry()
 {
-  _points    = Float32ArrayPtr();
-  _normals   = Float32ArrayPtr();
-  _colors    = Float32ArrayPtr();
-  _texCoords = Float32ArrayPtr();
+  _points     = Float32ArrayPtr();
+  _normals    = Float32ArrayPtr();
+  _colors     = Float32ArrayPtr();
+  _texCoords  = Float32ArrayPtr();
+  _primitives = PrimitiveArray();
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Get/set the colors.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+const Geometry::Float32ArrayPtr Geometry::getColors() const
+{
+  Guard guard ( this->mutex() );
+  return _colors;
+}
+Geometry::Float32ArrayPtr Geometry::getColors()
+{
+  Guard guard ( this->mutex() );
+  return _colors;
+}
+void Geometry::setColors ( Float32ArrayPtr colors )
+{
+  Guard guard ( this->mutex() );
+  _colors = colors;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Get/set the normals.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+const Geometry::Float32ArrayPtr Geometry::getNormals() const
+{
+  Guard guard ( this->mutex() );
+  return _normals;
+}
+Geometry::Float32ArrayPtr Geometry::getNormals()
+{
+  Guard guard ( this->mutex() );
+  return _normals;
+}
+void Geometry::setNormals ( Float32ArrayPtr normals )
+{
+  Guard guard ( this->mutex() );
+  _normals = normals;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Get/set the points.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+const Geometry::Float32ArrayPtr Geometry::getPoints() const
+{
+  Guard guard ( this->mutex() );
+  return _points;
+}
+Geometry::Float32ArrayPtr Geometry::getPoints()
+{
+  Guard guard ( this->mutex() );
+  return _points;
+}
+void Geometry::setPoints ( Float32ArrayPtr points )
+{
+  Guard guard ( this->mutex() );
+  _points = points;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Get/set the texture coordinates.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+const Geometry::Float32ArrayPtr Geometry::getTexCoords() const
+{
+  Guard guard ( this->mutex() );
+  return _texCoords;
+}
+Geometry::Float32ArrayPtr Geometry::getTexCoords()
+{
+  Guard guard ( this->mutex() );
+  return _texCoords;
+}
+void Geometry::setTexCoords ( Float32ArrayPtr texCoords )
+{
+  Guard guard ( this->mutex() );
+  _texCoords = texCoords;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Add/remove/get the primitive(s).
+//
+///////////////////////////////////////////////////////////////////////////////
+
+void Geometry::addPrimitive ( PrimitivePtr primitive )
+{
+  if ( true == primitive.valid() )
+  {
+    Guard guard ( this->mutex() );
+    _primitives = _primitives.push_back ( primitive );
+  }
+}
+void Geometry::removePrimitive ( PrimitivePtr primitive )
+{
+  Guard guard ( this->mutex() );
+  PrimitiveArray v;
+  for ( auto i = _primitives.begin(); i != _primitives.end(); ++i )
+  {
+    if ( i->get() != primitive.get() )
+    {
+      v = v.push_back ( *i );
+    }
+  }
+  _primitives = v;
+}
+Geometry::PrimitiveArray Geometry::getPrimitives() const
+{
+  Guard guard ( this->mutex() );
+  return _primitives;
 }
 
 

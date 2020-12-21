@@ -36,6 +36,7 @@ public:
 
   typedef GSG::Base::Objects::Object BaseClass;
   typedef Array < T > ThisType;
+  typedef std::initializer_list < T > initializer_list;
   typedef typename std::vector < T > InternalVectorType;
   typedef typename InternalVectorType::value_type value_type;
   typedef typename InternalVectorType::size_type size_type;
@@ -46,7 +47,7 @@ public:
   typedef std::function < void ( T & ) > Callback;
 
   Array();
-  Array ( const std::initializer_list < T > values );
+  Array ( const initializer_list values );
   Array ( const InternalVectorType & );
 
   bool operator == ( const Array &rhs ) const { return (  true == this->equal ( rhs ) ); }
@@ -56,6 +57,7 @@ public:
   void prepend ( const T &v ) { this->push_front ( v ); }
 
   size_type capacity() const;
+  void clear();
 
   bool empty() const;
   bool equal ( const Array &s ) const;
@@ -101,7 +103,7 @@ template < class T > inline Array<T>::Array() :
   _v()
 {
 }
-template < class T > inline Array<T>::Array ( const std::initializer_list < T > values ) :
+template < class T > inline Array<T>::Array ( const initializer_list values ) :
   BaseClass(),
   _v ( values )
 {
@@ -122,6 +124,30 @@ template < class T > inline Array<T>::Array ( const InternalVectorType &v ) :
 template < class T > inline Array<T>::~Array()
 {
   _v = InternalVectorType();
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Return the capacity.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+template < class T > inline typename Array<T>::size_type Array<T>::capacity() const
+{
+  return _v.capacity();
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Clear the array.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+template < class T > inline void Array<T>::clear()
+{
+  return _v.clear();
 }
 
 

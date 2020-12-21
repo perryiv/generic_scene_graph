@@ -37,13 +37,12 @@ set ( CMAKE_POSITION_INDEPENDENT_CODE ON )
 set ( SOURCE_FILES
   GSG/Base/Containers/TypedArrays.cpp
   GSG/Base/Objects/Object.cpp
-  GSG/Scene/Buffers/Buffer.cpp
   GSG/Scene/Nodes/Groups/Group.cpp
   GSG/Scene/Nodes/Groups/Transform.cpp
   GSG/Scene/Nodes/Node.cpp
   GSG/Scene/Nodes/Shapes/Geometry.cpp
   GSG/Scene/Nodes/Shapes/Shape.cpp
-  GSG/Visitors/Visitor.cpp
+  GSG/Scene/Visitors/Visitor.cpp
 )
 
 # Make the library using the source files.

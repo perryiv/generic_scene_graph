@@ -29,6 +29,7 @@
 
 
 namespace GSG {
+namespace Scene {
 namespace Visitors {
 
 
@@ -63,6 +64,7 @@ private:
 
 
 } // namespace Visitors
+} // namespace Scene
 } // namespace GSG
 
 

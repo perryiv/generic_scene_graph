@@ -97,13 +97,13 @@ public:
 
 protected:
 
-  friend class GSG::Visitors::Visitor;
+  friend class GSG::Scene::Visitors::Visitor;
 
   virtual ~Group();
 
   // Have the visitor traverse the children.
-  virtual void _traverseConst  ( GSG::Visitors::Visitor &, PropertyMap & ) const;
-  virtual void _traverseModify ( GSG::Visitors::Visitor &, PropertyMap & );
+  virtual void _traverseConst  ( GSG::Scene::Visitors::Visitor &, PropertyMap & ) const;
+  virtual void _traverseModify ( GSG::Scene::Visitors::Visitor &, PropertyMap & );
 
 private:
 

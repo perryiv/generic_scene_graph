@@ -14,7 +14,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include "GSG/Scene/Nodes/Shapes/Shape.h"
-#include "GSG/Visitors/Visitor.h"
+#include "GSG/Scene/Visitors/Visitor.h"
 
 #include "Usul/Tools/NoThrow.h"
 

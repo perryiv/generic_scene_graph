@@ -20,7 +20,6 @@ include_directories ( ${CMAKE_CURRENT_SOURCE_DIR} )
 set ( SOURCE_FILES
   ./GSG/Base/Containers/Array.cpp
   ./GSG/Base/Containers/TypedArrays.cpp
-  ./GSG/Scene/Buffers/Buffer.cpp
   ./GSG/Scene/Nodes/Groups/Group.cpp
   ./GSG/Scene/Nodes/Shapes/Geometry.cpp
   ./GSG/Main.cpp

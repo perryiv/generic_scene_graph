@@ -14,7 +14,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include "GSG/Scene/Nodes/Groups/Transform.h"
-#include "GSG/Visitors/Visitor.h"
+#include "GSG/Scene/Visitors/Visitor.h"
 
 #include "Usul/Tools/NoThrow.h"
 
@@ -95,11 +95,11 @@ void Transform::setMatrix ( const Matrix44d &matrix )
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-void Transform::_traverseConst ( GSG::Visitors::Visitor &visitor, PropertyMap &pm ) const
+void Transform::_traverseConst ( GSG::Scene::Visitors::Visitor &visitor, PropertyMap &pm ) const
 {
   BaseClass::_traverseConst ( visitor, pm );
 }
-void Transform::_traverseModify ( GSG::Visitors::Visitor &visitor, PropertyMap &pm )
+void Transform::_traverseModify ( GSG::Scene::Visitors::Visitor &visitor, PropertyMap &pm )
 {
   BaseClass::_traverseModify ( visitor, pm );
 }

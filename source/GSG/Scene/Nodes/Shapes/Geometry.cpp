@@ -9,12 +9,12 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-//  Shape node based on vertex buffers.
+//  Shape node based on vertex arrays.
 //
 ///////////////////////////////////////////////////////////////////////////////
 
 #include "GSG/Scene/Nodes/Shapes/Geometry.h"
-#include "GSG/Visitors/Visitor.h"
+#include "GSG/Scene/Visitors/Visitor.h"
 
 #include "Usul/Tools/NoThrow.h"
 

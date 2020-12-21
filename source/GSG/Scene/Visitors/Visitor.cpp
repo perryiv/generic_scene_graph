@@ -13,7 +13,7 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#include "GSG/Visitors/Visitor.h"
+#include "GSG/Scene/Visitors/Visitor.h"
 #include "GSG/Scene/Nodes/Groups/Group.h"
 
 #include "Usul/Tools/NoThrow.h"
@@ -22,6 +22,7 @@
 
 
 namespace GSG {
+namespace Scene {
 namespace Visitors {
 
 
@@ -98,4 +99,5 @@ void Visitor::visit ( GSG::Scene::Nodes::Shapes::Shape &, PropertyMap & )
 
 
 } // namespace Visitors
+} // namespace Scene
 } // namespace GSG

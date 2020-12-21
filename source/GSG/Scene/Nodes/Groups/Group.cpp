@@ -14,7 +14,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include "GSG/Scene/Nodes/Groups/Group.h"
-#include "GSG/Visitors/Visitor.h"
+#include "GSG/Scene/Visitors/Visitor.h"
 
 #include "Usul/Tools/NoThrow.h"
 
@@ -86,7 +86,7 @@ void Group::_destroyGroup()
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-void Group::_traverseConst ( GSG::Visitors::Visitor &visitor, PropertyMap &pm ) const
+void Group::_traverseConst ( GSG::Scene::Visitors::Visitor &visitor, PropertyMap &pm ) const
 {
   // Guard making a copy of the sequence.
   Children children;
@@ -101,7 +101,7 @@ void Group::_traverseConst ( GSG::Visitors::Visitor &visitor, PropertyMap &pm ) 
     (*i)->accept ( visitor, pm );
   }
 }
-void Group::_traverseModify ( GSG::Visitors::Visitor &visitor, PropertyMap &pm )
+void Group::_traverseModify ( GSG::Scene::Visitors::Visitor &visitor, PropertyMap &pm )
 {
   // Guard making a copy of the sequence.
   Children children;

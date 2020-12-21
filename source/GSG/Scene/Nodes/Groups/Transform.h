@@ -48,13 +48,13 @@ public:
 
 protected:
 
-  friend class GSG::Visitors::Visitor;
+  friend class GSG::Scene::Visitors::Visitor;
 
   virtual ~Transform();
 
   // Have the visitor traverse the children.
-  virtual void _traverseConst  ( GSG::Visitors::Visitor &, PropertyMap & ) const override;
-  virtual void _traverseModify ( GSG::Visitors::Visitor &, PropertyMap & ) override;
+  virtual void _traverseConst  ( GSG::Scene::Visitors::Visitor &, PropertyMap & ) const override;
+  virtual void _traverseModify ( GSG::Scene::Visitors::Visitor &, PropertyMap & ) override;
 
 private:
 

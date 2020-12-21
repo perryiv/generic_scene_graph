@@ -28,21 +28,21 @@
 
 #define GSG_DECLARE_NODE_CLASS_BASE(class_name) \
   GSG_DECLARE_OBJECT_CLASS ( class_name ); \
-  virtual void accept ( GSG::Visitors::Visitor & ) const; \
-  virtual void accept ( GSG::Visitors::Visitor &, Usul::Properties::Map & ) const; \
-  virtual void accept ( GSG::Visitors::Visitor &, Usul::Properties::Map::Values & ) const; \
-  virtual void accept ( GSG::Visitors::Visitor & ); \
-  virtual void accept ( GSG::Visitors::Visitor &, Usul::Properties::Map & ); \
-  virtual void accept ( GSG::Visitors::Visitor &, Usul::Properties::Map::Values & )
+  virtual void accept ( GSG::Scene::Visitors::Visitor & ) const; \
+  virtual void accept ( GSG::Scene::Visitors::Visitor &, Usul::Properties::Map & ) const; \
+  virtual void accept ( GSG::Scene::Visitors::Visitor &, Usul::Properties::Map::Values & ) const; \
+  virtual void accept ( GSG::Scene::Visitors::Visitor & ); \
+  virtual void accept ( GSG::Scene::Visitors::Visitor &, Usul::Properties::Map & ); \
+  virtual void accept ( GSG::Scene::Visitors::Visitor &, Usul::Properties::Map::Values & )
 
 #define GSG_DECLARE_NODE_CLASS(class_name) \
   GSG_DECLARE_OBJECT_CLASS ( class_name ); \
-  virtual void accept ( GSG::Visitors::Visitor & ) const override; \
-  virtual void accept ( GSG::Visitors::Visitor &, Usul::Properties::Map & ) const override; \
-  virtual void accept ( GSG::Visitors::Visitor &, Usul::Properties::Map::Values & ) const override; \
-  virtual void accept ( GSG::Visitors::Visitor & ) override; \
-  virtual void accept ( GSG::Visitors::Visitor &, Usul::Properties::Map & ) override; \
-  virtual void accept ( GSG::Visitors::Visitor &, Usul::Properties::Map::Values & ) override
+  virtual void accept ( GSG::Scene::Visitors::Visitor & ) const override; \
+  virtual void accept ( GSG::Scene::Visitors::Visitor &, Usul::Properties::Map & ) const override; \
+  virtual void accept ( GSG::Scene::Visitors::Visitor &, Usul::Properties::Map::Values & ) const override; \
+  virtual void accept ( GSG::Scene::Visitors::Visitor & ) override; \
+  virtual void accept ( GSG::Scene::Visitors::Visitor &, Usul::Properties::Map & ) override; \
+  virtual void accept ( GSG::Scene::Visitors::Visitor &, Usul::Properties::Map::Values & ) override
 
 
 namespace GSG {
@@ -121,30 +121,30 @@ private:
 
 #define GSG_IMPLEMENT_NODE_CLASS(class_name) \
   GSG_IMPLEMENT_OBJECT_CLASS ( class_name ) \
-  void class_name ::accept ( GSG::Visitors::Visitor &visitor ) const \
+  void class_name ::accept ( GSG::Scene::Visitors::Visitor &visitor ) const \
   { \
     Usul::Properties::Map traversalData; \
     visitor.visit ( *this, traversalData ); \
   } \
-  void class_name ::accept ( GSG::Visitors::Visitor &visitor, Usul::Properties::Map &traversalData ) const \
+  void class_name ::accept ( GSG::Scene::Visitors::Visitor &visitor, Usul::Properties::Map &traversalData ) const \
   { \
     visitor.visit ( *this, traversalData ); \
   } \
-  void class_name ::accept ( GSG::Visitors::Visitor &visitor, Usul::Properties::Map::Values &values ) const \
+  void class_name ::accept ( GSG::Scene::Visitors::Visitor &visitor, Usul::Properties::Map::Values &values ) const \
   { \
     Usul::Properties::Map traversalData ( values ); \
     visitor.visit ( *this, traversalData ); \
   } \
-  void class_name ::accept ( GSG::Visitors::Visitor &visitor ) \
+  void class_name ::accept ( GSG::Scene::Visitors::Visitor &visitor ) \
   { \
     Usul::Properties::Map traversalData; \
     visitor.visit ( *this, traversalData ); \
   } \
-  void class_name ::accept ( GSG::Visitors::Visitor &visitor, Usul::Properties::Map &traversalData ) \
+  void class_name ::accept ( GSG::Scene::Visitors::Visitor &visitor, Usul::Properties::Map &traversalData ) \
   { \
     visitor.visit ( *this, traversalData ); \
   } \
-  void class_name ::accept ( GSG::Visitors::Visitor &visitor, Usul::Properties::Map::Values &values ) \
+  void class_name ::accept ( GSG::Scene::Visitors::Visitor &visitor, Usul::Properties::Map::Values &values ) \
   { \
     Usul::Properties::Map traversalData ( values ); \
     visitor.visit ( *this, traversalData ); \

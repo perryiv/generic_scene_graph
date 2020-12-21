@@ -42,6 +42,7 @@ set ( SOURCE_FILES
   GSG/Scene/Nodes/Node.cpp
   GSG/Scene/Nodes/Shapes/Geometry.cpp
   GSG/Scene/Nodes/Shapes/Shape.cpp
+  GSG/Scene/Primitives/Primitive.cpp
   GSG/Scene/Visitors/Visitor.cpp
 )
 

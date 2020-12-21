@@ -9,12 +9,11 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-//  Shape node based on vertex arrays.
+//  Base class for all scene primitives.
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#include "GSG/Scene/Nodes/Shapes/Geometry.h"
-#include "GSG/Scene/Visitors/Visitor.h"
+#include "GSG/Scene/Primitives/Primitive.h"
 
 #include "Usul/Tools/NoThrow.h"
 
@@ -23,12 +22,11 @@
 
 namespace GSG {
 namespace Scene {
-namespace Nodes {
-namespace Shapes {
+namespace Primitives {
 
 
 // Add the boilerplate code.
-GSG_IMPLEMENT_NODE_CLASS ( Geometry );
+GSG_IMPLEMENT_PRIMITIVE_CLASS ( Primitive );
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -37,11 +35,7 @@ GSG_IMPLEMENT_NODE_CLASS ( Geometry );
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-Geometry::Geometry() : BaseClass(),
-  _points(),
-  _normals(),
-  _colors(),
-  _texCoords()
+Primitive::Primitive() : BaseClass()
 {
 }
 
@@ -52,9 +46,9 @@ Geometry::Geometry() : BaseClass(),
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-Geometry::~Geometry()
+Primitive::~Primitive()
 {
-  USUL_TOOLS_NO_THROW ( 1608015315, std::bind ( &Geometry::_destroyGeometry, this ) );
+  USUL_TOOLS_NO_THROW ( 1608537072, std::bind ( &Primitive::_destroyPrimitive, this ) );
 }
 
 
@@ -64,16 +58,11 @@ Geometry::~Geometry()
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-void Geometry::_destroyGeometry()
+void Primitive::_destroyPrimitive()
 {
-  _points    = Float32ArrayPtr();
-  _normals   = Float32ArrayPtr();
-  _colors    = Float32ArrayPtr();
-  _texCoords = Float32ArrayPtr();
 }
 
 
-} // namespace Shapes
-} // namespace Nodes
+} // namespace Primitives
 } // namespace Scene
 } // namespace GSG

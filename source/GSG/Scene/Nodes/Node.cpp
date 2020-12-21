@@ -81,7 +81,7 @@ void Node::_destroyNode()
 
 bool Node::hasParent ( const Parents::value_type &parent ) const
 {
-  Guard guard ( this->mutex() );
+  Guard guard ( _mutex );
   return ( _parents.end() != _parents.find ( parent ) );
 }
 
@@ -102,7 +102,7 @@ void Node::_addParent ( Node *node )
   }
 
   // Guard before checking for an existing parent.
-  Guard guard ( this->mutex() );
+  Guard guard ( _mutex );
 
   if ( true == this->hasParent ( parent ) )
   {
@@ -121,7 +121,7 @@ void Node::_addParent ( Node *node )
 
 void Node::_removeParent ( Node *parent )
 {
-  Guard guard ( this->mutex() );
+  Guard guard ( _mutex );
   _parents.erase ( Parents::value_type ( parent ) );
 }
 

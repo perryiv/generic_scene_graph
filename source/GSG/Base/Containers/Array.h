@@ -16,7 +16,7 @@
 #ifndef _GENERIC_SCENE_GRAPH_BASE_CONTAINERS_ARRAY_CLASS_H_
 #define _GENERIC_SCENE_GRAPH_BASE_CONTAINERS_ARRAY_CLASS_H_
 
-#include "GSG/Config.h"
+#include "GSG/Base/Objects/Object.h"
 
 #include "Usul/Math/Base.h"
 
@@ -31,10 +31,11 @@ namespace Base {
 namespace Containers {
 
 
-template < class T > class Array
+template < class T > class Array : public GSG::Base::Objects::Object
 {
 public:
 
+  typedef GSG::Base::Objects::Object BaseClass;
   typedef Array < T > ThisType;
   typedef std::mutex Mutex;
   typedef std::lock_guard < Mutex > Guard;
@@ -50,10 +51,6 @@ public:
   Array();
   Array ( const std::initializer_list < T > values );
   Array ( const InternalVectorType & );
-  Array ( const Array &s );
-  ~Array();
-
-  Array &operator = ( const Array & );
 
   bool operator == ( const Array &rhs ) const { return (  true == this->equal ( rhs ) ); }
   bool operator != ( const Array &rhs ) const { return ( false == this->equal ( rhs ) ); }
@@ -90,6 +87,10 @@ public:
   void swap ( Array & );
   void swap ( InternalVectorType & );
 
+protected:
+
+  virtual ~Array();
+
 private:
 
   InternalVectorType _v;
@@ -103,23 +104,18 @@ private:
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-template < class T > inline Array<T>::Array() :
+template < class T > inline Array<T>::Array() : BaseClass(),
   _v(),
   _mutex()
 {
 }
-template < class T > inline Array<T>::Array ( const std::initializer_list < T > values ) :
+template < class T > inline Array<T>::Array ( const std::initializer_list < T > values ) : BaseClass(),
   _v ( values ),
   _mutex()
 {
 }
-template < class T > inline Array<T>::Array ( const InternalVectorType &v ) :
+template < class T > inline Array<T>::Array ( const InternalVectorType &v ) : BaseClass(),
   _v ( v ),
-  _mutex()
-{
-}
-template < class T > inline Array<T>::Array ( const Array &s ) :
-  _v ( s._v ),
   _mutex()
 {
 }
@@ -134,20 +130,6 @@ template < class T > inline Array<T>::Array ( const Array &s ) :
 template < class T > inline Array<T>::~Array()
 {
   _v = InternalVectorType();
-}
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-//  Assignment.
-//
-///////////////////////////////////////////////////////////////////////////////
-
-template < class T > inline Array<T> &Array<T>::operator = ( const Array &s )
-{
-  Guard guard ( _mutex );
-  _v = s._v;
-  return *this;
 }
 
 

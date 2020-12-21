@@ -47,136 +47,102 @@ TEMPLATE_TEST_CASE ( "Array container", "",
 
   SECTION ( "Default constructor" )
   {
-    Array a;
-    REQUIRE ( 0 == a.size() );
-    REQUIRE ( true == a.empty() );
-    REQUIRE ( InternalVectorType() == a.getInternalVector() );
+    Array *a = new Array;
+    REQUIRE ( 0 == a->size() );
+    REQUIRE ( true == a->empty() );
+    REQUIRE ( InternalVectorType() == a->getInternalVector() );
   }
 
   SECTION ( "Initialize list constructor" )
   {
-    Array a ( { 10, 20, 30, 40 } );
-    REQUIRE ( 4 == a.size() );
-    REQUIRE ( false == a.empty() );
-    REQUIRE ( InternalVectorType ( { 10, 20, 30, 40 } ) == a.getInternalVector() );
+    Array *a = new Array ( { 10, 20, 30, 40 } );
+    REQUIRE ( 4 == a->size() );
+    REQUIRE ( false == a->empty() );
+    REQUIRE ( InternalVectorType ( { 10, 20, 30, 40 } ) == a->getInternalVector() );
   }
 
   SECTION ( "Internal vector constructor" )
   {
     const InternalVectorType input ( { 10, 20, 30, 40 } );
-    Array a ( input );
-    REQUIRE ( 4 == a.size() );
-    REQUIRE ( false == a.empty() );
-    REQUIRE ( input == a.getInternalVector() );
-  }
-
-  SECTION ( "Copy constructor" )
-  {
-    Array a1 ( { 10, 20, 30, 40 } );
-    REQUIRE ( 4 == a1.size() );
-    REQUIRE ( false == a1.empty() );
-    REQUIRE ( InternalVectorType ( { 10, 20, 30, 40 } ) == a1.getInternalVector() );
-
-    Array a2 ( a1 );
-    REQUIRE ( 4 == a2.size() );
-    REQUIRE ( false == a2.empty() );
-    REQUIRE ( InternalVectorType ( { 10, 20, 30, 40 } ) == a2.getInternalVector() );
-    REQUIRE ( a1 == a2 );
-  }
-
-  SECTION ( "Assignment" )
-  {
-    Array a1 ( { 10, 20, 30, 40 } );
-    REQUIRE ( 4 == a1.size() );
-    REQUIRE ( false == a1.empty() );
-    REQUIRE ( InternalVectorType ( { 10, 20, 30, 40 } ) == a1.getInternalVector() );
-
-    Array a2 = a1;
-    REQUIRE ( 4 == a2.size() );
-    REQUIRE ( false == a2.empty() );
-    REQUIRE ( InternalVectorType ( { 10, 20, 30, 40 } ) == a2.getInternalVector() );
-    REQUIRE ( a1 == a2 );
-
-    Array a3 = { 10, 20, 30, 40 };
-    REQUIRE ( 4 == a3.size() );
-    REQUIRE ( false == a3.empty() );
-    REQUIRE ( InternalVectorType ( { 10, 20, 30, 40 } ) == a3.getInternalVector() );
-    REQUIRE ( a1 == a3 );
+    Array *a = new Array ( input );
+    REQUIRE ( 4 == a->size() );
+    REQUIRE ( false == a->empty() );
+    REQUIRE ( input == a->getInternalVector() );
   }
 
   SECTION ( "Swap contents" )
   {
-    Array a1 ( { 10, 20, 30, 40 } );
-    REQUIRE ( 4 == a1.size() );
-    REQUIRE ( false == a1.empty() );
-    REQUIRE ( InternalVectorType ( { 10, 20, 30, 40 } ) == a1.getInternalVector() );
+    Array *a1 = new Array ( { 10, 20, 30, 40 } );
+    REQUIRE ( 4 == a1->size() );
+    REQUIRE ( false == a1->empty() );
+    REQUIRE ( InternalVectorType ( { 10, 20, 30, 40 } ) == a1->getInternalVector() );
 
-    Array a2;
-    REQUIRE ( 0 == a2.size() );
-    REQUIRE ( true == a2.empty() );
-    REQUIRE ( InternalVectorType() == a2.getInternalVector() );
+    Array *a2 = new Array;
+    REQUIRE ( 0 == a2->size() );
+    REQUIRE ( true == a2->empty() );
+    REQUIRE ( InternalVectorType() == a2->getInternalVector() );
 
-    a1.swap ( a2 );
+    a1->swap ( *a2 );
 
-    REQUIRE ( 0 == a1.size() );
-    REQUIRE ( true == a1.empty() );
-    REQUIRE ( InternalVectorType() == a1.getInternalVector() );
+    REQUIRE ( 0 == a1->size() );
+    REQUIRE ( true == a1->empty() );
+    REQUIRE ( InternalVectorType() == a1->getInternalVector() );
 
-    REQUIRE ( 4 == a2.size() );
-    REQUIRE ( false == a2.empty() );
-    REQUIRE ( InternalVectorType ( { 10, 20, 30, 40 } ) == a2.getInternalVector() );
+    REQUIRE ( 4 == a2->size() );
+    REQUIRE ( false == a2->empty() );
+    REQUIRE ( InternalVectorType ( { 10, 20, 30, 40 } ) == a2->getInternalVector() );
   }
 
   SECTION ( "Can push values onto the front and back" )
   {
-    Array a;
-    REQUIRE ( 0 == a.size() );
-    REQUIRE ( true == a.empty() );
+    Array *a = new Array;
+    REQUIRE ( 0 == a->size() );
+    REQUIRE ( true == a->empty() );
 
-    a.push_back ( 30 );
-    REQUIRE ( 1 == a.size() );
-    REQUIRE ( false == a.empty() );
+    a->push_back ( 30 );
+    REQUIRE ( 1 == a->size() );
+    REQUIRE ( false == a->empty() );
 
-    a.push_back ( 40 );
-    REQUIRE ( 2 == a.size() );
-    REQUIRE ( false == a.empty() );
+    a->push_back ( 40 );
+    REQUIRE ( 2 == a->size() );
+    REQUIRE ( false == a->empty() );
 
-    a.push_front ( 20 );
-    REQUIRE ( 3 == a.size() );
-    REQUIRE ( false == a.empty() );
+    a->push_front ( 20 );
+    REQUIRE ( 3 == a->size() );
+    REQUIRE ( false == a->empty() );
 
-    a.push_front ( 10 );
-    REQUIRE ( 4 == a.size() );
-    REQUIRE ( false == a.empty() );
+    a->push_front ( 10 );
+    REQUIRE ( 4 == a->size() );
+    REQUIRE ( false == a->empty() );
 
-    REQUIRE ( InternalVectorType ( { 10, 20, 30, 40 } ) == a.getInternalVector() );
+    REQUIRE ( InternalVectorType ( { 10, 20, 30, 40 } ) == a->getInternalVector() );
   }
 
   SECTION ( "Can remove values" )
   {
-    Array a ( { 10, 20, 30, 40 } );
-    REQUIRE ( InternalVectorType ( { 10, 20, 30, 40 } ) == a.getInternalVector() );
+    Array *a = new Array ( { 10, 20, 30, 40 } );
+    REQUIRE ( InternalVectorType ( { 10, 20, 30, 40 } ) == a->getInternalVector() );
 
-    a.erase ( 0 );
-    REQUIRE ( InternalVectorType ( { 20, 30, 40 } ) == a.getInternalVector() );
+    a->erase ( 0 );
+    REQUIRE ( InternalVectorType ( { 20, 30, 40 } ) == a->getInternalVector() );
 
-    a.erase ( 1 );
-    REQUIRE ( InternalVectorType ( { 20, 40 } ) == a.getInternalVector() );
+    a->erase ( 1 );
+    REQUIRE ( InternalVectorType ( { 20, 40 } ) == a->getInternalVector() );
 
-    a.erase ( 8 ); // Gets clamped to last position.
-    REQUIRE ( InternalVectorType ( { 20 } ) == a.getInternalVector() );
+    a->erase ( 8 ); // Gets clamped to last position.
+    REQUIRE ( InternalVectorType ( { 20 } ) == a->getInternalVector() );
 
-    a.erase ( 0 );
-    REQUIRE ( InternalVectorType() == a.getInternalVector() );
+    a->erase ( 0 );
+    REQUIRE ( InternalVectorType() == a->getInternalVector() );
   }
 
   SECTION ( "Can iterate through the values" )
   {
     const auto input = { TT ( 10 ), TT ( 20 ), TT ( 30 ), TT ( 40 ) };
-    const Array a1 ( input );
+    const Array *a = new Array ( input );
 
     auto expected = input.begin();
-    a1.forEach ( [ &expected ] ( const value_type &value )
+    a->forEach ( [ &expected ] ( const value_type &value )
     {
       REQUIRE ( *expected == value );
       ++expected;
@@ -186,15 +152,15 @@ TEMPLATE_TEST_CASE ( "Array container", "",
   SECTION ( "Can iterate through the values and change them" )
   {
     const auto input = { TT ( 10 ), TT ( 20 ), TT ( 30 ), TT ( 40 ) };
-    Array a1 ( input );
+    Array *a = new Array ( input );
 
-    a1.forEach ( [] ( value_type &value )
+    a->forEach ( [] ( value_type &value )
     {
       value = value + value;
     } );
 
     auto expected = input.begin();
-    a1.forEach ( [ &expected ] ( const value_type &value )
+    a->forEach ( [ &expected ] ( const value_type &value )
     {
       REQUIRE ( ( *expected + *expected ) == value );
       ++expected;

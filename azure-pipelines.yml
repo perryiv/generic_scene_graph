@@ -186,6 +186,7 @@ jobs:
     CONAN_STABLE_BRANCH_PATTERN: "^master$"
     CONAN_REVISIONS_ENABLED: 1
     CONAN_VERBOSE_TRACEBACK: 1
+    CONAN_REMOTES: https://github.com/slepasteur/conan-immer.git
 
     # These are used in build.py
     THIS_JOB_USE_DOCKER: $(use_docker)

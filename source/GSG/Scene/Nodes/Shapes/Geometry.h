@@ -18,7 +18,7 @@
 
 #include "GSG/Scene/Nodes/Shapes/Shape.h"
 #include "GSG/Base/Containers/TypedArrays.h"
-#include "GSG/Scene/Primitives/Primitive.h"
+#include "GSG/Scene/Primitives/PrimitiveSet.h"
 
 #include <immer/vector.hpp>
 
@@ -38,9 +38,9 @@ public:
   typedef BaseClass::Guard Guard;
   typedef GSG::Base::Containers::Float32Array Float32Array;
   typedef Float32Array::ValidAccessRefPtr Float32ArrayPtr;
-  typedef GSG::Scene::Primitives::Primitive Primitive;
-  typedef Primitive::ValidAccessRefPtr PrimitivePtr;
-  typedef immer::vector < PrimitivePtr > PrimitiveArray;
+  typedef GSG::Scene::Primitives::PrimitiveSet PrimitiveSet;
+  typedef PrimitiveSet::ValidAccessRefPtr PrimitiveSetPtr;
+  typedef immer::vector < PrimitiveSetPtr > PrimitiveSets;
 
   GSG_DECLARE_NODE_CLASS ( Geometry );
 
@@ -66,10 +66,10 @@ public:
   Float32ArrayPtr       getTexCoords();
   void                  setTexCoords ( Float32ArrayPtr );
 
-  // Add/remove/get the primitive(s).
-  void           addPrimitive    ( PrimitivePtr );
-  void           removePrimitive ( PrimitivePtr );
-  PrimitiveArray getPrimitives() const;
+  // Add/remove/get the primitives.
+  void          addPrimitives    ( PrimitiveSetPtr );
+  void          removePrimitives ( PrimitiveSetPtr );
+  PrimitiveSets getPrimitives() const;
 
 protected:
 
@@ -83,7 +83,7 @@ private:
   Float32ArrayPtr _normals;
   Float32ArrayPtr _colors;
   Float32ArrayPtr _texCoords;
-  PrimitiveArray _primitives;
+  PrimitiveSets _primitives;
 };
 
 

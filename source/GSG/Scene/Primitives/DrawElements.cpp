@@ -9,11 +9,11 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-//  Base class for all scene primitives.
+//  Primitive set that draws the arrays using indices.
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#include "GSG/Scene/Primitives/Primitive.h"
+#include "GSG/Scene/Primitives/DrawElements.h"
 
 #include "Usul/Tools/NoThrow.h"
 
@@ -26,7 +26,7 @@ namespace Primitives {
 
 
 // Add the boilerplate code.
-GSG_IMPLEMENT_PRIMITIVE_CLASS ( Primitive );
+GSG_IMPLEMENT_PRIMITIVE_CLASS ( DrawElements );
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -35,7 +35,7 @@ GSG_IMPLEMENT_PRIMITIVE_CLASS ( Primitive );
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-Primitive::Primitive() : BaseClass()
+DrawElements::DrawElements() : BaseClass()
 {
 }
 
@@ -46,9 +46,9 @@ Primitive::Primitive() : BaseClass()
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-Primitive::~Primitive()
+DrawElements::~DrawElements()
 {
-  USUL_TOOLS_NO_THROW ( 1608537072, std::bind ( &Primitive::_destroyPrimitive, this ) );
+  USUL_TOOLS_NO_THROW ( 1608543505, std::bind ( &DrawElements::_destroyDrawElements, this ) );
 }
 
 
@@ -58,7 +58,7 @@ Primitive::~Primitive()
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-void Primitive::_destroyPrimitive()
+void DrawElements::_destroyDrawElements()
 {
 }
 

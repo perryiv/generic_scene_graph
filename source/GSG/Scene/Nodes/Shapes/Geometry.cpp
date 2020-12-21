@@ -72,7 +72,7 @@ void Geometry::_destroyGeometry()
   _normals    = Float32ArrayPtr();
   _colors     = Float32ArrayPtr();
   _texCoords  = Float32ArrayPtr();
-  _primitives = PrimitiveArray();
+  _primitives = PrimitiveSets();
 }
 
 
@@ -170,32 +170,32 @@ void Geometry::setTexCoords ( Float32ArrayPtr texCoords )
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-//  Add/remove/get the primitive(s).
+//  Add/remove/get the primitives.
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-void Geometry::addPrimitive ( PrimitivePtr primitive )
+void Geometry::addPrimitives ( PrimitiveSetPtr primitives )
 {
-  if ( true == primitive.valid() )
+  if ( true == primitives.valid() )
   {
     Guard guard ( this->mutex() );
-    _primitives = _primitives.push_back ( primitive );
+    _primitives = _primitives.push_back ( primitives );
   }
 }
-void Geometry::removePrimitive ( PrimitivePtr primitive )
+void Geometry::removePrimitives ( PrimitiveSetPtr primitives )
 {
   Guard guard ( this->mutex() );
-  PrimitiveArray v;
+  PrimitiveSets v;
   for ( auto i = _primitives.begin(); i != _primitives.end(); ++i )
   {
-    if ( i->get() != primitive.get() )
+    if ( i->get() != primitives.get() )
     {
       v = v.push_back ( *i );
     }
   }
   _primitives = v;
 }
-Geometry::PrimitiveArray Geometry::getPrimitives() const
+Geometry::PrimitiveSets Geometry::getPrimitives() const
 {
   Guard guard ( this->mutex() );
   return _primitives;

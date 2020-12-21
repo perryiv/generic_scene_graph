@@ -9,7 +9,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-//  Thread-safe dynamic array container class.
+//  Dynamic array container class.
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -22,7 +22,6 @@
 
 #include <functional>
 #include <initializer_list>
-#include <mutex>
 #include <vector>
 
 
@@ -37,8 +36,6 @@ public:
 
   typedef GSG::Base::Objects::Object BaseClass;
   typedef Array < T > ThisType;
-  typedef std::mutex Mutex;
-  typedef std::lock_guard < Mutex > Guard;
   typedef typename std::vector < T > InternalVectorType;
   typedef typename InternalVectorType::value_type value_type;
   typedef typename InternalVectorType::size_type size_type;
@@ -67,14 +64,10 @@ public:
   void forEach ( ConstCallback ) const;
   void forEach ( Callback );
 
-  // Use with caution. Not thread-safe!
   const InternalVectorType &getInternalVector() const { return _v; }
   InternalVectorType &      getInternalVector()       { return _v; }
 
   void insert ( size_type, const T & );
-
-  // Use with caution.
-  Mutex &mutex() { return _mutex; }
 
   void push_front ( const T &v );
   void push_back  ( const T &v );
@@ -94,7 +87,6 @@ protected:
 private:
 
   InternalVectorType _v;
-  mutable Mutex _mutex;
 };
 
 
@@ -104,19 +96,19 @@ private:
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-template < class T > inline Array<T>::Array() : BaseClass(),
-  _v(),
-  _mutex()
+template < class T > inline Array<T>::Array() :
+  BaseClass(),
+  _v()
 {
 }
-template < class T > inline Array<T>::Array ( const std::initializer_list < T > values ) : BaseClass(),
-  _v ( values ),
-  _mutex()
+template < class T > inline Array<T>::Array ( const std::initializer_list < T > values ) :
+  BaseClass(),
+  _v ( values )
 {
 }
-template < class T > inline Array<T>::Array ( const InternalVectorType &v ) : BaseClass(),
-  _v ( v ),
-  _mutex()
+template < class T > inline Array<T>::Array ( const InternalVectorType &v ) :
+  BaseClass(),
+  _v ( v )
 {
 }
 
@@ -141,7 +133,6 @@ template < class T > inline Array<T>::~Array()
 
 template < class T > inline bool Array<T>::empty() const
 {
-  Guard guard ( _mutex );
   return _v.empty();
 }
 
@@ -154,8 +145,6 @@ template < class T > inline bool Array<T>::empty() const
 
 template < class T > inline bool Array<T>::equal ( const Array &s ) const
 {
-  Guard guard1 ( _mutex );
-  Guard guard2 ( s._mutex );
   return ( _v == s._v );
 }
 
@@ -168,13 +157,10 @@ template < class T > inline bool Array<T>::equal ( const Array &s ) const
 
 template < class T > inline void Array<T>::erase ( size_type position )
 {
-  Guard guard ( _mutex );
-
   if ( true == _v.empty() )
   {
     return;
   }
-
   position = Usul::Math::clamp < size_type > ( position, 0, _v.size() - 1 );
   iterator itr = _v.begin() + ( static_cast < difference_type > ( position ) );
   _v.erase ( itr );
@@ -189,25 +175,13 @@ template < class T > inline void Array<T>::erase ( size_type position )
 
 template < class T > inline void Array<T>::forEach ( ConstCallback fun ) const
 {
-  // Guard the copying of the internal vector.
-  InternalVectorType v;
-  {
-    Guard guard ( _mutex );
-    v = _v;
-  }
-
-  // Now loop through the copy.
-  for ( const_iterator i = v.begin(); i != v.end(); ++i )
+  for ( const_iterator i = _v.begin(); i != _v.end(); ++i )
   {
     fun ( *i );
   }
 }
 template < class T > inline void Array<T>::forEach ( Callback fun )
 {
-  // Guard the loop because the callback can modify the value.
-  Guard guard ( _mutex );
-
-  // Loop through the container.
   for ( iterator i = _v.begin(); i != _v.end(); ++i )
   {
     fun ( *i );
@@ -223,14 +197,11 @@ template < class T > inline void Array<T>::forEach ( Callback fun )
 
 template < class T > inline void Array<T>::insert ( size_type position, const T &v )
 {
-  Guard guard ( _mutex );
-
   if ( true == _v.empty() )
   {
     _v.push_back ( v );
     return;
   }
-
   position = Usul::Math::clamp < size_type > ( position, 0, _v.size() - 1 );
   iterator itr = _v.begin() + ( static_cast < difference_type > ( position ) );
   _v.insert ( itr, v );
@@ -244,7 +215,6 @@ template < class T > inline void Array<T>::insert ( size_type position, const T 
 
 template < class T > inline void Array<T>::push_back ( const T &v )
 {
-  Guard guard ( _mutex );
   _v.push_back ( v );
 }
 template < class T > inline void Array<T>::push_front ( const T &v )
@@ -261,7 +231,6 @@ template < class T > inline void Array<T>::push_front ( const T &v )
 
 template < class T > inline typename Array<T>::size_type Array<T>::size() const
 {
-  Guard guard ( _mutex );
   return _v.size();
 }
 
@@ -274,13 +243,10 @@ template < class T > inline typename Array<T>::size_type Array<T>::size() const
 
 template < class T > inline void Array<T>::swap ( InternalVectorType &other )
 {
-  Guard guard ( _mutex );
   _v.swap ( other );
 }
 template < class T > inline void Array<T>::swap ( Array &other )
 {
-  Guard guard1 ( _mutex );
-  Guard guard2 ( other._mutex );
   _v.swap ( other._v );
 }
 

@@ -217,6 +217,7 @@ jobs:
         pip install conan --upgrade
         pip install conan_package_tools
         conan user
+        conan remote add slepasteur "https://api.bintray.com/conan/slepasteur/public-conan"
       displayName: Configure Conan
 
     - script: |
@@ -227,6 +228,5 @@ jobs:
       displayName: Print Versions
 
     - script: |
-        conan remote add slepasteur "https://api.bintray.com/conan/slepasteur/public-conan"
         python build.py
       displayName: Build

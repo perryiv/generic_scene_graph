@@ -19,11 +19,11 @@
 #include "GSG/Base/Containers/Array.h"
 
 
-#define GSG_DECLARE_ARRAY_TYPE(class_name,value_type) \
-  class class_name : public Array < float > \
+#define GSG_DECLARE_ARRAY_TYPE(class_name,number_type) \
+  class class_name : public Array < number_type > \
   { \
   public: \
-    typedef Array < float > BaseClass; \
+    typedef Array < number_type > BaseClass; \
     typedef BaseClass::initializer_list initializer_list; \
     typedef BaseClass::InternalVectorType InternalVectorType; \
     GSG_DECLARE_OBJECT_CLASS ( class_name ); \

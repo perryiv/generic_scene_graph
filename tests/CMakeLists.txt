@@ -21,6 +21,7 @@ set ( SOURCE_FILES
   ./GSG/Base/Containers/Array.cpp
   ./GSG/Base/Containers/TypedArrays.cpp
   ./GSG/Scene/Nodes/Groups/Group.cpp
+  ./GSG/Scene/Nodes/Groups/Transform.cpp
   ./GSG/Scene/Nodes/Shapes/Geometry.cpp
   ./GSG/Scene/Primitives/DrawElements.cpp
   ./GSG/Main.cpp

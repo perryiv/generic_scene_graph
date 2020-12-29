@@ -45,6 +45,7 @@ set ( SOURCE_FILES
   GSG/Scene/Primitives/DrawArrays.cpp
   GSG/Scene/Primitives/DrawElements.cpp
   GSG/Scene/Primitives/PrimitiveSet.cpp
+  GSG/Scene/Visitors/Intersection/Intersect.cpp
   GSG/Scene/Visitors/Visitor.cpp
 )
 

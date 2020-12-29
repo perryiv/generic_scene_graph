@@ -46,6 +46,9 @@ public:
 
   Geometry();
 
+  // Get the bounds.
+  virtual Bounds getBounds() const override;
+
   // Get/set the colors.
   const Float32ArrayPtr getColors() const;
   Float32ArrayPtr       getColors();

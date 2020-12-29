@@ -76,7 +76,7 @@ Group::~Group()
 
 void Group::_destroyGroup()
 {
-  this->removeAllChildren();
+  this->removeAll();
 }
 
 
@@ -88,7 +88,7 @@ void Group::_destroyGroup()
 
 void Group::_traverseConst ( GSG::Scene::Visitors::Visitor &visitor, PropertyMap &pm ) const
 {
-  // Guard making a copy of the sequence.
+  // Guard making a copy of the children.
   Children children;
   {
     Guard guard ( this->mutex() );
@@ -103,7 +103,7 @@ void Group::_traverseConst ( GSG::Scene::Visitors::Visitor &visitor, PropertyMap
 }
 void Group::_traverseModify ( GSG::Scene::Visitors::Visitor &visitor, PropertyMap &pm )
 {
-  // Guard making a copy of the sequence.
+  // Guard making a copy of the children.
   Children children;
   {
     Guard guard ( this->mutex() );
@@ -125,9 +125,9 @@ void Group::_traverseModify ( GSG::Scene::Visitors::Visitor &visitor, PropertyMa
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-void Group::removeAllChildren()
+void Group::removeAll()
 {
-  // Guard making a copy of the sequence.
+  // Guard making a copy of the children.
   Children children;
   {
     Guard guard ( this->mutex() );
@@ -140,6 +140,12 @@ void Group::removeAllChildren()
   {
     NodePtr child = *i;
     child->_removeParent ( this );
+  }
+
+  // Unless we were already empty, our bounds is now invalid.
+  if ( false == children.empty() )
+  {
+    this->dirtyBounds();
   }
 }
 
@@ -159,70 +165,6 @@ NodePtr Group::at ( size_type index )
 {
   Guard guard ( this->mutex() );
   return _children.at ( index );
-}
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-//  Get the first node. Throws an exception if the group is empty.
-//
-///////////////////////////////////////////////////////////////////////////////
-
-const NodePtr Group::front() const
-{
-  Guard guard ( this->mutex() );
-  return _children.front();
-}
-NodePtr Group::front()
-{
-  Guard guard ( this->mutex() );
-  return _children.front();
-}
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-//  Get the last node. Throws an exception if the group is empty.
-//
-///////////////////////////////////////////////////////////////////////////////
-
-const NodePtr Group::back() const
-{
-  Guard guard ( this->mutex() );
-  return _children.back();
-}
-NodePtr Group::back()
-{
-  Guard guard ( this->mutex() );
-  return _children.back();
-}
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-//  Iterators. Use with caution in a multi-threaded environment.
-//
-///////////////////////////////////////////////////////////////////////////////
-
-Group::const_iterator Group::begin() const
-{
-  Guard guard ( this->mutex() );
-  return _children.begin();
-}
-Group::iterator Group::begin()
-{
-  Guard guard ( this->mutex() );
-  return _children.begin();
-}
-Group::const_iterator Group::end() const
-{
-  Guard guard ( this->mutex() );
-  return _children.end();
-}
-Group::iterator Group::end()
-{
-  Guard guard ( this->mutex() );
-  return _children.end();
 }
 
 
@@ -272,7 +214,7 @@ void Group::insert ( size_type pos, NodePtr node )
   // Handle position out of range.
   if ( pos >= this->size() )
   {
-    this->push_back ( node );
+    this->append ( node );
     return;
   }
 
@@ -286,16 +228,19 @@ void Group::insert ( size_type pos, NodePtr node )
 
   // Add this instance to the node's set of parents.
   node->_addParent ( this );
+
+  // Our bounds is now invalid.
+  this->dirtyBounds();
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-//  Add the node to the end of the sequence.
+//  Append the node to the end of the sequence.
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-void Group::push_back ( NodePtr node )
+void Group::append ( NodePtr node )
 {
   // Handle invalid node.
   if ( false == node.valid() )
@@ -313,33 +258,47 @@ void Group::push_back ( NodePtr node )
 
   // Add this instance to the node's set of parents.
   node->_addParent ( this );
+
+  // Our bounds is now invalid.
+  this->dirtyBounds();
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-//  Add the node to the beginning of the sequence.
+//  Get the bound.
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-void Group::push_front ( NodePtr node )
+Group::Bounds Group::getBounds() const
 {
-  // Handle invalid node.
-  if ( false == node.valid() )
-  {
-    return;
-  }
-
-  // If we get to here then append the node.
+  // For now, guard the whole thing. Optimize later.
   Guard guard ( this->mutex() );
 
-  // We have to convert to a flex-vector, push, and convert back.
-  FlexVector children ( _children );
-  children = children.push_front ( node );
-  _children = Children ( children.begin(), children.end() );
+  // Are we supposed to contribute to the bounds?
+  if ( false == this->getContributeToBounds() )
+  {
+    return Bounds(); // Return an invalid bounds.
+  }
 
-  // Add this instance to the node's set of parents.
-  node->_addParent ( this );
+  // Shortcuts.
+  Bounds &bounds = this->_getBounds();
+
+  // If the bounds is valid then return it.
+  if ( true == bounds.valid() )
+  {
+    return bounds;
+  }
+
+  // Loop through the copy of the children and grow the bounds.
+  for ( auto i = _children.begin(); i != _children.end(); ++i )
+  {
+    // TODO: Do we need to make sure it is valid?
+    bounds.grow ( (*i)->getBounds() );
+  }
+
+  // Return what we have.
+  return bounds;
 }
 
 

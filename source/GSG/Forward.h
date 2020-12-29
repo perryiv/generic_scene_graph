@@ -56,6 +56,10 @@ namespace GSG
     }
     namespace Visitors
     {
+      namespace Intersection
+      {
+        class Intersect;
+      }
       class Visitor;
     }
   }

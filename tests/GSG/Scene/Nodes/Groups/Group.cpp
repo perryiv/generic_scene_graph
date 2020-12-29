@@ -47,13 +47,12 @@ TEST_CASE ( "Scene group node" )
     REQUIRE ( 1 == child3->getReferenceCount() );
     REQUIRE ( 1 == child4->getReferenceCount() );
 
-    root->addChild ( child1 );
-    root->addChild ( child2 );
-    root->addChild ( child3 );
-    root->addChild ( child4 );
+    root->append ( child1 );
+    root->append ( child2 );
+    root->append ( child3 );
+    root->append ( child4 );
 
-    REQUIRE ( 4 == root->getNumChildren() );
-    REQUIRE ( root->size() == root->getNumChildren() );
+    REQUIRE ( 4 == root->size() );
 
     REQUIRE ( true == child1->hasParent ( root ) );
     REQUIRE ( true == child2->hasParent ( root ) );
@@ -77,8 +76,8 @@ TEST_CASE ( "Scene group node" )
     Group::Ptr child0 ( new Group() );
     Group::Ptr child1 ( new Group() );
 
-    root->addChild ( child0 );
-    root->addChild ( child1 );
+    root->append ( child0 );
+    root->append ( child1 );
 
     REQUIRE ( child0.get() == root->at ( 0 ).get() );
     REQUIRE ( child1.get() == root->at ( 1 ).get() );

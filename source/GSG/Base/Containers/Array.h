@@ -56,6 +56,11 @@ public:
   void append  ( const T &v ) { this->push_back  ( v ); }
   void prepend ( const T &v ) { this->push_front ( v ); }
 
+  const_iterator begin() const { return _v.begin(); }
+  iterator       begin()       { return _v.begin(); }
+  const_iterator end() const   { return _v.end(); }
+  iterator       end()         { return _v.end(); }
+
   size_type capacity() const;
   void clear();
 

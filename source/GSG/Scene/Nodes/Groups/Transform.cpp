@@ -67,7 +67,7 @@ Transform::~Transform()
 
 void Transform::_destroyTransform()
 {
-  this->removeAllChildren();
+  this->removeAll();
 }
 
 

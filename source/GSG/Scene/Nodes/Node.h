@@ -20,11 +20,12 @@
 #include "GSG/Forward.h"
 
 #include "Usul/Bits/Bits.h"
+#include "Usul/Math/Box.h"
 #include "Usul/Properties/Map.h"
 
 #include <atomic>
+#include <map>
 #include <mutex>
-#include <set>
 
 #define GSG_DECLARE_NODE_CLASS_BASE(class_name) \
   GSG_DECLARE_OBJECT_CLASS ( class_name ); \
@@ -59,9 +60,9 @@ public:
   typedef GSG::Base::Objects::Object BaseClass;
   typedef std::recursive_mutex Mutex;
   typedef std::lock_guard < Mutex > Guard;
-  typedef std::atomic < unsigned int > Flags;
-  typedef std::set < ValidAccessRefPtr > Parents;
+  typedef std::map < unsigned long, ValidAccessRefPtr > Parents;
   typedef Usul::Properties::Map PropertyMap;
+  typedef Usul::Math::Boxf Bounds;
 
   // Flags for this class.
   enum : unsigned int
@@ -71,13 +72,20 @@ public:
     CONTRIBUTE_TO_BOUNDS = 0x00000004,
   };
 
-  // Get/set all the flags.
-  unsigned int getFlags() const { return _flags; }
-  void setFlags ( unsigned int flags ) { _flags = flags; }
+  // Dirty/get the bounds.
+  void           dirtyBounds();
+  virtual Bounds getBounds() const = 0;
 
   // Get/set the state for contributing to the bounds.
   bool getContributeToBounds() const { return Usul::Bits::has < unsigned int > ( _flags, CONTRIBUTE_TO_BOUNDS ); }
   void setContributeToBounds ( bool state ) { _flags = Usul::Bits::set < unsigned int > ( _flags, CONTRIBUTE_TO_BOUNDS, state ); }
+
+  // Get/set all the flags.
+  unsigned int getFlags() const { return _flags; }
+  void setFlags ( unsigned int flags ) { _flags = flags; }
+
+  // Get the id.
+  unsigned long getID() const { return _id; } // No need to guard.
 
   // Get/set the intersectable state.
   bool getIntersectable() const { return Usul::Bits::has < unsigned int > ( _flags, INTERSECTABLE ); }
@@ -88,7 +96,7 @@ public:
   void setVisible ( bool state ) { _flags = Usul::Bits::set < unsigned int > ( _flags, VISIBLE, state ); }
 
   // Does this node have the given parent?
-  bool hasParent ( const Parents::value_type &parent ) const;
+  bool hasParent ( const Parents::mapped_type &parent ) const;
 
   // Direct access to internal mutex. Use with caution.
   Mutex &mutex() const { return _mutex; }
@@ -102,15 +110,21 @@ protected:
 
   void _addParent ( Node * );
 
+  Bounds &_getBounds() const { return _bounds; } // This is mutable.
+
   void _removeParent ( Node * );
+
+  void _setBounds ( const Bounds & );
 
 private:
 
   void _destroyNode();
 
   mutable Mutex _mutex;
-  Flags _flags;
+  const unsigned long _id;
+  std::atomic < unsigned int > _flags;
   Parents _parents;
+  mutable Bounds _bounds;
 };
 
 

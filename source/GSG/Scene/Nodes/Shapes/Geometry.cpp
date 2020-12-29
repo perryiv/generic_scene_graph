@@ -202,6 +202,72 @@ Geometry::PrimitiveSets Geometry::getPrimitives() const
 }
 
 
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Get the bound.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+Geometry::Bounds Geometry::getBounds() const
+{
+  // For now, guard the whole thing. Optimize later.
+  Guard guard ( this->mutex() );
+
+  // Are we supposed to contribute to the bounds?
+  if ( false == this->getContributeToBounds() )
+  {
+    return Bounds(); // Return an invalid bounds.
+  }
+
+  // Shortcuts.
+  Bounds &bounds = this->_getBounds();
+
+  // If the bounds is valid then return it.
+  if ( true == bounds.valid() )
+  {
+    return bounds;
+  }
+
+  // Handle no points.
+  if ( false == _points.valid() )
+  {
+    return Bounds(); // Return an invalid bounds.
+  }
+
+  // Shortcuts.
+  const Float32Array &points = *_points;
+
+  // Handle no points.
+  if ( true == points.empty() )
+  {
+    return Bounds(); // Return an invalid bounds.
+  }
+
+  // Handle invalid number of points.
+  if ( 0 != ( points.size() % 3 ) )
+  {
+    return Bounds(); // Return an invalid bounds.
+  }
+
+  // Loop through the points and grow the bounds.
+  Float32Array::const_iterator i = points.begin();
+  while ( i != points.end() )
+  {
+    const float x = *i; ++i;
+    const float y = *i; ++i;
+    const float z = *i; ++i;
+    bounds.grow ( Bounds::Vec3 ( x, y, z ) );
+  }
+
+  // Shoud be true.
+  USUL_CHECK_AND_THROW ( ( points.end() == i ),
+    "Did not loop to the end of the points when growing bounds" );
+
+  // Return what we have.
+  return bounds;
+}
+
+
 } // namespace Shapes
 } // namespace Nodes
 } // namespace Scene

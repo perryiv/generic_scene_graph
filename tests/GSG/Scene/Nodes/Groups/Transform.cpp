@@ -37,15 +37,16 @@ namespace Details
       0, 0, 2, 0,
       0, 0, 0, 2
     } );
+
     Transform::Ptr child1 ( new Transform ( m ) );
     Transform::Ptr child2 ( new Transform ( m ) );
     Transform::Ptr child3 ( new Transform ( m ) );
     Transform::Ptr child4 ( new Transform ( m ) );
 
-    trans->addChild ( child1 );
-    trans->addChild ( child2 );
-    trans->addChild ( child3 );
-    trans->addChild ( child4 );
+    trans->append ( child1 );
+    trans->append ( child2 );
+    trans->append ( child3 );
+    trans->append ( child4 );
 
     if ( 0 == depth )
     {
@@ -70,8 +71,10 @@ TEST_CASE ( "Scene transform group node" )
 {
   SECTION ( "Can traverse and modify the graph" )
   {
+    const unsigned int depth = 4;
+
     Transform::Ptr root ( new Transform() );
-    Details::addChildren ( root, 4 );
+    Details::addChildren ( root, depth );
 
   }
 }

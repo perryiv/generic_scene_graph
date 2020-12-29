@@ -35,10 +35,9 @@ public:
   typedef Node BaseClass;
   typedef BaseClass::Mutex Mutex;
   typedef BaseClass::Guard Guard;
+  typedef BaseClass::Bounds Bounds;
   typedef Node::ValidAccessRefPtr NodePtr;
   typedef immer::vector < NodePtr > Children;
-  typedef Children::const_iterator const_iterator;
-  typedef Children::iterator iterator;
   typedef Children::size_type size_type;
 
   GSG_DECLARE_NODE_CLASS ( Group );
@@ -46,51 +45,33 @@ public:
   // Constructor
   Group();
 
-  // Add the child node.
-  void addChild ( NodePtr child ) { this->push_back ( child ); }
+  // Append or insert the child node before the given position.
+  void append ( NodePtr child );
+  template< class Itr >
+  void insert ( size_type pos, Itr first, Itr last);
+  void insert ( size_type pos, NodePtr );
 
   // Access the child. Throws an exception if the index is out of range.
   const NodePtr at ( size_type ) const;
   NodePtr       at ( size_type );
 
-  // Get the last node. Throws an exception if the group is empty.
-  const NodePtr back() const;
-  NodePtr       back();
-
-  // Iterators. Use with caution in a multi-threaded environment.
-  const_iterator begin() const;
-  iterator       begin();
-  const_iterator end() const;
-  iterator       end();
-
-  // Clear the group.
-  void clear() { this->removeAllChildren(); }
-
   // Is the group empty?
   bool empty() const;
 
-  // Get the first node. Throws an exception if the group is empty.
-  const NodePtr front() const;
-  NodePtr       front();
+  // Get the bounds.
+  virtual Bounds getBounds() const override;
 
-  // Get the number of child nodes.
-  size_type getNumChildren() const { return this->size(); }
-
-  // Insert the node before the given position iterator.
-  template< class Itr >
-  void insert ( size_type pos, Itr first, Itr last);
-  void insert ( size_type pos, NodePtr );
+  // Get the children. Use with caution in a multi-threaded environment.
+  Children getChildren();
 
   // Access the child.
   const NodePtr operator[] ( size_type index ) const { return this->at ( index ); }
   NodePtr       operator[] ( size_type index )       { return this->at ( index ); }
 
-  // Add the node to the end or beginning of the sequence.
-  void push_back  ( NodePtr );
-  void push_front ( NodePtr );
-
-  // Remove all the child nodes.
-  void removeAllChildren();
+  // Remove the given child node, or all the child nodes.
+  void removeAll();
+  void remove ( size_type pos );
+  void remove ( NodePtr child );
 
   // Get the size of the group, which is the number of child nodes.
   size_type size() const;

@@ -8,12 +8,12 @@ etc).
 
 ## Thread Safety
 
-You should be able to add and remove nodes in one thread while another thread is traversing the graph.
+You should be able to add and remove nodes in one thread while another thread is traversing the graph (e.g., rendering).
 
 This is because the group node makes a light-weight copy of its children (using
 [immer](https://github.com/arximboldi/immer)) before iterating over them.
 
-You __*can not*__ modify existing nodes in separate threads safely.
+However, modifying existing nodes (that are already part of the graph) in one thread while traversing the graph in another thread will probably not work properly.
 
 ## Building
 

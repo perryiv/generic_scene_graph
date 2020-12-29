@@ -290,7 +290,7 @@ Group::Bounds Group::getBounds() const
     return bounds;
   }
 
-  // Loop through the copy of the children and grow the bounds.
+  // Loop through the children and grow the bounds.
   for ( auto i = _children.begin(); i != _children.end(); ++i )
   {
     // TODO: Do we need to make sure it is valid?

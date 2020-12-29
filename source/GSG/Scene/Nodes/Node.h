@@ -114,7 +114,6 @@ protected:
 
   void _removeParent ( Node * );
 
-  void _setBounds ( const Bounds & );
 
 private:
 

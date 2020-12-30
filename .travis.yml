@@ -36,7 +36,7 @@ jobs:
       services:
         - docker
       script:
-        - docker run --rm conanio/gcc10 /bin/bash -c "gcc --version && cmake --version"
+        - docker run --rm conanio/gcc10 /bin/bash -c "sh build.sh"
 
     # - name: Apple
     #   os: osx

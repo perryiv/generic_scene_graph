@@ -13,6 +13,8 @@
 #
 ################################################################################
 
+language: cpp
+
 jobs:
   include:
     - name: Ubuntu Focal
@@ -27,4 +29,4 @@ jobs:
       os: windows
 
 script:
-  - node --version
+  - cmake --version

@@ -7,6 +7,9 @@
 #
 ################################################################################
 
-echo "\n\nIn build script\n\n"
-gcc --version
+echo "\n\n---- Start of build script ----\n\n"
+
 cmake --version
+env
+
+echo "\n\n---- End of build script ----\n\n"

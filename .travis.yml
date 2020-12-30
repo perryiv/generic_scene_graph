@@ -36,7 +36,7 @@ jobs:
       services:
         - docker
       script:
-        - docker run --rm conanio/gcc10 /bin/bash -c "echo ---- && pwd && echo ----"
+        - docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "echo ---- && pwd && echo ---- && ls && echo ----"
 
     # - name: Apple
     #   os: osx

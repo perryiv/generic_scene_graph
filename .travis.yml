@@ -31,16 +31,32 @@ branches:
 jobs:
   include:
 
-    - name: Ubuntu Focal
-      dist: focal
+    - name: Linux_GCC_10_CPP_17
+      os: linux
       services:
         - docker
       script:
         - docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "sh ./build.sh"
 
-    # - name: Apple
-    #   os: osx
-    #
+    - name: Linux_GCC_9_CPP_17
+      os: linux
+      services:
+        - docker
+      script:
+        - docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "sh ./build.sh"
+
+    - name: Linux_GCC_8_CPP_17
+      os: linux
+      services:
+        - docker
+      script:
+        - docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "sh ./build.sh"
+
+    - name: Apple
+      os: osx
+      script:
+        - sh ./build.sh
+    
     # - name: Windows
     #   os: windows
     #   env:

@@ -7,6 +7,6 @@
 #
 ################################################################################
 
-echo $0
+echo "\n\nIn build script\n\n"
 gcc --version
 cmake --version

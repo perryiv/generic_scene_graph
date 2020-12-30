@@ -115,6 +115,7 @@ jobs:
         - MSBUILD_PATH="C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin"
       install:
         - choco install visualstudio2019buildtools --package-parameters "--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64"
+        - choco install ninja
       script:
         - CPP_STANDARD=17 sh ./build.sh
 
@@ -124,6 +125,7 @@ jobs:
         - MSBUILD_PATH="C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin"
       install:
         - choco install visualstudio2019buildtools --package-parameters "--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64"
+        - choco install ninja
       script:
         - CPP_STANDARD=14 sh ./build.sh
 
@@ -133,5 +135,6 @@ jobs:
         - MSBUILD_PATH="C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin"
       install:
         - choco install visualstudio2019buildtools --package-parameters "--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64"
+        - choco install ninja
       script:
         - CPP_STANDARD=11 sh ./build.sh

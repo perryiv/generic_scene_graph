@@ -10,6 +10,7 @@
 echo "\n\n---- Start of build script ----\n\n"
 
 cmake --version
-env
+$CC --version
+$CXX --version
 
 echo "\n\n---- End of build script ----\n\n"

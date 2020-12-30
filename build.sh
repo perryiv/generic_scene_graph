@@ -26,43 +26,23 @@ echo "----"
 $CXX --version
 
 
-################################################################################
-#
-#  immer
-#
-################################################################################
-
+# immer
 echo "----"
 cd
 git clone https://github.com/arximboldi/immer.git
-cd immer
-rm -rf build && mkdir build && cd build
-cmake ../ \
-  -G Ninja \
-  -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_CXX_STANDARD=${CPP_STANDARD} \
-  -DCMAKE_VERBOSE_MAKEFILE=ON
-cmake --build .
+cd immer && rm -rf build && mkdir build && cd build
+cmake ../ -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAKE_VERBOSE_MAKEFILE=ON
+cmake --build . --target install
 cd
 
 
-################################################################################
-#
-#  Usul
-#
-################################################################################
-
+# Usul
 echo "----"
 cd
 git clone https://github.com/perryiv/usul.git
-cd usul
-rm -rf build && mkdir build && cd build
-cmake ../ \
-  -G Ninja \
-  -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_CXX_STANDARD=${CPP_STANDARD} \
-  -DCMAKE_VERBOSE_MAKEFILE=ON
-cmake --build .
+cd usul && rm -rf build && mkdir build && cd build
+cmake ../ -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAKE_VERBOSE_MAKEFILE=ON
+cmake --build . --target install
 cd
 
 

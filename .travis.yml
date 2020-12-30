@@ -1,3 +1,12 @@
+
+################################################################################
+#
+#  Copyright (c) 2020, Perry L Miller IV
+#  All rights reserved.
+#  MIT License: https://opensource.org/licenses/mit-license.html
+#
+################################################################################
+
 ################################################################################
 #
 #  Travis configuration file.
@@ -19,9 +28,6 @@ branches:
   only:
     - master
 
-before_install:
-  - eval "${MATRIX_EVAL}"
-
 jobs:
   include:
 
@@ -30,22 +36,22 @@ jobs:
       services:
         - docker
       script:
-        - docker run --rm conanio/gcc10 /bin/bash -c "echo `gcc --version`"
+        - docker run --rm conanio/gcc10 /bin/bash -c "gcc --version && cmake --version"
 
-    - name: Apple
-      os: osx
+    # - name: Apple
+    #   os: osx
+    #
+    # - name: Windows
+    #   os: windows
+    #   env:
+    #     - MSBUILD_PATH="C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin"
+    #   install:
+    #     - choco install visualstudio2019buildtools --package-parameters "--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64"
 
-    - name: Windows
-      os: windows
-      env:
-        - MSBUILD_PATH="C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin"
-      install:
-        - choco install visualstudio2019buildtools --package-parameters "--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64"
-
-script:
-  - cmake --version
-  - git --version
-  - gcc --version
-  - clang --version
-  - echo $CC
-  - echo $CXX
+# script:
+#   - cmake --version
+#   - git --version
+#   - gcc --version
+#   - clang --version
+#   - echo $CC
+#   - echo $CXX

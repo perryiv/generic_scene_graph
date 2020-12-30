@@ -26,9 +26,7 @@ git clone https://github.com/perryiv/usul.git
 cd usul
 
 pushd .
-rm -rf build
-mkdir build
-cd build
+rm -rf build && mkdir build && cd build
 cmake ../ \
   -G Ninja \
   -DCMAKE_BUILD_TYPE=Debug \
@@ -36,14 +34,11 @@ cmake ../ \
   -DCMAKE_VERBOSE_MAKEFILE=ON \
   -DFORCE_COLORED_OUTPUT=ON
 cmake --build .
-cd bin
-./gsg_test_d --abort --use-colour=yes --durations=no
+cd bin && ./gsg_test_d --abort --use-colour=yes --durations=no
 popd
 
 pushd .
-rm -rf build
-mkdir build
-cd build
+rm -rf build && mkdir build && cd build
 cmake ../../ \
   -G Ninja \
   -DCMAKE_BUILD_TYPE=Release \
@@ -51,8 +46,7 @@ cmake ../../ \
   -DCMAKE_VERBOSE_MAKEFILE=ON \
   -DFORCE_COLORED_OUTPUT=ON
 cmake --build .
-cd bin
-./gsg_test --abort --use-colour=yes --durations=no
+cd bin && ./gsg_test --abort --use-colour=yes --durations=no
 popd
 
 echo "\n\n---- End of build script ----\n\n"

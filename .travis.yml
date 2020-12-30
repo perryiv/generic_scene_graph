@@ -35,50 +35,103 @@ jobs:
       os: linux
       services:
         - docker
-      env:
-        - CPP_STANDARD: 17
       script:
-        - docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "sh ./build.sh"
+        - docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "CPP_STANDARD=17 sh ./build.sh"
 
     - name: Linux_GCC_10_CPP_14
       os: linux
       services:
         - docker
-      env:
-        - CPP_STANDARD: 14
       script:
-        - docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "sh ./build.sh"
+        - docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "CPP_STANDARD=14 sh ./build.sh"
+
+    - name: Linux_GCC_10_CPP_11
+      os: linux
+      services:
+        - docker
+      script:
+        - docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "CPP_STANDARD=11 sh ./build.sh"
 
     - name: Linux_GCC_9_CPP_17
       os: linux
       services:
         - docker
       script:
-        - docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "sh ./build.sh"
+        - docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "CPP_STANDARD=17 sh ./build.sh"
+
+    - name: Linux_GCC_9_CPP_14
+      os: linux
+      services:
+        - docker
+      script:
+        - docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "CPP_STANDARD=14 sh ./build.sh"
+
+    - name: Linux_GCC_9_CPP_11
+      os: linux
+      services:
+        - docker
+      script:
+        - docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "CPP_STANDARD=11 sh ./build.sh"
 
     - name: Linux_GCC_8_CPP_17
       os: linux
       services:
         - docker
       script:
-        - docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "sh ./build.sh"
+        - docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "CPP_STANDARD=17 sh ./build.sh"
 
-    - name: Apple
+    - name: Linux_GCC_8_CPP_14
+      os: linux
+      services:
+        - docker
+      script:
+        - docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "CPP_STANDARD=14 sh ./build.sh"
+
+    - name: Linux_GCC_8_CPP_11
+      os: linux
+      services:
+        - docker
+      script:
+        - docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "CPP_STANDARD=11 sh ./build.sh"
+
+    - name: Apple_Clang_11_CPP_17
       os: osx
       script:
-        - sh ./build.sh
+        - CPP_STANDARD=17 sh ./build.sh
 
-    # - name: Windows
-    #   os: windows
-    #   env:
-    #     - MSBUILD_PATH="C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin"
-    #   install:
-    #     - choco install visualstudio2019buildtools --package-parameters "--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64"
+    - name: Apple_Clang_11_CPP_14
+      os: osx
+      script:
+        - CPP_STANDARD=14 sh ./build.sh
 
-# script:
-#   - cmake --version
-#   - git --version
-#   - gcc --version
-#   - clang --version
-#   - echo $CC
-#   - echo $CXX
+    - name: Apple_Clang_11_CPP_11
+      os: osx
+      script:
+        - CPP_STANDARD=11 sh ./build.sh
+
+    - name: Visual_Studio_2019_CPP_17
+      os: windows
+      env:
+        - MSBUILD_PATH="C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin"
+      install:
+        - choco install visualstudio2019buildtools --package-parameters "--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64"
+      script:
+        - CPP_STANDARD=17 sh ./build.sh
+
+    - name: Visual_Studio_2019_CPP_14
+      os: windows
+      env:
+        - MSBUILD_PATH="C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin"
+      install:
+        - choco install visualstudio2019buildtools --package-parameters "--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64"
+      script:
+        - CPP_STANDARD=14 sh ./build.sh
+
+    - name: Visual_Studio_2019_CPP_11
+      os: windows
+      env:
+        - MSBUILD_PATH="C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin"
+      install:
+        - choco install visualstudio2019buildtools --package-parameters "--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64"
+      script:
+        - CPP_STANDARD=11 sh ./build.sh

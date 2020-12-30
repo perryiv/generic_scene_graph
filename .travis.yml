@@ -24,38 +24,17 @@ before_install:
 
 jobs:
   include:
+
     - name: Ubuntu Focal
       dist: focal
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-10.2
-      env:
-        - MATRIX_EVAL="CC=gcc-10.2 && CXX=g++-10.2"
-    - name: Ubuntu Bionic
-      dist: bionic
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-9.2
-      env:
-        - MATRIX_EVAL="CC=gcc-9.2 && CXX=g++-9.2"
-    - name: Ubuntu Xenial
-      dist: xenial
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-8.4
-      env:
-        - MATRIX_EVAL="CC=gcc-8.4 && CXX=g++-8.4"
+      services:
+        - docker
+      script:
+        - docker run --rm conanio/gcc10 /bin/bash -c "gcc --version"
+
     - name: Apple
       os: osx
+
     - name: Windows
       os: windows
       env:

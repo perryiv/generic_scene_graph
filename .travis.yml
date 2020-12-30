@@ -1,0 +1,30 @@
+################################################################################
+#
+#  Travis configuration file.
+#
+#  Pipeline results are here:
+#
+#    https://travis-ci.com/github/perryiv/generic_scene_graph
+#
+#  Resources:
+#
+#    https://docs.conan.io/en/latest/integrations/ci/travisci.html
+#    https://docs.travis-ci.com/user/deployment/bintray/
+#
+################################################################################
+
+jobs:
+  include:
+    - name: Ubuntu Focal
+      dist: focal
+    - name: Ubuntu Bionic
+      dist: bionic
+    - name: Ubuntu Xenial
+      dist: xenial
+    - name: Apple
+      os: osx
+    - name: Windows
+      os: windows
+
+script:
+  - node --version

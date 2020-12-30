@@ -61,7 +61,7 @@ public:
   // Get the bounds.
   virtual Bounds getBounds() const override;
 
-  // Get the children. Use with caution in a multi-threaded environment.
+  // Get the children.
   Children getChildren();
 
   // Access the child.

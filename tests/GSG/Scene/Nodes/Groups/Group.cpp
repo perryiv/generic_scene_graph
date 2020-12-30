@@ -15,6 +15,8 @@
 
 #include "GSG/Scene/Nodes/Groups/Group.h"
 
+#include "Usul/Errors/Exceptions.h"
+
 #include "catch2/catch.hpp"
 
 
@@ -69,7 +71,7 @@ TEST_CASE ( "Scene group node" )
     REQUIRE ( false == root->hasParent ( Group::Ptr() ) );
   }
 
-  SECTION ( "Can access a child nodes" )
+  SECTION ( "Can access child nodes" )
   {
     Group::Ptr root ( new Group() );
 
@@ -84,5 +86,54 @@ TEST_CASE ( "Scene group node" )
 
     REQUIRE ( child0.get() == (*root)[0].get() );
     REQUIRE ( child1.get() == (*root)[1].get() );
+  }
+
+  SECTION ( "Can not add node to group twice" )
+  {
+    Group::Ptr root ( new Group() );
+
+    Group::Ptr child0 ( new Group() );
+    Group::Ptr child1 ( new Group() );
+
+    root->append ( child0 );
+    root->append ( child1 );
+
+    REQUIRE_THROWS_AS   ( root->append ( child0 ), Usul::Errors::RuntimeError );
+    REQUIRE_THROWS_AS   ( root->append ( child0 ), std::exception );
+    REQUIRE_THROWS_WITH ( root->append ( child0 ), "This node already has the given parent" );
+
+    REQUIRE ( 2 == root->size() );
+
+    REQUIRE ( child0.get() == root->at ( 0 ).get() );
+    REQUIRE ( child1.get() == root->at ( 1 ).get() );
+  }
+
+  SECTION ( "Can insert child nodes" )
+  {
+    Group::Ptr root ( new Group() );
+
+    Group::Ptr child0 ( new Group() );
+    Group::Ptr child1 ( new Group() );
+    Group::Ptr child2 ( new Group() );
+    Group::Ptr child3 ( new Group() );
+    Group::Ptr child4 ( new Group() );
+
+    root->append ( child0 );
+    root->insert ( 0, child1 );
+    root->insert ( 0, child2 );
+    root->insert ( 1, child3 );
+    root->insert ( 100, child4 ); // Should append.
+
+    REQUIRE ( 5 == root->size() );
+
+    REQUIRE ( child2.get() == root->at ( 0 ).get() );
+    REQUIRE ( child3.get() == root->at ( 1 ).get() );
+    REQUIRE ( child1.get() == root->at ( 2 ).get() );
+    REQUIRE ( child0.get() == root->at ( 3 ).get() );
+    REQUIRE ( child4.get() == root->at ( 4 ).get() );
+  }
+
+  SECTION ( "Can get the children" )
+  {
   }
 }

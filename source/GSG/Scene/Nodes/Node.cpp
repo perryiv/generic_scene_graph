@@ -184,7 +184,7 @@ void Node::_removeParent ( Node *parent )
 
 void Node::dirtyBounds()
 {
-  // Guard the from here down.
+  // Guard the whole thing.
   Guard guard ( _mutex );
 
   // Set our bounds.

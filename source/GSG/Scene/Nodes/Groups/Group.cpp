@@ -183,6 +183,19 @@ Group::size_type Group::size() const
 
 ///////////////////////////////////////////////////////////////////////////////
 //
+//  Get the children.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+Group::Children Group::getChildren()
+{
+  Guard guard ( this->mutex() );
+  return _children;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
 //  Is the group empty?
 //
 ///////////////////////////////////////////////////////////////////////////////
@@ -221,13 +234,14 @@ void Group::insert ( size_type pos, NodePtr node )
   // If we get to here then insert the node.
   Guard guard ( this->mutex() );
 
+  // Add this instance to the node's set of parents.
+  // We do this first because it might throw.
+  node->_addParent ( this );
+
   // We have to convert to a flex-vector, insert, and convert back.
   FlexVector children ( _children );
   children = children.insert ( pos, node );
   _children = Children ( children.begin(), children.end() );
-
-  // Add this instance to the node's set of parents.
-  node->_addParent ( this );
 
   // Our bounds is now invalid.
   this->dirtyBounds();
@@ -251,13 +265,14 @@ void Group::append ( NodePtr node )
   // If we get to here then append the node.
   Guard guard ( this->mutex() );
 
+  // Add this instance to the node's set of parents.
+  // We do this first because it might throw.
+  node->_addParent ( this );
+
   // We have to convert to a flex-vector, push, and convert back.
   FlexVector children ( _children );
   children = children.push_back ( node );
   _children = Children ( children.begin(), children.end() );
-
-  // Add this instance to the node's set of parents.
-  node->_addParent ( this );
 
   // Our bounds is now invalid.
   this->dirtyBounds();
@@ -293,7 +308,7 @@ Group::Bounds Group::getBounds() const
   // Loop through the children and grow the bounds.
   for ( auto i = _children.begin(); i != _children.end(); ++i )
   {
-    // TODO: Do we need to make sure it is valid?
+    // TODO: Should we make sure it is valid?
     bounds.grow ( (*i)->getBounds() );
   }
 

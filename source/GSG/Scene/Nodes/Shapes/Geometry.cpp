@@ -261,7 +261,7 @@ Geometry::Bounds Geometry::getBounds() const
 
   // Shoud be true.
   USUL_CHECK_AND_THROW ( ( points.end() == i ),
-    "Did not loop to the end of the points when growing bounds" );
+    "Did not loop to the end of the points when growing geometry node bounds" );
 
   // Return what we have.
   return bounds;

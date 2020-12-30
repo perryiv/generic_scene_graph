@@ -7,6 +7,10 @@
 #
 ################################################################################
 
+# Exit when any command fails.
+# https://intoli.com/blog/exit-on-errors-in-bash-scripts/
+set -e
+
 echo "\n\n---- Start of build script ----\n\n"
 
 echo "----"
@@ -21,6 +25,13 @@ $CC --version
 echo "----"
 $CXX --version
 
+
+################################################################################
+#
+#  Usul
+#
+################################################################################
+
 echo "----"
 git clone https://github.com/perryiv/usul.git
 cd usul
@@ -31,8 +42,7 @@ cmake ../ \
   -G Ninja \
   -DCMAKE_BUILD_TYPE=Debug \
   -DCMAKE_CXX_STANDARD=${CPP_STANDARD} \
-  -DCMAKE_VERBOSE_MAKEFILE=ON \
-  -DFORCE_COLORED_OUTPUT=ON
+  -DCMAKE_VERBOSE_MAKEFILE=ON
 cmake --build .
 cd bin && ./gsg_test_d --abort --use-colour=yes --durations=no
 popd
@@ -43,8 +53,7 @@ cmake ../../ \
   -G Ninja \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_CXX_STANDARD=${CPP_STANDARD} \
-  -DCMAKE_VERBOSE_MAKEFILE=ON \
-  -DFORCE_COLORED_OUTPUT=ON
+  -DCMAKE_VERBOSE_MAKEFILE=ON
 cmake --build .
 cd bin && ./gsg_test --abort --use-colour=yes --durations=no
 popd

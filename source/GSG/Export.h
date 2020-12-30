@@ -18,13 +18,13 @@
 
 #ifndef GENERIC_SCENE_GRAPH_STATIC_DEFINE
 # ifdef _WIN32
-#  ifdef COMPILING_GENERIC_SCENE_GRAPH
+#  ifdef COMPILING_GSG
 #   define GSG_EXPORT __declspec ( dllexport ) // We are compiling this library so the classes are exported.
 #  else
 #   define GSG_EXPORT __declspec ( dllimport ) // The classes will be imported into the client's code.
 #  endif
 # else
-#  ifdef COMPILING_GENERIC_SCENE_GRAPH
+#  ifdef COMPILING_GSG
 #   define GSG_EXPORT __attribute__ (( visibility ( "default" ) ))
 #  endif
 # endif

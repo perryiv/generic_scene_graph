@@ -21,7 +21,7 @@ cmake_minimum_required ( VERSION 3.13.0 )
 file ( STRINGS ${CMAKE_CURRENT_LIST_DIR}/version.txt PROJECT_VERSION )
 
 # The name of this project.
-project ( generic_scene_graph VERSION ${PROJECT_VERSION} LANGUAGES CXX )
+project ( gsg VERSION ${PROJECT_VERSION} LANGUAGES CXX )
 
 # Changes to the version file should trigger a re-configuration.
 set_property ( DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS ${CMAKE_CURRENT_LIST_DIR}/version.txt )

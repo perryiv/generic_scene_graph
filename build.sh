@@ -32,7 +32,8 @@ cd
 git clone https://github.com/arximboldi/immer.git
 cd immer && rm -rf build && mkdir build && cd build
 cmake ../ -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAKE_VERBOSE_MAKEFILE=ON
-cmake --build . --target install
+cmake --build .
+sudo cmake --target install
 cd
 
 
@@ -42,7 +43,8 @@ cd
 git clone https://github.com/perryiv/usul.git
 cd usul && rm -rf build && mkdir build && cd build
 cmake ../ -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAKE_VERBOSE_MAKEFILE=ON
-cmake --build . --target install
+cmake --build .
+sudo cmake --target install
 cd
 
 

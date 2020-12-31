@@ -27,7 +27,7 @@ namespace Intersection {
 
 
 // Add the boilerplate code.
-GSG_IMPLEMENT_VISITOR_CLASS ( Intersect );
+GSG_IMPLEMENT_VISITOR_CLASS ( Intersect )
 
 
 ///////////////////////////////////////////////////////////////////////////////

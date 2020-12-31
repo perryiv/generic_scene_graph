@@ -27,7 +27,7 @@ namespace Visitors {
 
 
 // Add the boilerplate code.
-GSG_IMPLEMENT_VISITOR_CLASS ( Visitor );
+GSG_IMPLEMENT_VISITOR_CLASS ( Visitor )
 
 
 ///////////////////////////////////////////////////////////////////////////////

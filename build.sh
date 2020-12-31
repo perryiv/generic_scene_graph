@@ -26,7 +26,8 @@ echo "----"
 $CXX --version
 
 # Help cmake find things.
-export CMAKE_MODULE_PATH=/usr/local/lib/cmake
+export CMAKE_MODULE_PATH=/usr/local/lib/cmake/Catch2:/usr/local/lib/cmake/Immer:/usr/local/lib/cmake/usul
+echo "CMAKE_MODULE_PATH = ${CMAKE_MODULE_PATH}"
 
 # Catch2
 echo "----"

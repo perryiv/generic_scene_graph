@@ -35,7 +35,12 @@ echo "CMAKE_MODULE_PATH = ${CMAKE_MODULE_PATH}"
 # Catch2
 echo "----"
 cd
-curl -L https://github.com/catchorg/Catch2/archive/v2.13.1.tar.gz | tar xz
+curl -L https://github.com/catchorg/Catch2/archive/v2.13.1.tar.gz
+ls -al
+gzip -d v2.13.1.tar.gz
+ls -al
+tar -xf v2.13.1.tar
+ls -al
 cd Catch2-2.13.1
 rm -rf build && mkdir build && cd build
 cmake ../ -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAKE_VERBOSE_MAKEFILE=ON -DBUILD_TESTING=OFF -DCATCH_INSTALL_DOCS=OFF -DCATCH_INSTALL_HELPERS=OFF

@@ -28,6 +28,10 @@ $CXX --version
 echo "----"
 echo "whoami = `whoami`"
 
+echo "----"
+ls -al
+ls -al ..
+
 # Help cmake find things.
 export CMAKE_MODULE_PATH=/usr/local/lib/cmake/Catch2:/usr/local/lib/cmake/Immer:/usr/local/lib/cmake/usul
 echo "CMAKE_MODULE_PATH = ${CMAKE_MODULE_PATH}"

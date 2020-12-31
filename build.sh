@@ -67,7 +67,7 @@ cd .. && rm -rf build
 
 # GSG
 echo "----"
-cd
+cd $HOME
 ls -al
 ls -al ..
 rm -rf build2 && mkdir build2 && cd build2

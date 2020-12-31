@@ -69,10 +69,10 @@ void DrawElements::_destroyDrawElements()
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-GSG_IMPLEMENT_DRAW_ELEMENTS_CLASS ( DrawElementsUint8,  1608611520 );
-GSG_IMPLEMENT_DRAW_ELEMENTS_CLASS ( DrawElementsUint16, 1608611521 );
-GSG_IMPLEMENT_DRAW_ELEMENTS_CLASS ( DrawElementsUint32, 1608611522 );
-GSG_IMPLEMENT_DRAW_ELEMENTS_CLASS ( DrawElementsUint64, 1608611523 );
+GSG_IMPLEMENT_DRAW_ELEMENTS_CLASS ( DrawElementsUint8,  1608611520 )
+GSG_IMPLEMENT_DRAW_ELEMENTS_CLASS ( DrawElementsUint16, 1608611521 )
+GSG_IMPLEMENT_DRAW_ELEMENTS_CLASS ( DrawElementsUint32, 1608611522 )
+GSG_IMPLEMENT_DRAW_ELEMENTS_CLASS ( DrawElementsUint64, 1608611523 )
 
 
 } // namespace Primitives

@@ -35,7 +35,7 @@ echo "CMAKE_MODULE_PATH = ${CMAKE_MODULE_PATH}"
 # Catch2
 echo "----"
 cd
-curl -L https://github.com/catchorg/Catch2/archive/v2.13.1.tar.gz
+curl -L "https://github.com/catchorg/Catch2/archive/v2.13.1.tar.gz" > v2.13.1.tar.gz
 ls -al
 gzip -d v2.13.1.tar.gz
 ls -al

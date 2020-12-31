@@ -30,7 +30,6 @@ echo "whoami = `whoami`"
 
 # Help cmake find things.
 echo "----"
-ls /usr/local/lib/cmake
 export CMAKE_MODULE_PATH=/usr/local/lib/cmake/Catch2:/usr/local/lib/cmake/Immer:/usr/local/lib/cmake/usul
 echo "CMAKE_MODULE_PATH = ${CMAKE_MODULE_PATH}"
 
@@ -45,7 +44,7 @@ cmake --build .
 sudo make install
 cd .. && rm -rf build
 
-# immer
+# Immer
 echo "----"
 cd /tmp
 git clone https://github.com/arximboldi/immer.git
@@ -55,6 +54,17 @@ cmake ../ -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAK
 cmake --build .
 sudo make install
 cd .. && rm -rf build
+
+# Boost
+echo "----"
+cd /tmp
+wget https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.bz2
+bzip2 -d boost_1_75_0.tar.bz2
+tar -xf boost_1_75_0.tar
+rm boost_1_75_0.tar
+cd boost_1_75_0
+./bootstrap.sh --with-libraries=filesystem,stacktrace && \
+sudo ./b2 install
 
 # Usul
 echo "----"

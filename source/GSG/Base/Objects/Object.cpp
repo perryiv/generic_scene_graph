@@ -26,7 +26,7 @@ namespace Objects {
 
 
 // Add the boilerplate code.
-GSG_IMPLEMENT_OBJECT_CLASS ( Object );
+GSG_IMPLEMENT_OBJECT_CLASS ( Object )
 
 
 ///////////////////////////////////////////////////////////////////////////////

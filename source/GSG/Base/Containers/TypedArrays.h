@@ -35,7 +35,7 @@
   }
 
 #define GSG_DEFINE_ARRAY_TYPE(class_name) \
-  GSG_IMPLEMENT_OBJECT_CLASS ( class_name ); \
+  GSG_IMPLEMENT_OBJECT_CLASS ( class_name ) \
   class_name::~class_name() { this->clear(); }
 
 

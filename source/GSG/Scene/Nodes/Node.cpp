@@ -30,7 +30,7 @@ namespace Nodes {
 
 
 // Add the boilerplate code.
-GSG_IMPLEMENT_NODE_CLASS ( Node );
+GSG_IMPLEMENT_NODE_CLASS ( Node )
 
 
 ///////////////////////////////////////////////////////////////////////////////

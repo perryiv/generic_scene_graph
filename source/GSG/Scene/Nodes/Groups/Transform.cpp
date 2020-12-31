@@ -28,7 +28,7 @@ namespace Groups {
 
 
 // Add the boilerplate code.
-GSG_IMPLEMENT_NODE_CLASS ( Transform );
+GSG_IMPLEMENT_NODE_CLASS ( Transform )
 
 
 ///////////////////////////////////////////////////////////////////////////////

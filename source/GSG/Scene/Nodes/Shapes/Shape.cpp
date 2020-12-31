@@ -28,7 +28,7 @@ namespace Shapes {
 
 
 // Add the boilerplate code.
-GSG_IMPLEMENT_NODE_CLASS ( Shape );
+GSG_IMPLEMENT_NODE_CLASS ( Shape )
 
 
 ///////////////////////////////////////////////////////////////////////////////

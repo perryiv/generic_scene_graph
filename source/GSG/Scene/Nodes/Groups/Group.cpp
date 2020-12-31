@@ -31,7 +31,7 @@ namespace Groups {
 
 
 // Add the boilerplate code.
-GSG_IMPLEMENT_NODE_CLASS ( Group );
+GSG_IMPLEMENT_NODE_CLASS ( Group )
 
 
 ///////////////////////////////////////////////////////////////////////////////

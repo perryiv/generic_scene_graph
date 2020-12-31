@@ -68,10 +68,7 @@ cd .. && rm -rf build
 # GSG
 echo "----"
 cd
-ls -al
-ls -al ..
-cd build
-# rm -rf build2 && mkdir build2 && cd build2
+sudo rm -rf build && sudo mkdir build && chmod conan build && cd build
 # cmake ../ -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAKE_VERBOSE_MAKEFILE=ON -DGSG_BUILD_TESTS=ON
 # cmake --build .
 # sudo make install

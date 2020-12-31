@@ -51,42 +51,42 @@ jobs:
   pool:
     vmImage: 'ubuntu-latest'
   steps:
-    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "CPP_STANDARD=17 sh ./build.sh"
+    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "BUILD_GENERATOR=Ninja BUILD_COMMAND=ninja CPP_STANDARD=17 sh ./build.sh"
 
 - job: Linux_GCC_10_CPP_14
   timeoutInMinutes: 0
   pool:
     vmImage: 'ubuntu-latest'
   steps:
-    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "CPP_STANDARD=14 sh ./build.sh"
+    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "BUILD_GENERATOR=Ninja BUILD_COMMAND=ninja CPP_STANDARD=14 sh ./build.sh"
 
 - job: Linux_GCC_9_CPP_17
   timeoutInMinutes: 0
   pool:
     vmImage: 'ubuntu-latest'
   steps:
-    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "CPP_STANDARD=17 sh ./build.sh"
+    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "BUILD_GENERATOR=Ninja BUILD_COMMAND=ninja CPP_STANDARD=17 sh ./build.sh"
 
 - job: Linux_GCC_9_CPP_14
   timeoutInMinutes: 0
   pool:
     vmImage: 'ubuntu-latest'
   steps:
-    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "CPP_STANDARD=14 sh ./build.sh"
+    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "BUILD_GENERATOR=Ninja BUILD_COMMAND=ninja CPP_STANDARD=14 sh ./build.sh"
 
 - job: Linux_GCC_8_CPP_17
   timeoutInMinutes: 0
   pool:
     vmImage: 'ubuntu-latest'
   steps:
-    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "CPP_STANDARD=17 sh ./build.sh"
+    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "BUILD_GENERATOR=Ninja BUILD_COMMAND=ninja CPP_STANDARD=17 sh ./build.sh"
 
 - job: Linux_GCC_8_CPP_14
   timeoutInMinutes: 0
   pool:
     vmImage: 'ubuntu-latest'
   steps:
-    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "CPP_STANDARD=14 sh ./build.sh"
+    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "BUILD_GENERATOR=Ninja BUILD_COMMAND=ninja CPP_STANDARD=14 sh ./build.sh"
 
 # All versions of macOS appear to be using clang 11, so just doing that.
 
@@ -94,13 +94,13 @@ jobs:
   pool:
     vmImage: 'macOS-10.15'
   steps:
-    - script: CPP_STANDARD=17 sh ./build.sh
+    - script: BUILD_GENERATOR="Unix Makefiles" BUILD_COMMAND=make CPP_STANDARD=17 sh ./build.sh
 
 - job: Apple_Clang_11_CPP_14
   pool:
     vmImage: 'macOS-10.15'
   steps:
-    - script: CPP_STANDARD=14 sh ./build.sh
+    - script: BUILD_GENERATOR="Unix Makefiles" BUILD_COMMAND=make CPP_STANDARD=14 sh ./build.sh
 
 # On windows just using the host machine.
 
@@ -108,10 +108,10 @@ jobs:
   pool:
     vmImage: 'windows-2019'
   steps:
-    - script: CPP_STANDARD=17 sh ./build.sh
+    - script: BUILD_GENERATOR=Ninja BUILD_COMMAND=ninja CPP_STANDARD=17 sh ./build.sh
 
 - job: Visual_Studio_2019_CPP_14
   pool:
     vmImage: 'windows-2019'
   steps:
-    - script: CPP_STANDARD=14 sh ./build.sh
+    - script: BUILD_GENERATOR=Ninja BUILD_COMMAND=ninja CPP_STANDARD=14 sh ./build.sh

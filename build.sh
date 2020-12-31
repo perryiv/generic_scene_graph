@@ -20,12 +20,6 @@ echo "----"
 cmake --version
 
 echo "----"
-$CC --version
-
-echo "----"
-$CXX --version
-
-echo "----"
 echo "whoami = `whoami`"
 
 # Help cmake find things.
@@ -36,28 +30,31 @@ echo "CMAKE_MODULE_PATH = ${CMAKE_MODULE_PATH}"
 # Catch2
 echo "----"
 cd /tmp
+rm -rf Catch2-2.13.1
 curl -L https://github.com/catchorg/Catch2/archive/v2.13.1.tar.gz | tar xz
 cd Catch2-2.13.1
 rm -rf build && mkdir build && cd build
-cmake ../ -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAKE_VERBOSE_MAKEFILE=ON -DBUILD_TESTING=OFF -DCATCH_INSTALL_DOCS=OFF -DCATCH_INSTALL_HELPERS=OFF
+cmake ../ -G ${BUILD_GENERATOR} -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAKE_VERBOSE_MAKEFILE=ON -DBUILD_TESTING=OFF -DCATCH_INSTALL_DOCS=OFF -DCATCH_INSTALL_HELPERS=OFF
 cmake --build .
-sudo make install
+sudo ${BUILD_COMMAND} install
 cd .. && rm -rf build
 
 # Immer
 echo "----"
 cd /tmp
+rm -rf immer
 git clone https://github.com/arximboldi/immer.git
 cd immer
 rm -rf build && mkdir build && cd build
-cmake ../ -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAKE_VERBOSE_MAKEFILE=ON
+cmake ../ -G ${BUILD_GENERATOR} -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAKE_VERBOSE_MAKEFILE=ON
 cmake --build .
-sudo make install
+sudo ${BUILD_COMMAND} install
 cd .. && rm -rf build
 
 # Boost
 echo "----"
 cd /tmp
+rm -rf boost_1_75_0
 wget https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.bz2
 bzip2 -d boost_1_75_0.tar.bz2
 tar -xf boost_1_75_0.tar
@@ -69,27 +66,28 @@ sudo ./b2 install
 # Usul
 echo "----"
 cd /tmp
+rm -rf usul
 git clone https://github.com/perryiv/usul.git
-cd usul
-rm -rf build && mkdir build && cd build
-cmake ../ -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAKE_VERBOSE_MAKEFILE=ON
+cd usul && rm -rf build && mkdir build && cd build
+cmake ../ -G ${BUILD_GENERATOR} -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAKE_VERBOSE_MAKEFILE=ON
 cmake --build .
-sudo make install
+sudo ${BUILD_COMMAND} install
 cd .. && rm -rf build
 
 # GSG
 echo "----"
-mkdir -p /tmp/gsg && cd /tmp/gsg
+cd /tmp
+rm -rf gsg && mkdir -p gsg && cd gsg
 rm -rf build && mkdir build && cd build
-cmake ${HOME} -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAKE_VERBOSE_MAKEFILE=ON -DGSG_BUILD_TESTS=ON
+cmake ${HOME} -G ${BUILD_GENERATOR} -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAKE_VERBOSE_MAKEFILE=ON -DGSG_BUILD_TESTS=ON
 cmake --build .
-sudo make install
+sudo ${BUILD_COMMAND} install
 cd bin && ./gsg_test_d --abort --use-colour=yes --durations=no
-cd ..
+cd ../..
 rm -rf build && mkdir build && cd build
-cmake ../ -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAKE_VERBOSE_MAKEFILE=ON -DGSG_BUILD_TESTS=ON
+cmake ${HOME} -G ${BUILD_GENERATOR} -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAKE_VERBOSE_MAKEFILE=ON -DGSG_BUILD_TESTS=ON
 cmake --build .
-sudo make install
+sudo ${BUILD_COMMAND} install
 cd bin && ./gsg_test --abort --use-colour=yes --durations=no
 cd
 

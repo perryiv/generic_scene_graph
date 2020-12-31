@@ -26,7 +26,7 @@ namespace Primitives {
 
 
 // Add the boilerplate code.
-GSG_IMPLEMENT_PRIMITIVE_CLASS ( DrawElements );
+GSG_IMPLEMENT_PRIMITIVE_CLASS ( DrawElements )
 
 
 ///////////////////////////////////////////////////////////////////////////////

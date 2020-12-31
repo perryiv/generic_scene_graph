@@ -40,7 +40,7 @@ cd Catch2-2.13.1
 rm -rf build && mkdir build && cd build
 cmake ../ -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAKE_VERBOSE_MAKEFILE=ON -DBUILD_TESTING=OFF -DCATCH_INSTALL_DOCS=OFF -DCATCH_INSTALL_HELPERS=OFF
 cmake --build .
-make install
+sudo make install
 cd .. && rm -rf build
 
 # immer
@@ -51,7 +51,7 @@ cd immer
 rm -rf build && mkdir build && cd build
 cmake ../ -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAKE_VERBOSE_MAKEFILE=ON
 cmake --build .
-make install
+sudo make install
 cd .. && rm -rf build
 
 # Usul
@@ -62,7 +62,7 @@ cd usul
 rm -rf build && mkdir build && cd build
 cmake ../ -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAKE_VERBOSE_MAKEFILE=ON
 cmake --build .
-make install
+sudo make install
 cd .. && rm -rf build
 
 # GSG
@@ -71,13 +71,13 @@ cd
 rm -rf build && mkdir build && cd build
 cmake ../ -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAKE_VERBOSE_MAKEFILE=ON -DGSG_BUILD_TESTS=ON
 cmake --build .
-make install
+sudo make install
 cd bin && ./gsg_test_d --abort --use-colour=yes --durations=no
 cd
 rm -rf build && mkdir build && cd build
 cmake ../ -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAKE_VERBOSE_MAKEFILE=ON -DGSG_BUILD_TESTS=ON
 cmake --build .
-make install
+sudo make install
 cd bin && ./gsg_test --abort --use-colour=yes --durations=no
 cd
 

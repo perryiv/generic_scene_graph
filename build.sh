@@ -26,6 +26,19 @@ echo "----"
 $CXX --version
 
 
+# Catch2
+echo "----"
+cd
+curl -L https://github.com/catchorg/Catch2/archive/v2.13.1.tar.gz | tar xz
+cd Catch2-2.13.1
+rm -rf build && mkdir build && cd build
+cmake ../ -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAKE_VERBOSE_MAKEFILE=ON -DBUILD_TESTING=OFF -DCATCH_INSTALL_DOCS=OFF -DCATCH_INSTALL_HELPERS=OFF
+cmake --build .
+sudo ninja install
+cd .. && rm -rf build
+cd
+
+
 # immer
 echo "----"
 cd
@@ -35,6 +48,7 @@ rm -rf build && mkdir build && cd build
 cmake ../ -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAKE_VERBOSE_MAKEFILE=ON
 cmake --build .
 sudo ninja install
+cd .. && rm -rf build
 cd
 
 
@@ -47,6 +61,7 @@ rm -rf build && mkdir build && cd build
 cmake ../ -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAKE_VERBOSE_MAKEFILE=ON
 cmake --build .
 sudo ninja install
+cd .. && rm -rf build
 cd
 
 

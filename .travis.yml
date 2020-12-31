@@ -18,7 +18,12 @@
 #  Resources:
 #
 #    https://docs.conan.io/en/latest/integrations/ci/travisci.html
-#    https://docs.travis-ci.com/user/deployment/bintray/
+#    https://docs.travis-ci.com/user/deployment/bintray
+#    https://docs.travis-ci.com/user/docker/
+#    https://docs.travis-ci.com/user/job-lifecycle/
+#    https://docs.travis-ci.com/user/languages/cpp/
+#    https://docs.travis-ci.com/user/reference/windows/
+#    https://stackoverflow.com/questions/61874708/how-can-i-build-visual-studio-2019-projects-on-travis-ci
 #
 ################################################################################
 

@@ -47,9 +47,11 @@ trigger:
 jobs:
 
 - job: Linux_GCC_10_CPP_17
-  vmImage: 'ubuntu-latest'
-  - script: |
-    - docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "CPP_STANDARD=17 sh ./build.sh"
+  timeoutInMinutes: 0
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "CPP_STANDARD=17 sh ./build.sh"
 
 #       python --version
   # strategy:

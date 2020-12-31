@@ -60,13 +60,6 @@ jobs:
   steps:
     - script: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "CPP_STANDARD=14 sh ./build.sh"
 
-- job: Linux_GCC_10_CPP_11
-  timeoutInMinutes: 0
-  pool:
-    vmImage: 'ubuntu-latest'
-  steps:
-    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "CPP_STANDARD=11 sh ./build.sh"
-
 - job: Linux_GCC_9_CPP_17
   timeoutInMinutes: 0
   pool:
@@ -80,13 +73,6 @@ jobs:
     vmImage: 'ubuntu-latest'
   steps:
     - script: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "CPP_STANDARD=14 sh ./build.sh"
-
-- job: Linux_GCC_9_CPP_11
-  timeoutInMinutes: 0
-  pool:
-    vmImage: 'ubuntu-latest'
-  steps:
-    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "CPP_STANDARD=11 sh ./build.sh"
 
 - job: Linux_GCC_8_CPP_17
   timeoutInMinutes: 0
@@ -102,13 +88,6 @@ jobs:
   steps:
     - script: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "CPP_STANDARD=14 sh ./build.sh"
 
-- job: Linux_GCC_8_CPP_11
-  timeoutInMinutes: 0
-  pool:
-    vmImage: 'ubuntu-latest'
-  steps:
-    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "CPP_STANDARD=11 sh ./build.sh"
-
 # All versions of macOS appear to be using clang 11, so just doing that.
 
 - job: Apple_Clang_11_CPP_17
@@ -122,12 +101,6 @@ jobs:
     vmImage: 'macOS-10.15'
   steps:
     - script: CPP_STANDARD=14 sh ./build.sh
-
-- job: Apple_Clang_11_CPP_11
-  pool:
-    vmImage: 'macOS-10.15'
-  steps:
-    - script: CPP_STANDARD=11 sh ./build.sh
 
 # On windows just using the host machine.
 

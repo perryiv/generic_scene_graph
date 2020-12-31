@@ -44,74 +44,116 @@
 trigger:
 - master
 
+variables:
+  BUILD_GENERATOR: $(build_generator)
+  BUILD_COMMAND: $(build_command)
+  CPP_STANDARD: $(cpp_standard)
+  VERBOSE_MAKEFILE: $(verbose_makefile)
+  EXTRA_CONFIGURE_ARGUMENTS: $(extra_configure_arguments)
+
+pool:
+  vmImage: $(imageName)
+
 jobs:
 
 - job: Linux_GCC_10_CPP_17
   timeoutInMinutes: 0
-  pool:
-    vmImage: 'ubuntu-latest'
+  imageName: 'ubuntu-latest'
+  build_generator: Ninja
+  build_command: ninja
+  cpp_standard: 17
+  verbose_makefile: ON
   steps:
-    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "BUILD_GENERATOR=Ninja BUILD_COMMAND=ninja CPP_STANDARD=17 sh ./build.sh"
+    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "sh ./build.sh"
 
 - job: Linux_GCC_10_CPP_14
   timeoutInMinutes: 0
-  pool:
-    vmImage: 'ubuntu-latest'
+  imageName: 'ubuntu-latest'
+  build_generator: Ninja
+  build_command: ninja
+  cpp_standard: 14
+  verbose_makefile: ON
   steps:
-    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "BUILD_GENERATOR=Ninja BUILD_COMMAND=ninja CPP_STANDARD=14 sh ./build.sh"
+    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "sh ./build.sh"
 
 - job: Linux_GCC_9_CPP_17
   timeoutInMinutes: 0
-  pool:
-    vmImage: 'ubuntu-latest'
+  imageName: 'ubuntu-latest'
+  build_generator: Ninja
+  build_command: ninja
+  cpp_standard: 17
+  verbose_makefile: ON
   steps:
-    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "BUILD_GENERATOR=Ninja BUILD_COMMAND=ninja CPP_STANDARD=17 sh ./build.sh"
+    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "sh ./build.sh"
 
 - job: Linux_GCC_9_CPP_14
   timeoutInMinutes: 0
-  pool:
-    vmImage: 'ubuntu-latest'
+  imageName: 'ubuntu-latest'
+  build_generator: Ninja
+  build_command: ninja
+  cpp_standard: 14
+  verbose_makefile: ON
   steps:
-    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "BUILD_GENERATOR=Ninja BUILD_COMMAND=ninja CPP_STANDARD=14 sh ./build.sh"
+    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "sh ./build.sh"
 
 - job: Linux_GCC_8_CPP_17
   timeoutInMinutes: 0
-  pool:
-    vmImage: 'ubuntu-latest'
+  imageName: 'ubuntu-latest'
+  build_generator: Ninja
+  build_command: ninja
+  cpp_standard: 17
+  verbose_makefile: ON
   steps:
-    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "BUILD_GENERATOR=Ninja BUILD_COMMAND=ninja CPP_STANDARD=17 sh ./build.sh"
+    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "sh ./build.sh"
 
 - job: Linux_GCC_8_CPP_14
   timeoutInMinutes: 0
-  pool:
-    vmImage: 'ubuntu-latest'
+  imageName: 'ubuntu-latest'
+  build_generator: Ninja
+  build_command: ninja
+  cpp_standard: 14
+  verbose_makefile: ON
   steps:
-    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "BUILD_GENERATOR=Ninja BUILD_COMMAND=ninja CPP_STANDARD=14 sh ./build.sh"
+    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "sh ./build.sh"
 
 # All versions of macOS appear to be using clang 11, so just doing that.
 
 - job: Apple_Clang_11_CPP_17
-  pool:
-    vmImage: 'macOS-10.15'
+  imageName: 'macOS-10.15'
+  build_generator: 'Unix Makefiles'
+  build_command: make
+  cpp_standard: 17
+  verbose_makefile: ON
   steps:
-    - script: BUILD_GENERATOR="Unix Makefiles" BUILD_COMMAND=make CPP_STANDARD=17 sh ./build.sh
+    - script: sh ./build.sh
 
 - job: Apple_Clang_11_CPP_14
-  pool:
-    vmImage: 'macOS-10.15'
+  imageName: 'macOS-10.15'
+  build_generator: 'Unix Makefiles'
+  build_command: make
+  cpp_standard: 14
+  verbose_makefile: ON
   steps:
-    - script: BUILD_GENERATOR="Unix Makefiles" BUILD_COMMAND=make CPP_STANDARD=14 sh ./build.sh
+    - script: sh ./build.sh
 
 # On windows just using the host machine.
 
 - job: Visual_Studio_2019_CPP_17
-  pool:
-    vmImage: 'windows-2019'
+  imageName: 'windows-2019'
+  build_generator: 'Visual Studio'
+  build_command: devenv
+  cpp_standard: 17
+  verbose_makefile: OFF
+  extra_configure_arguments: '-Ax64'
   steps:
-    - script: BUILD_GENERATOR=Ninja BUILD_COMMAND=ninja CPP_STANDARD=17 sh ./build.sh
+    - script: sh ./build.sh
 
 - job: Visual_Studio_2019_CPP_14
-  pool:
-    vmImage: 'windows-2019'
+  imageName: 'windows-2019'
+  build_generator: 'Visual Studio'
+  build_command: devenv
+  cpp_standard: 14
+  verbose_makefile: OFF
+  extra_configure_arguments: '-Ax64'
   steps:
-    - script: BUILD_GENERATOR=Ninja BUILD_COMMAND=ninja CPP_STANDARD=14 sh ./build.sh
+    - script: sh ./build.sh

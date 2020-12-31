@@ -103,7 +103,7 @@ endif()
 find_package ( usul REQUIRED )
 
 # Find immer.
-find_package ( immer REQUIRED )
+find_package ( Immer REQUIRED )
 
 # Does the user want strict warnings?
 option ( GSG_ENABLE_STRICT_WARNINGS "Enable strict warnings" ON )

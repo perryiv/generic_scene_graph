@@ -70,7 +70,7 @@ echo "----"
 cd
 ls -al
 ls -al ..
-rm -rf build && mkdir build && cd build
+rm -rf build2 && mkdir build2 && cd build2
 # cmake ../ -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAKE_VERBOSE_MAKEFILE=ON -DGSG_BUILD_TESTS=ON
 # cmake --build .
 # sudo make install

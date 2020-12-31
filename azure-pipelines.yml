@@ -53,195 +53,92 @@ jobs:
   steps:
     - script: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "CPP_STANDARD=17 sh ./build.sh"
 
-#       python --version
-  # strategy:
-  #   matrix:
-  #
-  #     # Using conan's recommended docker images.
-  #
-  #     Linux_GCC_10_CPP_17:
-  #       imageName: 'ubuntu-latest'
-  #       use_docker: 1
-  #       docker_image: conanio/gcc10
-  #       compiler_version: 10
-  #       cpp_standard: 17
-  #
-  #     Linux_GCC_10_CPP_14:
-  #       imageName: 'ubuntu-latest'
-  #       use_docker: 1
-  #       docker_image: conanio/gcc10
-  #       compiler_version: 10
-  #       cpp_standard: 14
-  #
-  #     Linux_GCC_10_CPP_11:
-  #       imageName: 'ubuntu-latest'
-  #       use_docker: 1
-  #       docker_image: conanio/gcc10
-  #       compiler_version: 10
-  #       cpp_standard: 11
-  #
-  #     Linux_GCC_9_CPP_17:
-  #       imageName: 'ubuntu-latest'
-  #       use_docker: 1
-  #       docker_image: conanio/gcc9
-  #       compiler_version: 9
-  #       cpp_standard: 17
-  #
-  #     Linux_GCC_9_CPP_14:
-  #       imageName: 'ubuntu-latest'
-  #       use_docker: 1
-  #       docker_image: conanio/gcc9
-  #       compiler_version: 9
-  #       cpp_standard: 14
-  #
-  #     Linux_GCC_9_CPP_11:
-  #       imageName: 'ubuntu-latest'
-  #       use_docker: 1
-  #       docker_image: conanio/gcc9
-  #       compiler_version: 9
-  #       cpp_standard: 11
-  #
-  #     Linux_GCC_8_CPP_17:
-  #       imageName: 'ubuntu-latest'
-  #       use_docker: 1
-  #       docker_image: conanio/gcc8
-  #       compiler_version: 8
-  #       cpp_standard: 17
-  #
-  #     Linux_GCC_8_CPP_14:
-  #       imageName: 'ubuntu-latest'
-  #       use_docker: 1
-  #       docker_image: conanio/gcc8
-  #       compiler_version: 8
-  #       cpp_standard: 14
-  #
-  #     Linux_GCC_8_CPP_11:
-  #       imageName: 'ubuntu-latest'
-  #       use_docker: 1
-  #       docker_image: conanio/gcc8
-  #       compiler_version: 8
-  #       cpp_standard: 11
-  #
-  #     Linux_GCC_7_CPP_17:
-  #       imageName: 'ubuntu-latest'
-  #       use_docker: 1
-  #       docker_image: conanio/gcc7
-  #       compiler_version: 7
-  #       cpp_standard: 17
-  #
-  #     Linux_GCC_7_CPP_14:
-  #       imageName: 'ubuntu-latest'
-  #       use_docker: 1
-  #       docker_image: conanio/gcc7
-  #       compiler_version: 7
-  #       cpp_standard: 14
-  #
-  #     Linux_GCC_7_CPP_11:
-  #       imageName: 'ubuntu-latest'
-  #       use_docker: 1
-  #       docker_image: conanio/gcc7
-  #       compiler_version: 7
-  #       cpp_standard: 11
-  #
-  #     # All versions of macOS appear to be using clang 11, so just doing that.
-  #
-  #     Apple_Clang_11_CPP_17:
-  #       imageName: 'macOS-10.15'
-  #       use_docker: 0
-  #       compiler_version: 11.0
-  #       cpp_standard: 17
-  #
-  #     Apple_Clang_11_CPP_14:
-  #       imageName: 'macOS-10.15'
-  #       use_docker: 0
-  #       compiler_version: 11.0
-  #       cpp_standard: 14
-  #
-  #     Apple_Clang_11_CPP_11:
-  #       imageName: 'macOS-10.15'
-  #       use_docker: 0
-  #       compiler_version: 11.0
-  #       cpp_standard: 11
-  #
-  #     # On windows the kernel version of the host and docker image must match.
-  #     # However, neither of these have pip so just using the host machine.
-  #     # -- mcr.microsoft.com/windows/servercore:ltsc2019
-  #     # -- mcr.microsoft.com/windows/servercore:ltsc2016
-  #
-  #     Visual_Studio_2019_CPP_17:
-  #       imageName: 'windows-2019'
-  #       use_docker: 0
-  #       compiler_version: 16 # Visual Studio 2019
-  #       cpp_standard: 17
-  #
-  #     Visual_Studio_2019_CPP_14:
-  #       imageName: 'windows-2019'
-  #       use_docker: 0
-  #       compiler_version: 16 # Visual Studio 2019
-  #       cpp_standard: 14
-  #
-  #     # Not working. The original cmake 3.12 is still getting used.
-  #     # Visual_Studio_2017:
-  #     #   imageName: 'vs2017-win2016'
-  #     #   use_docker: 0
-  #     #   compiler_version: 15 # Visual Studio 2017
-  #     #   cpp_standard: 17
-  #
-  # pool:
-  #   vmImage: $(imageName)
-  #
-  # variables:
-  #
-  #   # These directly control conan.
-  #   CONAN_USERNAME: perryiv
-  #   CONAN_PASSWORD: $(SECRET_BINTRAY_PASSWORD) # Configured in Azure UI
-  #   CONAN_CHANNEL: stable
-  #   CONAN_UPLOAD: https://api.bintray.com/conan/perryiv/conan
-  #   CONAN_UPLOAD_ONLY_WHEN_STABLE: 1
-  #   CONAN_STABLE_BRANCH_PATTERN: "^master$"
-  #   CONAN_REVISIONS_ENABLED: 1
-  #   CONAN_VERBOSE_TRACEBACK: 1
-  #   CONAN_REMOTES: https://api.bintray.com/conan/slepasteur/public-conan
-  #
-  #   # These are used in build.py
-  #   THIS_JOB_USE_DOCKER: $(use_docker)
-  #   THIS_JOB_DOCKER_IMAGE: $(docker_image)
-  #   THIS_JOB_COMPILER_VERSION: $(compiler_version)
-  #   THIS_JOB_CPP_STANDARD: $(cpp_standard)
-  #
-  # steps:
-  #
-  #   - task: UsePythonVersion@0
-  #     inputs:
-  #       versionSpec: "3.x"
-  #       addToPath: true
-  #       architecture: "x64"
-  #     displayName: Select Python
-  #
-  #   # Not working. The original cmake 3.12 is still getting used.
-  #   - task: PowerShell@2
-  #     inputs:
-  #       script: |
-  #         Invoke-WebRequest -Uri 'https://aka.ms/vs/16/release/vs_buildtools.exe' -OutFile C:\TEMP\vs_buildtools.exe
-  #         C:\TEMP\vs_buildtools.exe --installPath C:\BuildTools --quiet --wait --norestart --nocache --remove Microsoft.VisualStudio.Component.VC.CMake.Project --remove Component.Linux.CMake
-  #       targetType: inline
-  #     condition: eq(variables['Agent.JobName'], 'Job Visual_Studio_2017')
-  #     displayName: Remove Visual Studio CMake
-  #
-  #   - script: |
-  #       python -m pip install --upgrade pip
-  #       pip install conan --upgrade
-  #       pip install conan_package_tools
-  #       conan user
-  #     displayName: Configure Conan
-  #
-  #   - script: |
-  #       python --version
-  #       pip --version
-  #       cmake --version
-  #       conan --version
-  #     displayName: Print Versions
-  #
-  #   - script: |
-  #       python build.py
-  #     displayName: Build
+- job: Linux_GCC_10_CPP_14
+  timeoutInMinutes: 0
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "CPP_STANDARD=14 sh ./build.sh"
+
+- job: Linux_GCC_10_CPP_11
+  timeoutInMinutes: 0
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "CPP_STANDARD=11 sh ./build.sh"
+
+- job: Linux_GCC_9_CPP_17
+  timeoutInMinutes: 0
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "CPP_STANDARD=17 sh ./build.sh"
+
+- job: Linux_GCC_9_CPP_14
+  timeoutInMinutes: 0
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "CPP_STANDARD=14 sh ./build.sh"
+
+- job: Linux_GCC_9_CPP_11
+  timeoutInMinutes: 0
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "CPP_STANDARD=11 sh ./build.sh"
+
+- job: Linux_GCC_8_CPP_17
+  timeoutInMinutes: 0
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "CPP_STANDARD=17 sh ./build.sh"
+
+- job: Linux_GCC_8_CPP_14
+  timeoutInMinutes: 0
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "CPP_STANDARD=14 sh ./build.sh"
+
+- job: Linux_GCC_8_CPP_11
+  timeoutInMinutes: 0
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "CPP_STANDARD=11 sh ./build.sh"
+
+# All versions of macOS appear to be using clang 11, so just doing that.
+
+- job: Apple_Clang_11_CPP_17
+  pool:
+    vmImage: 'macOS-10.15'
+  steps:
+    - script: CPP_STANDARD=17 sh ./build.sh
+
+- job: Apple_Clang_11_CPP_14
+  pool:
+    vmImage: 'macOS-10.15'
+  steps:
+    - script: CPP_STANDARD=14 sh ./build.sh
+
+- job: Apple_Clang_11_CPP_11
+  pool:
+    vmImage: 'macOS-10.15'
+  steps:
+    - script: CPP_STANDARD=11 sh ./build.sh
+
+# On windows just using the host machine.
+
+- job: Visual_Studio_2019_CPP_17
+  pool:
+    vmImage: 'windows-2019'
+  steps:
+    - script: CPP_STANDARD=17 sh ./build.sh
+
+- job: Visual_Studio_2019_CPP_14
+  pool:
+    vmImage: 'windows-2019'
+  steps:
+    - script: CPP_STANDARD=14 sh ./build.sh

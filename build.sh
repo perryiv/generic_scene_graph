@@ -52,7 +52,6 @@ rm -rf build && mkdir build && cd build
 cmake ../ -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAKE_VERBOSE_MAKEFILE=ON
 cmake --build .
 sudo make install
-ls /usr/local/lib/cmake/Immer
 cd .. && rm -rf build
 
 # Usul

@@ -51,7 +51,7 @@ jobs:
   pool:
     vmImage: 'ubuntu-latest'
   steps:
-    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "CPP_STANDARD=17 sh ./build.sh"
+    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "mkdir build ; CPP_STANDARD=17 sh ./build.sh"
 
 #       python --version
   # strategy:

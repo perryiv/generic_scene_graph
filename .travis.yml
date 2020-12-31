@@ -101,22 +101,16 @@ jobs:
 
     - name: Apple_Clang_9_CPP_17
       os: osx
-      install:
-        - brew install ninja
       script:
         - CPP_STANDARD=17 sh ./build.sh
 
     - name: Apple_Clang_9_CPP_14
       os: osx
-      install:
-        - brew install ninja
       script:
         - CPP_STANDARD=14 sh ./build.sh
 
     - name: Apple_Clang_9_CPP_11
       os: osx
-      install:
-        - brew install ninja
       script:
         - CPP_STANDARD=11 sh ./build.sh
 

@@ -17,10 +17,11 @@
 #define _GENERIC_SCENE_GRAPH_BASE_CONTAINERS_TYPED_ARRAYS_H_
 
 #include "GSG/Base/Containers/Array.h"
+#include "GSG/Export.h"
 
 
 #define GSG_DECLARE_ARRAY_TYPE(class_name,number_type) \
-  class class_name : public Array < number_type > \
+  class GSG_EXPORT class_name : public Array < number_type > \
   { \
   public: \
     typedef Array < number_type > BaseClass; \

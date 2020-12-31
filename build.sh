@@ -67,18 +67,18 @@ cd .. && rm -rf build
 
 # GSG
 echo "----"
+mkdir -p /tmp/gsg && cd /tmp/gsg
+rm -rf build && mkdir build && cd build
+cmake ${HOME} -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAKE_VERBOSE_MAKEFILE=ON -DGSG_BUILD_TESTS=ON
+cmake --build .
+sudo make install
+cd bin && ./gsg_test_d --abort --use-colour=yes --durations=no
+cd ..
+rm -rf build && mkdir build && cd build
+cmake ../ -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAKE_VERBOSE_MAKEFILE=ON -DGSG_BUILD_TESTS=ON
+cmake --build .
+sudo make install
+cd bin && ./gsg_test --abort --use-colour=yes --durations=no
 cd
-sudo rm -rf build && sudo mkdir build && chown conan build && cd build
-# cmake ../ -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAKE_VERBOSE_MAKEFILE=ON -DGSG_BUILD_TESTS=ON
-# cmake --build .
-# sudo make install
-# cd bin && ./gsg_test_d --abort --use-colour=yes --durations=no
-# cd
-# rm -rf build && mkdir build && cd build
-# cmake ../ -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=${CPP_STANDARD} -DCMAKE_VERBOSE_MAKEFILE=ON -DGSG_BUILD_TESTS=ON
-# cmake --build .
-# sudo make install
-# cd bin && ./gsg_test --abort --use-colour=yes --durations=no
-# cd
 
 echo "\n\n---- End of build script ----\n\n"

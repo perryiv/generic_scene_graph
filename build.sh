@@ -25,6 +25,8 @@ $CC --version
 echo "----"
 $CXX --version
 
+# Help cmake find things.
+export CMAKE_MODULE_PATH=/usr/local/lib/cmake
 
 # Catch2
 echo "----"
@@ -38,7 +40,6 @@ sudo make install
 cd .. && rm -rf build
 cd
 
-
 # immer
 echo "----"
 cd
@@ -51,7 +52,6 @@ sudo make install
 cd .. && rm -rf build
 cd
 
-
 # Usul
 echo "----"
 cd
@@ -63,7 +63,6 @@ cmake --build .
 sudo make install
 cd .. && rm -rf build
 cd
-
 
 # GSG
 echo "----"
@@ -83,6 +82,5 @@ cmake --build .
 sudo make install
 cd bin && ./gsg_test --abort --use-colour=yes --durations=no
 cd
-
 
 echo "\n\n---- End of build script ----\n\n"

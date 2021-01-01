@@ -148,5 +148,5 @@ jobs:
     THIS_JOB_EXTRA_CONFIGURE_ARGUMENTS: $(extra_configure_arguments)
 
   steps:
-    - script: $(command)
+    - script: node --version
       displayName: Build

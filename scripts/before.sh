@@ -14,5 +14,5 @@ set -e
 set -x
 
 # Install node.
-curl -sL https://deb.nodesource.com/setup_14.x | bash -
-apt-get -y install nodejs
+curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
+sudo apt-get -y install nodejs

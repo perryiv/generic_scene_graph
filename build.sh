@@ -11,6 +11,12 @@
 # https://intoli.com/blog/exit-on-errors-in-bash-scripts/
 set -e
 
+# Are we supposed to use docker?
+if ( ${THIS_JOB_USE_DOCKER} )
+  docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "sh ./build.sh"
+  exit $!
+fi
+
 echo "\n\n---- Start of build script ----\n\n"
 
 echo "----"
@@ -35,15 +41,16 @@ curl -L https://github.com/catchorg/Catch2/archive/v2.13.1.tar.gz | tar xz
 cd Catch2-2.13.1
 rm -rf build && mkdir build && cd build
 cmake ../ \
-  -G "${BUILD_GENERATOR}" \
+  -G "${THIS_JOB_BUILD_GENERATOR}" \
   -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_CXX_STANDARD=${CPP_STANDARD} \
-  -DCMAKE_VERBOSE_MAKEFILE=${VERBOSE_MAKEFILE} \
+  -DCMAKE_CXX_STANDARD=${THIS_JOB_CPP_STANDARD} \
+  -DCMAKE_VERBOSE_MAKEFILE=${THIS_JOB_VERBOSE_MAKEFILE} \
   -DBUILD_TESTING=OFF \
   -DCATCH_INSTALL_DOCS=OFF \
-  -DCATCH_INSTALL_HELPERS=OFF
+  -DCATCH_INSTALL_HELPERS=OFF \
+  ${THIS_JOB_EXTRA_CONFIGURE_ARGUMENTS}
 cmake --build .
-sudo ${BUILD_COMMAND} install
+sudo ${THIS_JOB_BUILD_COMMAND} install
 cd .. && rm -rf build
 
 # Immer
@@ -54,12 +61,13 @@ git clone https://github.com/arximboldi/immer.git
 cd immer
 rm -rf build && mkdir build && cd build
 cmake ../ \
-  -G "${BUILD_GENERATOR}" \
+  -G "${THIS_JOB_BUILD_GENERATOR}" \
   -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_CXX_STANDARD=${CPP_STANDARD} \
-  -DCMAKE_VERBOSE_MAKEFILE=${VERBOSE_MAKEFILE}
+  -DCMAKE_CXX_STANDARD=${THIS_JOB_CPP_STANDARD} \
+  -DCMAKE_VERBOSE_MAKEFILE=${THIS_JOB_VERBOSE_MAKEFILE} \
+  ${THIS_JOB_EXTRA_CONFIGURE_ARGUMENTS}
 cmake --build .
-sudo ${BUILD_COMMAND} install
+sudo ${THIS_JOB_BUILD_COMMAND} install
 cd .. && rm -rf build
 
 # Boost
@@ -81,12 +89,13 @@ rm -rf usul
 git clone https://github.com/perryiv/usul.git
 cd usul && rm -rf build && mkdir build && cd build
 cmake ../ \
-  -G "${BUILD_GENERATOR}" \
+  -G "${THIS_JOB_BUILD_GENERATOR}" \
   -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_CXX_STANDARD=${CPP_STANDARD} \
-  -DCMAKE_VERBOSE_MAKEFILE=${VERBOSE_MAKEFILE}
+  -DCMAKE_CXX_STANDARD=${THIS_JOB_CPP_STANDARD} \
+  -DCMAKE_VERBOSE_MAKEFILE=${THIS_JOB_VERBOSE_MAKEFILE} \
+  ${THIS_JOB_EXTRA_CONFIGURE_ARGUMENTS}
 cmake --build .
-sudo ${BUILD_COMMAND} install
+sudo ${THIS_JOB_BUILD_COMMAND} install
 cd .. && rm -rf build
 
 # GSG
@@ -95,24 +104,26 @@ cd /tmp
 rm -rf gsg && mkdir -p gsg && cd gsg
 rm -rf build && mkdir build && cd build
 cmake ${HOME} \
-  -G "${BUILD_GENERATOR}" \
+  -G "${THIS_JOB_BUILD_GENERATOR}" \
   -DCMAKE_BUILD_TYPE=Debug \
-  -DCMAKE_CXX_STANDARD=${CPP_STANDARD} \
-  -DCMAKE_VERBOSE_MAKEFILE=${VERBOSE_MAKEFILE} \
-  -DGSG_BUILD_TESTS=ON
+  -DCMAKE_CXX_STANDARD=${THIS_JOB_CPP_STANDARD} \
+  -DCMAKE_VERBOSE_MAKEFILE=${THIS_JOB_VERBOSE_MAKEFILE} \
+  -DGSG_BUILD_TESTS=ON \
+  ${THIS_JOB_EXTRA_CONFIGURE_ARGUMENTS}
 cmake --build .
-sudo ${BUILD_COMMAND} install
+sudo ${THIS_JOB_BUILD_COMMAND} install
 cd bin && ./gsg_test_d --abort --use-colour=yes --durations=no
 cd ../..
 rm -rf build && mkdir build && cd build
 cmake ${HOME} \
-  -G "${BUILD_GENERATOR}" \
+  -G "${THIS_JOB_BUILD_GENERATOR}" \
   -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_CXX_STANDARD=${CPP_STANDARD} \
-  -DCMAKE_VERBOSE_MAKEFILE=${VERBOSE_MAKEFILE} \
-  -DGSG_BUILD_TESTS=ON
+  -DCMAKE_CXX_STANDARD=${THIS_JOB_CPP_STANDARD} \
+  -DCMAKE_VERBOSE_MAKEFILE=${THIS_JOB_VERBOSE_MAKEFILE} \
+  -DGSG_BUILD_TESTS=ON \
+  ${THIS_JOB_EXTRA_CONFIGURE_ARGUMENTS}
 cmake --build .
-sudo ${BUILD_COMMAND} install
+sudo ${THIS_JOB_BUILD_COMMAND} install
 cd bin && ./gsg_test --abort --use-colour=yes --durations=no
 cd
 

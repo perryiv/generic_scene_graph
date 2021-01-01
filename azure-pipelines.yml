@@ -44,116 +44,108 @@
 trigger:
 - master
 
-variables:
-  BUILD_GENERATOR: $(build_generator)
-  BUILD_COMMAND: $(build_command)
-  CPP_STANDARD: $(cpp_standard)
-  VERBOSE_MAKEFILE: $(verbose_makefile)
-  EXTRA_CONFIGURE_ARGUMENTS: $(extra_configure_arguments)
+jobs:
+- job: Build
+  timeoutInMinutes: 0
+  strategy:
+    matrix:
+
+    - job: Linux_GCC_10_CPP_17
+      image_name: 'ubuntu-latest'
+      build_generator: Ninja
+      build_command: ninja
+      cpp_standard: 17
+      verbose_makefile: ON
+      command: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "sh ./build.sh"
+
+    - job: Linux_GCC_10_CPP_14
+      image_name: 'ubuntu-latest'
+      build_generator: Ninja
+      build_command: ninja
+      cpp_standard: 14
+      verbose_makefile: ON
+      command: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "sh ./build.sh"
+
+    - job: Linux_GCC_9_CPP_17
+      image_name: 'ubuntu-latest'
+      build_generator: Ninja
+      build_command: ninja
+      cpp_standard: 17
+      verbose_makefile: ON
+      command: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "sh ./build.sh"
+
+    - job: Linux_GCC_9_CPP_14
+      image_name: 'ubuntu-latest'
+      build_generator: Ninja
+      build_command: ninja
+      cpp_standard: 14
+      verbose_makefile: ON
+      command: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "sh ./build.sh"
+
+    - job: Linux_GCC_8_CPP_17
+      image_name: 'ubuntu-latest'
+      build_generator: Ninja
+      build_command: ninja
+      cpp_standard: 17
+      verbose_makefile: ON
+      command: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "sh ./build.sh"
+
+    - job: Linux_GCC_8_CPP_14
+      image_name: 'ubuntu-latest'
+      build_generator: Ninja
+      build_command: ninja
+      cpp_standard: 14
+      verbose_makefile: ON
+      command: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "sh ./build.sh"
+
+    # All versions of macOS appear to be using clang 11, so just doing that.
+
+    - job: Apple_Clang_11_CPP_17
+      image_name: 'macOS-10.15'
+      build_generator: 'Unix Makefiles'
+      build_command: make
+      cpp_standard: 17
+      verbose_makefile: ON
+      command: sh ./build.sh
+
+    - job: Apple_Clang_11_CPP_14
+      image_name: 'macOS-10.15'
+      build_generator: 'Unix Makefiles'
+      build_command: make
+      cpp_standard: 14
+      verbose_makefile: ON
+      command: sh ./build.sh
+
+    # On windows just using the host machine.
+
+    - job: Visual_Studio_2019_CPP_17
+      image_name: 'windows-2019'
+      build_generator: 'Visual Studio'
+      build_command: devenv
+      cpp_standard: 17
+      verbose_makefile: OFF
+      extra_configure_arguments: '-Ax64'
+      command: sh ./build.sh
+
+    - job: Visual_Studio_2019_CPP_14
+      image_name: 'windows-2019'
+      build_generator: 'Visual Studio'
+      build_command: devenv
+      cpp_standard: 14
+      verbose_makefile: OFF
+      extra_configure_arguments: '-Ax64'
+      command: sh ./build.sh
 
 pool:
-  vmImage: $(imageName)
+  vmImage: $(image_name)
 
-jobs:
+variables:
+  THIS_JOB_BUILD_GENERATOR: $(build_generator)
+  THIS_JOB_BUILD_COMMAND: $(build_command)
+  THIS_JOB_CPP_STANDARD: $(cpp_standard)
+  THIS_JOB_VERBOSE_MAKEFILE: $(verbose_makefile)
+  THIS_JOB_EXTRA_CONFIGURE_ARGUMENTS: $(extra_configure_arguments)
 
-- job: Linux_GCC_10_CPP_17
-  timeoutInMinutes: 0
-  imageName: 'ubuntu-latest'
-  build_generator: Ninja
-  build_command: ninja
-  cpp_standard: 17
-  verbose_makefile: ON
-  steps:
-    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "sh ./build.sh"
-
-- job: Linux_GCC_10_CPP_14
-  timeoutInMinutes: 0
-  imageName: 'ubuntu-latest'
-  build_generator: Ninja
-  build_command: ninja
-  cpp_standard: 14
-  verbose_makefile: ON
-  steps:
-    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "sh ./build.sh"
-
-- job: Linux_GCC_9_CPP_17
-  timeoutInMinutes: 0
-  imageName: 'ubuntu-latest'
-  build_generator: Ninja
-  build_command: ninja
-  cpp_standard: 17
-  verbose_makefile: ON
-  steps:
-    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "sh ./build.sh"
-
-- job: Linux_GCC_9_CPP_14
-  timeoutInMinutes: 0
-  imageName: 'ubuntu-latest'
-  build_generator: Ninja
-  build_command: ninja
-  cpp_standard: 14
-  verbose_makefile: ON
-  steps:
-    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "sh ./build.sh"
-
-- job: Linux_GCC_8_CPP_17
-  timeoutInMinutes: 0
-  imageName: 'ubuntu-latest'
-  build_generator: Ninja
-  build_command: ninja
-  cpp_standard: 17
-  verbose_makefile: ON
-  steps:
-    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "sh ./build.sh"
-
-- job: Linux_GCC_8_CPP_14
-  timeoutInMinutes: 0
-  imageName: 'ubuntu-latest'
-  build_generator: Ninja
-  build_command: ninja
-  cpp_standard: 14
-  verbose_makefile: ON
-  steps:
-    - script: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "sh ./build.sh"
-
-# All versions of macOS appear to be using clang 11, so just doing that.
-
-- job: Apple_Clang_11_CPP_17
-  imageName: 'macOS-10.15'
-  build_generator: 'Unix Makefiles'
-  build_command: make
-  cpp_standard: 17
-  verbose_makefile: ON
-  steps:
-    - script: sh ./build.sh
-
-- job: Apple_Clang_11_CPP_14
-  imageName: 'macOS-10.15'
-  build_generator: 'Unix Makefiles'
-  build_command: make
-  cpp_standard: 14
-  verbose_makefile: ON
-  steps:
-    - script: sh ./build.sh
-
-# On windows just using the host machine.
-
-- job: Visual_Studio_2019_CPP_17
-  imageName: 'windows-2019'
-  build_generator: 'Visual Studio'
-  build_command: devenv
-  cpp_standard: 17
-  verbose_makefile: OFF
-  extra_configure_arguments: '-Ax64'
-  steps:
-    - script: sh ./build.sh
-
-- job: Visual_Studio_2019_CPP_14
-  imageName: 'windows-2019'
-  build_generator: 'Visual Studio'
-  build_command: devenv
-  cpp_standard: 14
-  verbose_makefile: OFF
-  extra_configure_arguments: '-Ax64'
-  steps:
-    - script: sh ./build.sh
+steps:
+  - script: $(command)
+    displayName: Build

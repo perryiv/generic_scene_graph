@@ -11,12 +11,6 @@
 # https://intoli.com/blog/exit-on-errors-in-bash-scripts/
 set -e
 
-# Are we supposed to use docker?
-if ( ${THIS_JOB_USE_DOCKER} )
-  docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "sh ./build.sh"
-  exit $!
-fi
-
 echo "\n\n---- Start of build script ----\n\n"
 
 echo "----"

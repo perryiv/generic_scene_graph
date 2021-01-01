@@ -137,16 +137,16 @@ jobs:
         extra_configure_arguments: '-Ax64'
         command: sh ./build.sh
 
-pool:
-  vmImage: $(image_name)
+  pool:
+    vmImage: $(image_name)
 
-variables:
-  THIS_JOB_BUILD_GENERATOR: $(build_generator)
-  THIS_JOB_BUILD_COMMAND: $(build_command)
-  THIS_JOB_CPP_STANDARD: $(cpp_standard)
-  THIS_JOB_VERBOSE_MAKEFILE: $(verbose_makefile)
-  THIS_JOB_EXTRA_CONFIGURE_ARGUMENTS: $(extra_configure_arguments)
+  variables:
+    THIS_JOB_BUILD_GENERATOR: $(build_generator)
+    THIS_JOB_BUILD_COMMAND: $(build_command)
+    THIS_JOB_CPP_STANDARD: $(cpp_standard)
+    THIS_JOB_VERBOSE_MAKEFILE: $(verbose_makefile)
+    THIS_JOB_EXTRA_CONFIGURE_ARGUMENTS: $(extra_configure_arguments)
 
-steps:
-  - script: $(command)
-    displayName: Build
+  steps:
+    - script: $(command)
+      displayName: Build

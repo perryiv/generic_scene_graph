@@ -147,6 +147,25 @@ const makeRemoveDirCommand = function ( path )
 
 ////////////////////////////////////////////////////////////////////////////////
 //
+//  Make the command to uncompress the file.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+const makeUncompressCommand = function ( file )
+{
+  if ( true == isWindows() )
+  {
+    return ( "cmd -> tar -xf " + file );
+  }
+  else
+  {
+    return ( "tar -xf " + file );
+  }
+};
+
+
+////////////////////////////////////////////////////////////////////////////////
+//
 //  Run the steps.
 //
 ////////////////////////////////////////////////////////////////////////////////
@@ -209,9 +228,11 @@ const run = function()
   {
     const buildType = "Release";
     const dir = "Catch2-2.13.1";
+    const file = "v2.13.1.tar.gz";
     process.chdir ( tempDir );
     execute ( makeRemoveDirCommand ( dir ) );
-    execute ( "curl -L https://github.com/catchorg/Catch2/archive/v2.13.1.tar.gz | tar xz" );
+    execute ( "wget -L https://github.com/catchorg/Catch2/archive/" + file );
+    execute ( makeUncompressCommand ( file ) );
     process.chdir ( dir );
     execute ( "mkdir build" );
     process.chdir ( "build" );

@@ -17,7 +17,7 @@
 @echo on
 
 :: Install curl.
-choco install -y curl
+choco install -y wget
 
 :: Install mode modules.
 npm install colors platform property-tools shelljs

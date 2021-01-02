@@ -20,6 +20,9 @@
 whoami
 cd
 dir
+cd ..
+dir
+node --version
 
 :: Install mode modules.
 npm install colors platform property-tools shelljs

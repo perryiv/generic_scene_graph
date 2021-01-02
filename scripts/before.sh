@@ -30,4 +30,5 @@ curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
 sudo apt-get -y install nodejs
 
 # Install mode modules.
-sudo npm install -g colors platform property-tools shelljs
+sudo chown -R `whoami` "/home/`whoami`/.npm"
+npm install -g colors platform property-tools shelljs

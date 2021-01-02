@@ -121,7 +121,7 @@ jobs:
 
       Visual_Studio_2019_CPP_17:
         image_name: 'windows-2019'
-        build_generator: 'default'
+        build_generator: 'Visual Studio 16 2019'
         build_command: devenv
         cpp_standard: 17
         verbose_makefile: OFF
@@ -129,7 +129,7 @@ jobs:
 
       Visual_Studio_2019_CPP_14:
         image_name: 'windows-2019'
-        build_generator: 'default'
+        build_generator: 'Visual Studio 16 2019'
         build_command: devenv
         cpp_standard: 14
         verbose_makefile: OFF
@@ -154,7 +154,7 @@ jobs:
 
     - task: Bash@3
       inputs:
-        filePath: ./build.sh
+        filePath: ./scripts/ci.sh
       condition: contains(variables['Agent.JobName'], 'Visual_Studio')
       displayName: Build with Bash
 

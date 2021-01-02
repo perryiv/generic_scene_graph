@@ -125,7 +125,7 @@ jobs:
         build_command: devenv
         cpp_standard: 17
         verbose_makefile: OFF
-        command: cd scripts && node ci.js
+        command: node scripts/ci.js
 
       Visual_Studio_2019_CPP_14:
         image_name: 'windows-2019'
@@ -133,7 +133,7 @@ jobs:
         build_command: devenv
         cpp_standard: 14
         verbose_makefile: OFF
-        command: cd scripts && node ci.js
+        command: node scripts/ci.js
 
   pool:
     vmImage: $(image_name)

@@ -54,7 +54,7 @@ jobs:
       # Linux_GCC_10_CPP_17:
       #   image_name: 'ubuntu-20.04'
       #   build_generator: Ninja
-      #   build_command: ninja
+      #   install_command: sudo ninja install
       #   cpp_standard: 17
       #   verbose_makefile: ON
       #   command: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "cd scripts && sh before_ubuntu.sh && node ci.js"
@@ -62,7 +62,7 @@ jobs:
       # Linux_GCC_10_CPP_14:
       #   image_name: 'ubuntu-20.04'
       #   build_generator: Ninja
-      #   build_command: ninja
+      #   install_command: sudo ninja install
       #   cpp_standard: 14
       #   verbose_makefile: ON
       #   command: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "cd scripts && sh before_ubuntu.sh && node ci.js"
@@ -70,7 +70,7 @@ jobs:
       # Linux_GCC_9_CPP_17:
       #   image_name: 'ubuntu-20.04'
       #   build_generator: Ninja
-      #   build_command: ninja
+      #   install_command: sudo ninja install
       #   cpp_standard: 17
       #   verbose_makefile: ON
       #   command: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "cd scripts && sh before_ubuntu.sh && node ci.js"
@@ -78,7 +78,7 @@ jobs:
       # Linux_GCC_9_CPP_14:
       #   image_name: 'ubuntu-20.04'
       #   build_generator: Ninja
-      #   build_command: ninja
+      #   install_command: sudo ninja install
       #   cpp_standard: 14
       #   verbose_makefile: ON
       #   command: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "cd scripts && sh before_ubuntu.sh && node ci.js"
@@ -86,7 +86,7 @@ jobs:
       # Linux_GCC_8_CPP_17:
       #   image_name: 'ubuntu-20.04'
       #   build_generator: Ninja
-      #   build_command: ninja
+      #   install_command: sudo ninja install
       #   cpp_standard: 17
       #   verbose_makefile: ON
       #   command: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "cd scripts && sh before_ubuntu.sh && node ci.js"
@@ -94,7 +94,7 @@ jobs:
       # Linux_GCC_8_CPP_14:
       #   image_name: 'ubuntu-20.04'
       #   build_generator: Ninja
-      #   build_command: ninja
+      #   install_command: sudo ninja install
       #   cpp_standard: 14
       #   verbose_makefile: ON
       #   command: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "cd scripts && sh before_ubuntu.sh && node ci.js"
@@ -104,7 +104,7 @@ jobs:
       # Apple_Clang_11_CPP_17:
       #   image_name: 'macOS-10.15'
       #   build_generator: 'default'
-      #   build_command: make
+      #   install_command: sudo make install
       #   cpp_standard: 17
       #   verbose_makefile: ON
       #   command: cd scripts && sh before_apple.sh && node ci.js
@@ -112,7 +112,7 @@ jobs:
       # Apple_Clang_11_CPP_14:
       #   image_name: 'macOS-10.15'
       #   build_generator: 'default'
-      #   build_command: make
+      #   install_command: sudo make install
       #   cpp_standard: 14
       #   verbose_makefile: ON
       #   command: cd scripts && sh before_apple.sh && node ci.js
@@ -122,7 +122,7 @@ jobs:
       Visual_Studio_2019_CPP_17:
         image_name: 'windows-2019'
         build_generator: 'Visual Studio 16 2019'
-        build_command: devenv
+        install_command: msbuild install
         cpp_standard: 17
         verbose_makefile: OFF
         command: node scripts/ci.js
@@ -130,7 +130,7 @@ jobs:
       Visual_Studio_2019_CPP_14:
         image_name: 'windows-2019'
         build_generator: 'Visual Studio 16 2019'
-        build_command: devenv
+        install_command: msbuild install
         cpp_standard: 14
         verbose_makefile: OFF
         command: node scripts/ci.js
@@ -140,7 +140,7 @@ jobs:
 
   variables:
     THIS_JOB_BUILD_GENERATOR: $(build_generator)
-    THIS_JOB_BUILD_COMMAND: $(build_command)
+    THIS_JOB_INSTALL_COMMAND: $(install_command)
     THIS_JOB_CPP_STANDARD: $(cpp_standard)
     THIS_JOB_VERBOSE_MAKEFILE: $(verbose_makefile)
 

@@ -23,6 +23,8 @@ dir
 cd ..
 dir
 node --version
+echo "hi 1"
+echo "hi 2"
 
 :: Install mode modules.
 npm install colors platform property-tools shelljs

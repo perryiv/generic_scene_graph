@@ -121,7 +121,7 @@ jobs:
 
       Visual_Studio_2019_CPP_17:
         image_name: 'windows-2019'
-        build_generator: Visual Studio 16 2019
+        build_generator: 'Visual Studio 16 2019'
         install_command: cmake --build . --target install
         cpp_standard: 17
         verbose_makefile: OFF
@@ -129,7 +129,7 @@ jobs:
 
       Visual_Studio_2019_CPP_14:
         image_name: 'windows-2019'
-        build_generator: Visual Studio 16 2019
+        build_generator: 'Visual Studio 16 2019'
         install_command: cmake --build . --target install
         cpp_standard: 14
         verbose_makefile: OFF

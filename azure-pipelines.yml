@@ -51,53 +51,53 @@ jobs:
   strategy:
     matrix:
 
-      Linux_GCC_10_CPP_17:
-        image_name: 'ubuntu-20.04'
-        build_generator: Ninja
-        build_command: ninja
-        cpp_standard: 17
-        verbose_makefile: ON
-        command: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "cd scripts && sh before_ubuntu.sh && node ci.js"
-
-      Linux_GCC_10_CPP_14:
-        image_name: 'ubuntu-20.04'
-        build_generator: Ninja
-        build_command: ninja
-        cpp_standard: 14
-        verbose_makefile: ON
-        command: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "cd scripts && sh before_ubuntu.sh && node ci.js"
-
-      Linux_GCC_9_CPP_17:
-        image_name: 'ubuntu-20.04'
-        build_generator: Ninja
-        build_command: ninja
-        cpp_standard: 17
-        verbose_makefile: ON
-        command: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "cd scripts && sh before_ubuntu.sh && node ci.js"
-
-      Linux_GCC_9_CPP_14:
-        image_name: 'ubuntu-20.04'
-        build_generator: Ninja
-        build_command: ninja
-        cpp_standard: 14
-        verbose_makefile: ON
-        command: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "cd scripts && sh before_ubuntu.sh && node ci.js"
-
-      Linux_GCC_8_CPP_17:
-        image_name: 'ubuntu-20.04'
-        build_generator: Ninja
-        build_command: ninja
-        cpp_standard: 17
-        verbose_makefile: ON
-        command: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "cd scripts && sh before_ubuntu.sh && node ci.js"
-
-      Linux_GCC_8_CPP_14:
-        image_name: 'ubuntu-20.04'
-        build_generator: Ninja
-        build_command: ninja
-        cpp_standard: 14
-        verbose_makefile: ON
-        command: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "cd scripts && sh before_ubuntu.sh && node ci.js"
+      # Linux_GCC_10_CPP_17:
+      #   image_name: 'ubuntu-20.04'
+      #   build_generator: Ninja
+      #   build_command: ninja
+      #   cpp_standard: 17
+      #   verbose_makefile: ON
+      #   command: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "cd scripts && sh before_ubuntu.sh && node ci.js"
+      #
+      # Linux_GCC_10_CPP_14:
+      #   image_name: 'ubuntu-20.04'
+      #   build_generator: Ninja
+      #   build_command: ninja
+      #   cpp_standard: 14
+      #   verbose_makefile: ON
+      #   command: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "cd scripts && sh before_ubuntu.sh && node ci.js"
+      #
+      # Linux_GCC_9_CPP_17:
+      #   image_name: 'ubuntu-20.04'
+      #   build_generator: Ninja
+      #   build_command: ninja
+      #   cpp_standard: 17
+      #   verbose_makefile: ON
+      #   command: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "cd scripts && sh before_ubuntu.sh && node ci.js"
+      #
+      # Linux_GCC_9_CPP_14:
+      #   image_name: 'ubuntu-20.04'
+      #   build_generator: Ninja
+      #   build_command: ninja
+      #   cpp_standard: 14
+      #   verbose_makefile: ON
+      #   command: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "cd scripts && sh before_ubuntu.sh && node ci.js"
+      #
+      # Linux_GCC_8_CPP_17:
+      #   image_name: 'ubuntu-20.04'
+      #   build_generator: Ninja
+      #   build_command: ninja
+      #   cpp_standard: 17
+      #   verbose_makefile: ON
+      #   command: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "cd scripts && sh before_ubuntu.sh && node ci.js"
+      #
+      # Linux_GCC_8_CPP_14:
+      #   image_name: 'ubuntu-20.04'
+      #   build_generator: Ninja
+      #   build_command: ninja
+      #   cpp_standard: 14
+      #   verbose_makefile: ON
+      #   command: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "cd scripts && sh before_ubuntu.sh && node ci.js"
 
       # All versions of macOS appear to be using clang 11, so just doing that.
 

@@ -14,9 +14,9 @@
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :: Sanity check.
-echo "whoami = `whoami`"
-echo "pwd = `pwd`"
-echo "dir = `dir`"
+whoami
+cd
+dir
 
 :: Install mode modules.
 npm install colors platform property-tools shelljs

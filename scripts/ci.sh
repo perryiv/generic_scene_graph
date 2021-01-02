@@ -44,7 +44,7 @@ cmake ../ \
   -DCATCH_INSTALL_HELPERS=OFF \
   ${THIS_JOB_EXTRA_CONFIGURE_ARGUMENTS}
 cmake --build .
-${THIS_JOB_INSTALL_COMMAND} install
+${THIS_JOB_INSTALL_COMMAND}
 cd .. && rm -rf build
 
 # Immer
@@ -61,7 +61,7 @@ cmake ../ \
   -DCMAKE_VERBOSE_MAKEFILE=${THIS_JOB_VERBOSE_MAKEFILE} \
   ${THIS_JOB_EXTRA_CONFIGURE_ARGUMENTS}
 cmake --build .
-${THIS_JOB_INSTALL_COMMAND} install
+${THIS_JOB_INSTALL_COMMAND}
 cd .. && rm -rf build
 
 # Boost
@@ -89,7 +89,7 @@ cmake ../ \
   -DCMAKE_VERBOSE_MAKEFILE=${THIS_JOB_VERBOSE_MAKEFILE} \
   ${THIS_JOB_EXTRA_CONFIGURE_ARGUMENTS}
 cmake --build .
-${THIS_JOB_INSTALL_COMMAND} install
+${THIS_JOB_INSTALL_COMMAND}
 cd .. && rm -rf build
 
 # GSG
@@ -105,7 +105,7 @@ cmake ${HOME} \
   -DGSG_BUILD_TESTS=ON \
   ${THIS_JOB_EXTRA_CONFIGURE_ARGUMENTS}
 cmake --build . --config Debug
-${THIS_JOB_INSTALL_COMMAND} install
+${THIS_JOB_INSTALL_COMMAND}
 cd bin && ./gsg_test_d --abort --use-colour=yes --durations=no
 cd ../..
 rm -rf build && mkdir build && cd build
@@ -117,7 +117,7 @@ cmake ${HOME} \
   -DGSG_BUILD_TESTS=ON \
   ${THIS_JOB_EXTRA_CONFIGURE_ARGUMENTS}
 cmake --build . --config Release
-${THIS_JOB_INSTALL_COMMAND} install
+${THIS_JOB_INSTALL_COMMAND}
 cd bin && ./gsg_test --abort --use-colour=yes --durations=no
 cd
 

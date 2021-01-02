@@ -157,7 +157,7 @@ jobs:
     - task: Bash@3
       inputs:
         filePath: $(before_script)
-      displayName: Build
+      displayName: Before
 
     - task: Bash@3
       inputs:

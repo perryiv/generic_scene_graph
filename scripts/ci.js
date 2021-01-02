@@ -174,6 +174,14 @@ const run = function()
   console.log ( "environment variables:", env );
   console.log ( "user info:", os.userInfo() );
   execute ( "cmake --version" );
+  if ( isWindows() )
+  {
+    execute ( "dir" );
+  }
+  else
+  {
+    execute ( "ls" );
+  }
 
   // Catch2
   {

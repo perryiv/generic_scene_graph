@@ -128,6 +128,25 @@ const makeBuildCommand = function ( input )
 
 ////////////////////////////////////////////////////////////////////////////////
 //
+//  Make the command to remove the directory.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+const makeRemoveDirCommand = function ( path )
+{
+  if ( true == isWindows() )
+  {
+    return ( "if exist " + path + " ( rmdir /q /s " + path + " )" );
+  }
+  else
+  {
+    return ( "rm -rf " + path );
+  }
+};
+
+
+////////////////////////////////////////////////////////////////////////////////
+//
 //  Run the steps.
 //
 ////////////////////////////////////////////////////////////////////////////////
@@ -192,7 +211,7 @@ const run = function()
     const dir = "Catch2-2.13.1";
     let s = "";
     s += "cd " + tempDir;
-    s += " && rm -rf " + dir;
+    s += " && " + makeRemoveDirCommand ( dir );
     s += " && curl -L https://github.com/catchorg/Catch2/archive/v2.13.1.tar.gz | tar xz";
     s += " && cd " + dir;
     s += " && mkdir build";
@@ -205,7 +224,7 @@ const run = function()
     s += " && " + makeBuildCommand ( { buildType: buildType } );
     s += " && " + env.THIS_JOB_SUDO_COMMAND + " " + env.THIS_JOB_BUILD_COMMAND + " install";
     s += " && cd " + tempDir;
-    s += " && rm -rf " + dir;
+    s += " && " + makeRemoveDirCommand ( dir );
     execute ( s );
   }
 
@@ -215,7 +234,7 @@ const run = function()
     const dir = "immer";
     let s = "";
     s += "cd " + tempDir;
-    s += " && rm -rf " + dir;
+    s += " && " + makeRemoveDirCommand ( dir );
     s += " && git clone https://github.com/arximboldi/immer.git";
     s += " && cd " + dir;
     s += " && mkdir build";
@@ -225,7 +244,7 @@ const run = function()
     s += " && " + makeBuildCommand ( { buildType: buildType } );
     s += " && " + env.THIS_JOB_SUDO_COMMAND + " " + env.THIS_JOB_BUILD_COMMAND + " install";
     s += " && cd " + tempDir;
-    s += " && rm -rf " + dir;
+    s += " && " + makeRemoveDirCommand ( dir );
     execute ( s );
   }
 
@@ -236,7 +255,7 @@ const run = function()
   //     const dir = "boost_1_75_0";
   //     let s = "";
   //     s += "cd " + tempDir;
-  //     s += " && rm -rf " + dir;
+  //     s += " && " + makeRemoveDirCommand ( dir );
   //     s += " && curl -L https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.gz | tar xz";
   //     s += " && cd " + dir;
   //     s += " && ./bootstrap.sh --with-libraries=filesystem,stacktrace";
@@ -251,7 +270,7 @@ const run = function()
     const dir = "usul";
     let s = "";
     s += "cd " + tempDir;
-    s += " && rm -rf " + dir;
+    s += " && " + makeRemoveDirCommand ( dir );
     s += " && git clone https://github.com/perryiv/usul.git";
     s += " && cd " + dir;
     s += " && mkdir build";
@@ -261,7 +280,7 @@ const run = function()
     s += " && " + makeBuildCommand ( { buildType: buildType } );
     s += " && " + env.THIS_JOB_SUDO_COMMAND + " " + env.THIS_JOB_BUILD_COMMAND + " install";
     s += " && cd " + tempDir;
-    s += " && rm -rf " + dir;
+    s += " && " + makeRemoveDirCommand ( dir );
     execute ( s );
   }
 
@@ -273,7 +292,7 @@ const run = function()
       const dir = "gsg";
       let s = "";
       s += "cd " + tempDir;
-      s += " && rm -rf " + dir;
+      s += " && " + makeRemoveDirCommand ( dir );
       s += " && mkdir " + dir;
       s += " && cd " + dir;
       s += " && mkdir build";
@@ -285,7 +304,7 @@ const run = function()
       s += " && cd bin";
       s += " && ./gsg_test" + postfix + " --abort --use-colour=yes --durations=no";
       s += " && cd " + tempDir;
-      s += " && rm -rf " + dir;
+      s += " && " + makeRemoveDirCommand ( dir );
       execute ( s );
     }
     makeThisProject ( "Debug" );

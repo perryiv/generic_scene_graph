@@ -13,7 +13,7 @@ set -e
 # Echo all the commands.
 set -x
 
-echo "---- Start of build script ----"
+: "---- Start of build script ----"
 
 # Useful information.
 env
@@ -21,13 +21,13 @@ cmake --version
 echo "whoami = `whoami`"
 pwd
 
-# Save the current directory.
-set sourceDir=`pwd`
+# Save the source directory.
+sourceDir=$(pwd)
 
 # Help cmake find things.
 export CMAKE_MODULE_PATH=/usr/local/lib/cmake/Catch2:/usr/local/lib/cmake/Immer:/usr/local/lib/cmake/usul
 
-echo "---- Catch2 ----"
+: "---- Catch2 ----"
 cd /tmp
 rm -rf Catch2-2.13.1
 curl -L https://github.com/catchorg/Catch2/archive/v2.13.1.tar.gz | tar xz
@@ -46,7 +46,7 @@ cmake --build .
 ${THIS_JOB_INSTALL_COMMAND}
 cd .. && rm -rf build
 
-echo "---- Immer ----"
+: "---- Immer ----"
 cd /tmp
 rm -rf immer
 git clone https://github.com/arximboldi/immer.git
@@ -62,7 +62,7 @@ cmake --build .
 ${THIS_JOB_INSTALL_COMMAND}
 cd .. && rm -rf build
 
-# echo "---- Boost ----"
+# : "---- Boost ----"
 # cd /tmp
 # rm -rf boost_1_75_0
 # wget https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.bz2
@@ -73,7 +73,7 @@ cd .. && rm -rf build
 # ./bootstrap.sh --with-libraries=filesystem,stacktrace && \
 # ./b2 install
 
-echo "---- Usul ----"
+: "---- Usul ----"
 cd /tmp
 rm -rf usul
 git clone https://github.com/perryiv/usul.git
@@ -88,7 +88,7 @@ cmake --build .
 ${THIS_JOB_INSTALL_COMMAND}
 cd .. && rm -rf build
 
-echo "---- GSG ----"
+: "---- GSG ----"
 cd /tmp
 rm -rf gsg && mkdir -p gsg && cd gsg
 rm -rf build && mkdir build && cd build
@@ -116,4 +116,4 @@ ${THIS_JOB_INSTALL_COMMAND}
 cd bin && ./gsg_test --abort --use-colour=yes --durations=no
 cd
 
-echo "---- End of build script ----"
+: "---- End of build script ----"

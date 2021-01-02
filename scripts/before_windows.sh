@@ -30,6 +30,7 @@ set -x
 # Install boost.
 cd /tmp
 rm -rf boost
+mkdir boost
 cd boost
 curl -L https://dl.bintray.com/boostorg/release/1.75.0/binaries/boost_1_75_0-msvc-14.2-64.exe > install_boost.exe
 ./install_boost.exe

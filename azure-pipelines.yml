@@ -152,5 +152,12 @@ jobs:
       condition: contains(variables['Agent.JobName'], 'Visual_Studio')
       displayName: Install
 
+    - task: Bash@3
+      inputs:
+        filePath: ./build.sh
+      condition: contains(variables['Agent.JobName'], 'Visual_Studio')
+      displayName: Build with Bash
+
     - script: $(command)
-      displayName: Build
+      condition: not(contains(variables['Agent.JobName'], 'Visual_Studio'))
+      displayName: Build with CI

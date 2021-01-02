@@ -147,25 +147,6 @@ const makeRemoveDirCommand = function ( path )
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-//  Make the command to uncompress the file.
-//
-////////////////////////////////////////////////////////////////////////////////
-
-const makeUncompressCommand = function ( file )
-{
-  // if ( true == isWindows() )
-  // {
-  //   return ( "cmd -> tar -xvf " + file );
-  // }
-  // else
-  // {
-    return ( "tar -xvf " + file );
-  // }
-};
-
-
-////////////////////////////////////////////////////////////////////////////////
-//
 //  Run the steps.
 //
 ////////////////////////////////////////////////////////////////////////////////
@@ -232,7 +213,7 @@ const run = function()
     process.chdir ( tempDir );
     execute ( makeRemoveDirCommand ( dir ) );
     execute ( "wget -L https://github.com/catchorg/Catch2/archive/" + file );
-    execute ( makeUncompressCommand ( file ) );
+    execute ( "tar -xvf " + file );
     process.chdir ( dir );
     execute ( "mkdir build" );
     process.chdir ( "build" );

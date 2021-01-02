@@ -219,11 +219,7 @@ const run = function()
 
   // Boost
   {
-    if ( isLinux() )
-    {
-      execute ( env.THIS_JOB_SUDO_COMMAND + " apt-get -y install libboost-stacktrace-dev" );
-    }
-    else
+    if ( !isLinux() )
     {
       const dir = "boost_1_75_0";
       let s = "";

@@ -36,3 +36,6 @@ sudo chown -R `whoami` "/home/`whoami`/"
 
 # Install mode modules.
 npm install colors platform property-tools shelljs
+
+# Install boost.
+sudo apt-get -y install libboost-stacktrace-dev

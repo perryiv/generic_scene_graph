@@ -17,4 +17,4 @@
 @echo on
 
 :: Install boost.
-choco install --yes --no-progress boost-msvc-14.1
+choco install --yes boost-msvc-14.1

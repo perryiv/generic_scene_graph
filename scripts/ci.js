@@ -79,7 +79,7 @@ const makeConfigCommand = function ( input )
   let s = "";
   s += "cmake " + sourceDir;
 
-  if ( env.THIS_JOB_BUILD_GENERATOR )
+  if ( "default" != env.THIS_JOB_BUILD_GENERATOR )
   {
     s += " -G " + env.THIS_JOB_BUILD_GENERATOR;
   }

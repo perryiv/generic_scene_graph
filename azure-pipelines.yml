@@ -101,21 +101,21 @@ jobs:
 
       # All versions of macOS appear to be using clang 11, so just doing that.
 
-      Apple_Clang_11_CPP_17:
-        image_name: 'macOS-10.15'
-        build_generator: 'default'
-        build_command: make
-        cpp_standard: 17
-        verbose_makefile: ON
-        command: cd scripts && sh before_apple.sh && node ci.js
-
-      Apple_Clang_11_CPP_14:
-        image_name: 'macOS-10.15'
-        build_generator: 'default'
-        build_command: make
-        cpp_standard: 14
-        verbose_makefile: ON
-        command: cd scripts && sh before_apple.sh && node ci.js
+      # Apple_Clang_11_CPP_17:
+      #   image_name: 'macOS-10.15'
+      #   build_generator: 'default'
+      #   build_command: make
+      #   cpp_standard: 17
+      #   verbose_makefile: ON
+      #   command: cd scripts && sh before_apple.sh && node ci.js
+      #
+      # Apple_Clang_11_CPP_14:
+      #   image_name: 'macOS-10.15'
+      #   build_generator: 'default'
+      #   build_command: make
+      #   cpp_standard: 14
+      #   verbose_makefile: ON
+      #   command: cd scripts && sh before_apple.sh && node ci.js
 
       # On windows just using the host machine.
 

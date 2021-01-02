@@ -155,11 +155,11 @@ const makeUncompressCommand = function ( file )
 {
   if ( true == isWindows() )
   {
-    return ( "cmd -> tar -xf " + file );
+    return ( "cmd -> tar -xvf " + file );
   }
   else
   {
-    return ( "tar -xf " + file );
+    return ( "tar -xvf " + file );
   }
 };
 

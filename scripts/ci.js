@@ -209,23 +209,21 @@ const run = function()
   {
     const buildType = "Release";
     const dir = "Catch2-2.13.1";
-    let s = "";
-    s += "cd " + tempDir;
-    s += " && " + makeRemoveDirCommand ( dir );
-    s += " && curl -L https://github.com/catchorg/Catch2/archive/v2.13.1.tar.gz | tar xz";
-    s += " && cd " + dir;
-    s += " && mkdir build";
-    s += " && cd build";
-    s += " && pwd";
-    s += " && " + makeConfigCommand ( { buildType: buildType } );
-    s += " -DBUILD_TESTING=OFF";
-    s += " -DCATCH_INSTALL_DOCS=OFF";
-    s += " -DCATCH_INSTALL_HELPERS=OFF";
-    s += " && " + makeBuildCommand ( { buildType: buildType } );
-    s += " && " + env.THIS_JOB_SUDO_COMMAND + " " + env.THIS_JOB_BUILD_COMMAND + " install";
-    s += " && cd " + tempDir;
-    s += " && " + makeRemoveDirCommand ( dir );
-    execute ( s );
+    process.chdir ( tempDir );
+    execute ( makeRemoveDirCommand ( dir ) );
+    execute ( "curl -L https://github.com/catchorg/Catch2/archive/v2.13.1.tar.gz | tar xz" );
+    process.chdir ( dir );
+    execute ( "mkdir build" );
+    process.chdir ( "build" );
+    execute ( makeConfigCommand ( { buildType: buildType } )
+      + " -DBUILD_TESTING=OFF"
+      + " -DCATCH_INSTALL_DOCS=OFF"
+      + " -DCATCH_INSTALL_HELPERS=OFF"
+    );
+    execute ( makeBuildCommand ( { buildType: buildType } ) );
+    execute ( env.THIS_JOB_SUDO_COMMAND + " " + env.THIS_JOB_BUILD_COMMAND + " install" );
+    process.chdir ( tempDir );
+    execute ( makeRemoveDirCommand ( dir ) );
   }
 
   // Immer

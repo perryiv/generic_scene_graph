@@ -16,3 +16,6 @@ set -x
 # Install node.
 curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
 sudo apt-get -y install nodejs
+
+# Install mode modules.
+npm install -g colors platform property-tools shelljs

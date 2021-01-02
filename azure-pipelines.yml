@@ -52,7 +52,7 @@ jobs:
     matrix:
 
       Linux_GCC_10_CPP_17:
-        image_name: 'ubuntu-latest'
+        image_name: 'ubuntu-20.04'
         build_generator: Ninja
         build_command: ninja
         cpp_standard: 17
@@ -60,7 +60,7 @@ jobs:
         command: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "sh ./scripts/before.sh && node ./scripts/ci.js"
 
       Linux_GCC_10_CPP_14:
-        image_name: 'ubuntu-latest'
+        image_name: 'ubuntu-20.04'
         build_generator: Ninja
         build_command: ninja
         cpp_standard: 14
@@ -68,7 +68,7 @@ jobs:
         command: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "sh ./scripts/before.sh && node ./scripts/ci.js"
 
       Linux_GCC_9_CPP_17:
-        image_name: 'ubuntu-latest'
+        image_name: 'ubuntu-20.04'
         build_generator: Ninja
         build_command: ninja
         cpp_standard: 17
@@ -76,7 +76,7 @@ jobs:
         command: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "sh ./scripts/before.sh && node ./scripts/ci.js"
 
       Linux_GCC_9_CPP_14:
-        image_name: 'ubuntu-latest'
+        image_name: 'ubuntu-20.04'
         build_generator: Ninja
         build_command: ninja
         cpp_standard: 14
@@ -84,7 +84,7 @@ jobs:
         command: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "sh ./scripts/before.sh && node ./scripts/ci.js"
 
       Linux_GCC_8_CPP_17:
-        image_name: 'ubuntu-latest'
+        image_name: 'ubuntu-20.04'
         build_generator: Ninja
         build_command: ninja
         cpp_standard: 17
@@ -92,7 +92,7 @@ jobs:
         command: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "sh ./scripts/before.sh && node ./scripts/ci.js"
 
       Linux_GCC_8_CPP_14:
-        image_name: 'ubuntu-latest'
+        image_name: 'ubuntu-20.04'
         build_generator: Ninja
         build_command: ninja
         cpp_standard: 14

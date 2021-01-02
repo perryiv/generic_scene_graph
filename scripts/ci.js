@@ -51,7 +51,8 @@ const isWindows = function()
 
 const execute = function ( command )
 {
-  console.log ( colors.yellow ( command.replace ( / && /g, "\n" ) ) );
+  console.log ( command );
+  // console.log ( colors.yellow ( command.replace ( / && /g, "\n" ) ) );
   const code = shell.exec ( command ).code;
 
   if ( 0 != code )

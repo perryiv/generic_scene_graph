@@ -107,7 +107,7 @@ jobs:
         build_command: make
         cpp_standard: 17
         verbose_makefile: ON
-        command: node ./scripts/ci.js
+        command: sh ./scripts/before.sh && node ./scripts/ci.js
 
       Apple_Clang_11_CPP_14:
         image_name: 'macOS-10.15'
@@ -115,7 +115,7 @@ jobs:
         build_command: make
         cpp_standard: 14
         verbose_makefile: ON
-        command: node ./scripts/ci.js
+        command: sh ./scripts/before.sh && node ./scripts/ci.js
 
       # On windows just using the host machine.
 
@@ -126,7 +126,7 @@ jobs:
         cpp_standard: 17
         verbose_makefile: OFF
         extra_configure_arguments: '-Ax64'
-        command: node ./scripts/ci.js
+        command: cmd ./scripts/before.bat && node ./scripts/ci.js
 
       Visual_Studio_2019_CPP_14:
         image_name: 'windows-2019'
@@ -135,7 +135,7 @@ jobs:
         cpp_standard: 14
         verbose_makefile: OFF
         extra_configure_arguments: '-Ax64'
-        command: node ./scripts/ci.js
+        command: cmd ./scripts/before.bat && node ./scripts/ci.js
 
   pool:
     vmImage: $(image_name)

@@ -62,17 +62,6 @@ cmake --build .
 ${THIS_JOB_INSTALL_COMMAND}
 cd .. && rm -rf build
 
-# : "---- Boost ----"
-# cd /tmp
-# rm -rf boost_1_75_0
-# wget https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.bz2
-# bzip2 -d boost_1_75_0.tar.bz2
-# tar -xf boost_1_75_0.tar
-# rm boost_1_75_0.tar
-# cd boost_1_75_0
-# ./bootstrap.sh --with-libraries=filesystem,stacktrace
-# ./b2 install
-
 : "---- Usul ----"
 cd /tmp
 rm -rf usul

@@ -95,9 +95,9 @@ const makeConfigCommand = function ( input )
   {
     s += " -DCMAKE_VERBOSE_MAKEFILE=" + env.THIS_JOB_VERBOSE_MAKEFILE;
   }
-  if ( env.THIS_JOB_EXTRA_CONFIGURE_ARGUMENTS )
+  if ( isWindows() )
   {
-    s += " " + env.THIS_JOB_EXTRA_CONFIGURE_ARGUMENTS;
+    s += " -Ax64";
   }
 
   return s;

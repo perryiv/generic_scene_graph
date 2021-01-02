@@ -125,7 +125,6 @@ jobs:
         build_command: devenv
         cpp_standard: 17
         verbose_makefile: OFF
-        extra_configure_arguments: '-Ax64'
         command: cd scripts && cmd before.bat && node ci.js
 
       Visual_Studio_2019_CPP_14:
@@ -134,7 +133,6 @@ jobs:
         build_command: devenv
         cpp_standard: 14
         verbose_makefile: OFF
-        extra_configure_arguments: '-Ax64'
         command: cd scripts && cmd before.bat && node ci.js
 
   pool:
@@ -145,7 +143,6 @@ jobs:
     THIS_JOB_BUILD_COMMAND: $(build_command)
     THIS_JOB_CPP_STANDARD: $(cpp_standard)
     THIS_JOB_VERBOSE_MAKEFILE: $(verbose_makefile)
-    THIS_JOB_EXTRA_CONFIGURE_ARGUMENTS: $(extra_configure_arguments)
 
   steps:
     - script: $(command)

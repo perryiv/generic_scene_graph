@@ -153,14 +153,14 @@ const makeRemoveDirCommand = function ( path )
 
 const makeUncompressCommand = function ( file )
 {
-  if ( true == isWindows() )
-  {
-    return ( "cmd -> tar -xvf " + file );
-  }
-  else
-  {
+  // if ( true == isWindows() )
+  // {
+  //   return ( "cmd -> tar -xvf " + file );
+  // }
+  // else
+  // {
     return ( "tar -xvf " + file );
-  }
+  // }
 };
 
 

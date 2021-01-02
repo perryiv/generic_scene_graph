@@ -129,7 +129,7 @@ template < class ArrayType > struct Tester
 
     SECTION ( "Can iterate through the values" )
     {
-      const auto input = { TT ( 10 ), TT ( 20 ), TT ( 30 ), TT ( 40 ) };
+      const InternalVectorType input = { TT ( 10 ), TT ( 20 ), TT ( 30 ), TT ( 40 ) };
       const Array *a = new Array ( input );
 
       auto expected = input.begin();
@@ -142,7 +142,7 @@ template < class ArrayType > struct Tester
 
     SECTION ( "Can iterate through the values and change them" )
     {
-      const auto input = { TT ( 10 ), TT ( 20 ), TT ( 30 ), TT ( 40 ) };
+      const InternalVectorType input = { TT ( 10 ), TT ( 20 ), TT ( 30 ), TT ( 40 ) };
       Array *a = new Array ( input );
 
       a->forEach ( [] ( value_type &value )

@@ -14,7 +14,7 @@
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :: Echo all the commands.
-echo on
+@echo on
 
 :: Sanity check.
 whoami

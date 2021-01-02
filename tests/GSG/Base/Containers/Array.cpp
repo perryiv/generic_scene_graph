@@ -156,7 +156,8 @@ TEMPLATE_TEST_CASE ( "Array container", "",
 
     a->forEach ( [] ( value_type &value )
     {
-      value = value + value;
+      // The static_cast keeps gcc 9 and earlier happy.
+      value = static_cast < value_type > ( value + value );
     } );
 
     auto expected = input.begin();

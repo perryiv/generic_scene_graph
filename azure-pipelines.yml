@@ -148,7 +148,7 @@ jobs:
 
     - task: BatchScript@1
       inputs:
-        filename: before_windows.bat
+        filename: scripts/before_windows.bat
       condition: contains(variables['Agent.JobName'], 'Visual_Studio')
       displayName: Install
 

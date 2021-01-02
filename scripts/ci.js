@@ -13,12 +13,12 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-const { getProperty, requireProperty } = require ( "property-tools" );
-
 const colors = require ( "colors/safe" );
 const os = require ( "os" );
 const platform = require ( "platform" );
 const shell = require ( "shelljs" );
+
+const { getProperty, requireProperty } = require ( "property-tools" );
 
 colors.enable();
 

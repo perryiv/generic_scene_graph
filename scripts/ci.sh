@@ -70,7 +70,7 @@ cd .. && rm -rf build
 # tar -xf boost_1_75_0.tar
 # rm boost_1_75_0.tar
 # cd boost_1_75_0
-# ./bootstrap.sh --with-libraries=filesystem,stacktrace && \
+# ./bootstrap.sh --with-libraries=filesystem,stacktrace
 # ./b2 install
 
 : "---- Usul ----"

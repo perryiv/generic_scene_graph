@@ -218,20 +218,20 @@ const run = function()
   }
 
   // Boost
-  {
-    if ( !isLinux() )
-    {
-      const dir = "boost_1_75_0";
-      let s = "";
-      s += "cd /tmp";
-      s += " && rm -rf " + dir;
-      s += " && curl -L https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.gz | tar xz";
-      s += " && cd " + dir;
-      s += " && ./bootstrap.sh --with-libraries=filesystem,stacktrace";
-      s += " && " + env.THIS_JOB_SUDO_COMMAND + " ./b2 install";
-      execute ( s );
-    }
-  }
+  // {
+  //   if ( !isLinux() )
+  //   {
+  //     const dir = "boost_1_75_0";
+  //     let s = "";
+  //     s += "cd /tmp";
+  //     s += " && rm -rf " + dir;
+  //     s += " && curl -L https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.gz | tar xz";
+  //     s += " && cd " + dir;
+  //     s += " && ./bootstrap.sh --with-libraries=filesystem,stacktrace";
+  //     s += " && " + env.THIS_JOB_SUDO_COMMAND + " ./b2 install";
+  //     execute ( s );
+  //   }
+  // }
 
   // Usul
   {

@@ -23,6 +23,8 @@ set -x
 echo "whoami = `whoami`"
 echo "pwd = `pwd`"
 echo "ls = `ls`"
+cmake --version
+node --version
 
 # Get ready to install.
 # sudo apt-get update

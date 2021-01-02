@@ -18,11 +18,3 @@ set -e
 
 # Echo all the commands.
 set -x
-
-# Sanity check.
-echo "whoami = `whoami`"
-echo "pwd = `pwd`"
-echo "ls = `ls`"
-
-# Install mode modules.
-# npm install colors platform property-tools shelljs

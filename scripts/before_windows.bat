@@ -16,8 +16,5 @@
 :: Echo all the commands.
 @echo on
 
-:: Install curl.
-:: choco install --yes --no-progress wget
-
-:: Install mode modules.
-:: npm install colors platform property-tools shelljs
+:: Install boost.
+choco install --yes --no-progress boost-msvc-14.1

@@ -20,9 +20,18 @@ set -e
 set -x
 
 # Install boost.
+# cd /tmp
+# rm -rf boost_1_75_0
+# curl -L https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.gz | tar xz
+# cd boost_1_75_0
+# ./bootstrap.sh --with-libraries=filesystem,stacktrace
+# ./b2 install
+
+# Install boost.
 cd /tmp
-rm -rf boost_1_75_0
-curl -L https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.gz | tar xz
-cd boost_1_75_0
-./bootstrap.sh --with-libraries=filesystem,stacktrace
-./b2 install
+rm -rf boost
+cd boost
+curl -L https://dl.bintray.com/boostorg/release/1.75.0/binaries/boost_1_75_0-msvc-14.2-64.exe > install_boost.exe
+./install_boost.exe
+cd /tmp
+rm -rf boost

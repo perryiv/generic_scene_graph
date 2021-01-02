@@ -126,7 +126,7 @@ jobs:
         cpp_standard: 17
         verbose_makefile: OFF
         before_script: ./scripts/before_windows.sh
-        the_script: /scripts/ci.sh
+        the_script: ./scripts/ci.sh
 
       Visual_Studio_2019_CPP_14:
         image_name: 'windows-2019'
@@ -135,7 +135,7 @@ jobs:
         cpp_standard: 14
         verbose_makefile: OFF
         before_script: ./scripts/before_windows.sh
-        the_script: /scripts/ci.sh
+        the_script: ./scripts/ci.sh
 
   pool:
     vmImage: $(image_name)

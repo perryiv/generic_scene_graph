@@ -25,4 +25,4 @@ echo "pwd = `pwd`"
 echo "ls = `ls`"
 
 # Install mode modules.
-npm install colors platform property-tools shelljs
+# npm install colors platform property-tools shelljs

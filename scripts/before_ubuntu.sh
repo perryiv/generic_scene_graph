@@ -28,14 +28,14 @@ echo "ls = `ls`"
 sudo apt-get update
 
 # Install node.
-curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
-sudo apt-get -y install nodejs
+# curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
+# sudo apt-get -y install nodejs
 
 # Make sure we own everything.
-sudo chown -R `whoami` "/home/`whoami`/"
+# sudo chown -R `whoami` "/home/`whoami`/"
 
 # Install mode modules.
-npm install colors platform property-tools shelljs
+# npm install colors platform property-tools shelljs
 
 # Install boost.
 sudo apt-get -y install libboost-stacktrace-dev

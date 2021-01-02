@@ -35,7 +35,7 @@ curl -L https://github.com/catchorg/Catch2/archive/v2.13.1.tar.gz | tar xz
 cd Catch2-2.13.1
 rm -rf build && mkdir build && cd build
 cmake ../ \
-  -G "${THIS_JOB_BUILD_GENERATOR}" \
+  -G \"${THIS_JOB_BUILD_GENERATOR}\" \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_CXX_STANDARD=${THIS_JOB_CPP_STANDARD} \
   -DCMAKE_VERBOSE_MAKEFILE=${THIS_JOB_VERBOSE_MAKEFILE} \
@@ -55,7 +55,7 @@ git clone https://github.com/arximboldi/immer.git
 cd immer
 rm -rf build && mkdir build && cd build
 cmake ../ \
-  -G "${THIS_JOB_BUILD_GENERATOR}" \
+  -G \"${THIS_JOB_BUILD_GENERATOR}\" \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_CXX_STANDARD=${THIS_JOB_CPP_STANDARD} \
   -DCMAKE_VERBOSE_MAKEFILE=${THIS_JOB_VERBOSE_MAKEFILE} \
@@ -83,7 +83,7 @@ rm -rf usul
 git clone https://github.com/perryiv/usul.git
 cd usul && rm -rf build && mkdir build && cd build
 cmake ../ \
-  -G "${THIS_JOB_BUILD_GENERATOR}" \
+  -G \"${THIS_JOB_BUILD_GENERATOR}\" \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_CXX_STANDARD=${THIS_JOB_CPP_STANDARD} \
   -DCMAKE_VERBOSE_MAKEFILE=${THIS_JOB_VERBOSE_MAKEFILE} \
@@ -98,25 +98,25 @@ cd /tmp
 rm -rf gsg && mkdir -p gsg && cd gsg
 rm -rf build && mkdir build && cd build
 cmake ${HOME} \
-  -G "${THIS_JOB_BUILD_GENERATOR}" \
+  -G \"${THIS_JOB_BUILD_GENERATOR}\" \
   -DCMAKE_BUILD_TYPE=Debug \
   -DCMAKE_CXX_STANDARD=${THIS_JOB_CPP_STANDARD} \
   -DCMAKE_VERBOSE_MAKEFILE=${THIS_JOB_VERBOSE_MAKEFILE} \
   -DGSG_BUILD_TESTS=ON \
   ${THIS_JOB_EXTRA_CONFIGURE_ARGUMENTS}
-cmake --build .
+cmake --build . --config Debug
 ${THIS_JOB_INSTALL_COMMAND} install
 cd bin && ./gsg_test_d --abort --use-colour=yes --durations=no
 cd ../..
 rm -rf build && mkdir build && cd build
 cmake ${HOME} \
-  -G "${THIS_JOB_BUILD_GENERATOR}" \
+  -G \"${THIS_JOB_BUILD_GENERATOR}\" \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_CXX_STANDARD=${THIS_JOB_CPP_STANDARD} \
   -DCMAKE_VERBOSE_MAKEFILE=${THIS_JOB_VERBOSE_MAKEFILE} \
   -DGSG_BUILD_TESTS=ON \
   ${THIS_JOB_EXTRA_CONFIGURE_ARGUMENTS}
-cmake --build .
+cmake --build . --config Release
 ${THIS_JOB_INSTALL_COMMAND} install
 cd bin && ./gsg_test --abort --use-colour=yes --durations=no
 cd

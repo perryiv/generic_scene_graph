@@ -17,14 +17,15 @@
 @echo on
 
 :: Sanity check.
-whoami
-cd
-dir
-cd ..
-dir
-node --version
-echo "hi 1"
-echo "hi 2"
+set
+REM whoami
+REM cd
+REM dir
+REM cd ..
+REM dir
+REM node --version
+REM echo "hi 1"
+REM echo "hi 2"
 
 :: Install mode modules.
 npm install colors platform property-tools shelljs

@@ -183,12 +183,15 @@ const run = function()
     execute ( "ls" );
   }
 
+  // Get the temporary directory.
+  const tempDir = ( ( isWindows() ) ? env.TEMP : "/tmp" );
+
   // Catch2
   {
     const buildType = "Release";
     const dir = "Catch2-2.13.1";
     let s = "";
-    s += "cd /tmp";
+    s += "cd " + tempDir;
     s += " && rm -rf " + dir;
     s += " && curl -L https://github.com/catchorg/Catch2/archive/v2.13.1.tar.gz | tar xz";
     s += " && cd " + dir;
@@ -201,7 +204,7 @@ const run = function()
     s += " -DCATCH_INSTALL_HELPERS=OFF";
     s += " && " + makeBuildCommand ( { buildType: buildType } );
     s += " && " + env.THIS_JOB_SUDO_COMMAND + " " + env.THIS_JOB_BUILD_COMMAND + " install";
-    s += " && cd /tmp";
+    s += " && cd " + tempDir;
     s += " && rm -rf " + dir;
     execute ( s );
   }
@@ -211,7 +214,7 @@ const run = function()
     const buildType = "Release";
     const dir = "immer";
     let s = "";
-    s += "cd /tmp";
+    s += "cd " + tempDir;
     s += " && rm -rf " + dir;
     s += " && git clone https://github.com/arximboldi/immer.git";
     s += " && cd " + dir;
@@ -221,7 +224,7 @@ const run = function()
     s += " && " + makeConfigCommand ( { buildType: buildType } );
     s += " && " + makeBuildCommand ( { buildType: buildType } );
     s += " && " + env.THIS_JOB_SUDO_COMMAND + " " + env.THIS_JOB_BUILD_COMMAND + " install";
-    s += " && cd /tmp";
+    s += " && cd " + tempDir;
     s += " && rm -rf " + dir;
     execute ( s );
   }
@@ -232,7 +235,7 @@ const run = function()
   //   {
   //     const dir = "boost_1_75_0";
   //     let s = "";
-  //     s += "cd /tmp";
+  //     s += "cd " + tempDir;
   //     s += " && rm -rf " + dir;
   //     s += " && curl -L https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.gz | tar xz";
   //     s += " && cd " + dir;
@@ -247,7 +250,7 @@ const run = function()
     const buildType = "Release";
     const dir = "usul";
     let s = "";
-    s += "cd /tmp";
+    s += "cd " + tempDir;
     s += " && rm -rf " + dir;
     s += " && git clone https://github.com/perryiv/usul.git";
     s += " && cd " + dir;
@@ -257,7 +260,7 @@ const run = function()
     s += " && " + makeConfigCommand ( { buildType: buildType } );
     s += " && " + makeBuildCommand ( { buildType: buildType } );
     s += " && " + env.THIS_JOB_SUDO_COMMAND + " " + env.THIS_JOB_BUILD_COMMAND + " install";
-    s += " && cd /tmp";
+    s += " && cd " + tempDir;
     s += " && rm -rf " + dir;
     execute ( s );
   }
@@ -269,7 +272,7 @@ const run = function()
       let postfix = ( ( "Debug" == buildType ) ? "_d" : "" );
       const dir = "gsg";
       let s = "";
-      s += "cd /tmp";
+      s += "cd " + tempDir;
       s += " && rm -rf " + dir;
       s += " && mkdir " + dir;
       s += " && cd " + dir;
@@ -281,7 +284,7 @@ const run = function()
       s += " && " + env.THIS_JOB_SUDO_COMMAND + " " + env.THIS_JOB_BUILD_COMMAND + " install";
       s += " && cd bin";
       s += " && ./gsg_test" + postfix + " --abort --use-colour=yes --durations=no";
-      s += " && cd /tmp";
+      s += " && cd " + tempDir;
       s += " && rm -rf " + dir;
       execute ( s );
     }

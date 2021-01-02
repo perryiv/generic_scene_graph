@@ -16,8 +16,10 @@
 :: Echo all the commands.
 @echo on
 
-:: Sanity check.
+:: Print environment variables.
 set
+
+:: Sanity check.
 REM whoami
 REM cd
 REM dir

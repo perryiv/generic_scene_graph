@@ -125,7 +125,8 @@ jobs:
         install_command: cmake --build . --target install
         cpp_standard: 17
         verbose_makefile: OFF
-        command: node scripts/ci.js
+        before_script: ./scripts/before_windows.sh
+        the_script: /scripts/ci.sh
 
       Visual_Studio_2019_CPP_14:
         image_name: 'windows-2019'
@@ -133,7 +134,8 @@ jobs:
         install_command: cmake --build . --target install
         cpp_standard: 14
         verbose_makefile: OFF
-        command: node scripts/ci.js
+        before_script: ./scripts/before_windows.sh
+        the_script: /scripts/ci.sh
 
   pool:
     vmImage: $(image_name)
@@ -146,18 +148,22 @@ jobs:
 
   steps:
 
-    - task: BatchScript@1
-      inputs:
-        filename: scripts/before_windows.bat
-      condition: contains(variables['Agent.JobName'], 'Visual_Studio')
-      displayName: Install
+    # - task: BatchScript@1
+    #   inputs:
+    #     filename: scripts/before_windows.bat
+    #   condition: contains(variables['Agent.JobName'], 'Visual_Studio')
+    #   displayName: Install
 
     - task: Bash@3
       inputs:
-        filePath: ./scripts/ci.sh
-      condition: contains(variables['Agent.JobName'], 'Visual_Studio')
-      displayName: Build with Bash
+        filePath: $(before_script)
+      displayName: Build
 
-    - script: $(command)
-      condition: not(contains(variables['Agent.JobName'], 'Visual_Studio'))
-      displayName: Build with CI
+    - task: Bash@3
+      inputs:
+        filePath: $(the_script)
+      displayName: Build
+
+    # - script: $(command)
+    #   condition: not(contains(variables['Agent.JobName'], 'Visual_Studio'))
+    #   displayName: Build with CI

@@ -103,7 +103,7 @@ jobs:
 
       # Apple_Clang_11_CPP_17:
       #   image_name: 'macOS-10.15'
-      #   build_generator: default
+      #   build_generator: 'Unix Makefiles'
       #   install_command: sudo make install
       #   cpp_standard: 17
       #   verbose_makefile: ON
@@ -111,7 +111,7 @@ jobs:
       #
       # Apple_Clang_11_CPP_14:
       #   image_name: 'macOS-10.15'
-      #   build_generator: default
+      #   build_generator: 'Unix Makefiles'
       #   install_command: sudo make install
       #   cpp_standard: 14
       #   verbose_makefile: ON
@@ -159,11 +159,11 @@ jobs:
     #     filePath: $(before_script)
     #   displayName: Before
 
-    # - task: Bash@3
-    #   inputs:
-    #     filePath: $(the_script)
-    #   displayName: Build
-
-    - script: $(the_script)
-      # condition: not(contains(variables['Agent.JobName'], 'Visual_Studio'))
+    - task: Bash@3
+      inputs:
+        filePath: $(the_script)
       displayName: Build
+
+    # - script: $(the_script)
+    #   # condition: not(contains(variables['Agent.JobName'], 'Visual_Studio'))
+    #   displayName: Build

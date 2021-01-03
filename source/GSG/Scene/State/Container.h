@@ -19,6 +19,9 @@
 #include "GSG/Base/Objects/Object.h"
 
 #include "Usul/Properties/Map.h"
+#include "Usul/Strings/Format.h"
+
+#include <functional>
 
 
 namespace GSG {
@@ -36,25 +39,30 @@ public:
   typedef Usul::Properties::Map PropertyMap;
   typedef std::function < void ( const Container & ) > Callback;
 
-  // Constructor
-  Container ( unsigned long );
-  Container ( unsigned long, const PropertyMap & );
+  // Constructors
+  Container ( const std::string & );
+  Container ( const std::string &, const PropertyMap & );
+  Container ( const std::string &, const PropertyMap::Values & );
 
   // Apply/reset the state.
   void apply();
   void reset();
 
-  // Set the apply/reset callbacks.
-  void setApplyCallback ( const Callback & );
-  void setResetCallback ( const Callback & );
-
   // Get the id.
   unsigned long getID() const { return _id; }
+
+  // Get the name.
+  const std::string &getName() const { return _name; }
 
   // Get/set the property map.
   const PropertyMap &getPropertyMap() const { return _props; }
   PropertyMap &      getPropertyMap()       { return _props; }
   void               setPropertyMap ( const PropertyMap & );
+  void               setPropertyMap ( const PropertyMap::Values & );
+
+  // Set the apply/reset callbacks.
+  void setApplyCallback ( const Callback & );
+  void setResetCallback ( const Callback & );
 
 protected:
 
@@ -65,6 +73,7 @@ private:
   void _destroyContainer();
 
   const unsigned long _id;
+  const std::string _name;
   PropertyMap _props;
   Callback _apply;
   Callback _reset;
@@ -74,6 +83,14 @@ private:
 } // namespace State
 } // namespace Scene
 } // namespace GSG
+
+
+// For convenience, pass to the constructor.
+#define GSG_STATE_CONTAINER_NAME \
+  Usul::Strings::format ( \
+    "File: ", __FILE__, \
+    ", Line: ", __LINE__ \
+  )
 
 
 #endif // _GENERIC_SCENE_GRAPH_STATE_CONTAINER_CLASS_H_

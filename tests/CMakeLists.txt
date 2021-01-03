@@ -24,6 +24,7 @@ set ( SOURCE_FILES
   ./GSG/Scene/Nodes/Groups/Transform.cpp
   ./GSG/Scene/Nodes/Shapes/Geometry.cpp
   ./GSG/Scene/Primitives/DrawElements.cpp
+  ./GSG/Scene/State/Container.cpp
   ./GSG/Main.cpp
   ./GSG/Version.cpp
 )

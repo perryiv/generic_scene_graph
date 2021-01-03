@@ -32,18 +32,22 @@ GSG_IMPLEMENT_OBJECT_CLASS ( Container )
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-//  Constructor.
+//  Constructors.
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-Container::Container ( unsigned long id, const PropertyMap &props ) : BaseClass(),
-  _id ( id ),
+Container::Container ( const std::string &name, const PropertyMap::Values &props ) : BaseClass(),
+  _id ( std::hash < std::string > {} ( name ) ),
+  _name ( name ),
   _props ( props ),
   _apply(),
   _reset()
 {
 }
-Container::Container ( unsigned long id ) : Container ( id, PropertyMap() )
+Container::Container ( const std::string &name, const PropertyMap &props ) : Container ( name, props.values() )
+{
+}
+Container::Container ( const std::string &name ) : Container ( name, PropertyMap::Values() )
 {
 }
 
@@ -126,9 +130,13 @@ void Container::setResetCallback ( const Callback &reset )
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-void Container::setPropertyMap ( const PropertyMap &props )
+void Container::setPropertyMap ( const PropertyMap::Values &props )
 {
   _props = props;
+}
+void Container::setPropertyMap ( const PropertyMap &props )
+{
+  this->setPropertyMap ( props.values() );
 }
 
 

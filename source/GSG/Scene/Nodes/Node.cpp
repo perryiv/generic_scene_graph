@@ -21,7 +21,6 @@
 
 #include <atomic>
 #include <functional>
-#include <stdexcept>
 
 
 namespace GSG {

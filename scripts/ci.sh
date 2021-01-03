@@ -25,7 +25,7 @@ pwd
 sourceDir=$(pwd)
 
 # Help cmake find things.
-export CMAKE_MODULE_PATH=/usr/local/lib/cmake/Catch2:/usr/local/lib/cmake/Immer:/usr/local/lib/cmake/usul
+export CMAKE_MODULE_PATH=${CMAKE_MODULE_PATH}:/usr/local/lib/cmake/Catch2:/usr/local/lib/cmake/Immer:/usr/local/lib/cmake/usul
 
 : "---- Catch2 ----"
 cd /tmp

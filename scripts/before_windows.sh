@@ -37,3 +37,6 @@ cd boost_1_75_0
 # ./install_boost.exe
 # cd /tmp
 # rm -rf boost
+
+ls /usr/local/include/boost-1_75
+export CMAKE_MODULE_PATH=${CMAKE_MODULE_PATH}:/usr/local/include/boost-1_75

@@ -15,17 +15,23 @@ set -x
 
 : "---- Start of build script ----"
 
-# Useful information.
-env
-cmake --version
-echo "whoami = `whoami`"
-pwd
+# Make sure these environment variables exist.
+[ -z "${THIS_JOB_BUILD_GENERATOR}"  ] && echo "Empty environment variable: THIS_JOB_BUILD_GENERATOR"  && exit 1
+[ -z "${THIS_JOB_INSTALL_COMMAND}"  ] && echo "Empty environment variable: THIS_JOB_INSTALL_COMMAND"  && exit 1
+[ -z "${THIS_JOB_CPP_STANDARD}"     ] && echo "Empty environment variable: THIS_JOB_CPP_STANDARD"     && exit 1
+[ -z "${THIS_JOB_VERBOSE_MAKEFILE}" ] && echo "Empty environment variable: THIS_JOB_VERBOSE_MAKEFILE" && exit 1
 
 # Save the source directory.
 sourceDir=$(pwd)
 
 # Help cmake find things.
 export CMAKE_MODULE_PATH=${CMAKE_MODULE_PATH}:/usr/local/lib/cmake/Catch2:/usr/local/lib/cmake/Immer:/usr/local/lib/cmake/usul
+
+# Useful information.
+env | sort
+cmake --version
+echo "whoami = `whoami`"
+pwd
 
 : "---- Catch2 ----"
 cd /tmp

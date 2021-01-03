@@ -51,53 +51,53 @@ jobs:
   strategy:
     matrix:
 
-      # Linux_GCC_10_CPP_17:
-      #   image_name: 'ubuntu-20.04'
-      #   build_generator: Ninja
-      #   install_command: sudo ninja install
-      #   cpp_standard: 17
-      #   verbose_makefile: ON
-      #   command: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "cd scripts && sh before_ubuntu.sh && node ci.js"
-      #
-      # Linux_GCC_10_CPP_14:
-      #   image_name: 'ubuntu-20.04'
-      #   build_generator: Ninja
-      #   install_command: sudo ninja install
-      #   cpp_standard: 14
-      #   verbose_makefile: ON
-      #   command: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "cd scripts && sh before_ubuntu.sh && node ci.js"
-      #
-      # Linux_GCC_9_CPP_17:
-      #   image_name: 'ubuntu-20.04'
-      #   build_generator: Ninja
-      #   install_command: sudo ninja install
-      #   cpp_standard: 17
-      #   verbose_makefile: ON
-      #   command: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "cd scripts && sh before_ubuntu.sh && node ci.js"
-      #
-      # Linux_GCC_9_CPP_14:
-      #   image_name: 'ubuntu-20.04'
-      #   build_generator: Ninja
-      #   install_command: sudo ninja install
-      #   cpp_standard: 14
-      #   verbose_makefile: ON
-      #   command: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "cd scripts && sh before_ubuntu.sh && node ci.js"
-      #
-      # Linux_GCC_8_CPP_17:
-      #   image_name: 'ubuntu-20.04'
-      #   build_generator: Ninja
-      #   install_command: sudo ninja install
-      #   cpp_standard: 17
-      #   verbose_makefile: ON
-      #   command: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "cd scripts && sh before_ubuntu.sh && node ci.js"
-      #
-      # Linux_GCC_8_CPP_14:
-      #   image_name: 'ubuntu-20.04'
-      #   build_generator: Ninja
-      #   install_command: sudo ninja install
-      #   cpp_standard: 14
-      #   verbose_makefile: ON
-      #   command: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "cd scripts && sh before_ubuntu.sh && node ci.js"
+      Linux_GCC_10_CPP_17:
+        image_name: 'ubuntu-20.04'
+        build_generator: Ninja
+        install_command: sudo ninja install
+        cpp_standard: 17
+        verbose_makefile: ON
+        the_script: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "cd scripts && sh before_ubuntu.sh && node ci.js"
+
+      Linux_GCC_10_CPP_14:
+        image_name: 'ubuntu-20.04'
+        build_generator: Ninja
+        install_command: sudo ninja install
+        cpp_standard: 14
+        verbose_makefile: ON
+        the_script: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "cd scripts && sh before_ubuntu.sh && node ci.js"
+
+      Linux_GCC_9_CPP_17:
+        image_name: 'ubuntu-20.04'
+        build_generator: Ninja
+        install_command: sudo ninja install
+        cpp_standard: 17
+        verbose_makefile: ON
+        the_script: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "cd scripts && sh before_ubuntu.sh && node ci.js"
+
+      Linux_GCC_9_CPP_14:
+        image_name: 'ubuntu-20.04'
+        build_generator: Ninja
+        install_command: sudo ninja install
+        cpp_standard: 14
+        verbose_makefile: ON
+        the_script: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "cd scripts && sh before_ubuntu.sh && node ci.js"
+
+      Linux_GCC_8_CPP_17:
+        image_name: 'ubuntu-20.04'
+        build_generator: Ninja
+        install_command: sudo ninja install
+        cpp_standard: 17
+        verbose_makefile: ON
+        the_script: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "cd scripts && sh before_ubuntu.sh && node ci.js"
+
+      Linux_GCC_8_CPP_14:
+        image_name: 'ubuntu-20.04'
+        build_generator: Ninja
+        install_command: sudo ninja install
+        cpp_standard: 14
+        verbose_makefile: ON
+        the_script: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "cd scripts && sh before_ubuntu.sh && node ci.js"
 
       # All versions of macOS appear to be using clang 11, so just doing that.
 
@@ -107,7 +107,7 @@ jobs:
       #   install_command: sudo make install
       #   cpp_standard: 17
       #   verbose_makefile: ON
-      #   command: cd scripts && sh before_apple.sh && node ci.js
+      #   the_script: cd scripts && sh before_apple.sh && node ci.js
       #
       # Apple_Clang_11_CPP_14:
       #   image_name: 'macOS-10.15'
@@ -115,27 +115,27 @@ jobs:
       #   install_command: sudo make install
       #   cpp_standard: 14
       #   verbose_makefile: ON
-      #   command: cd scripts && sh before_apple.sh && node ci.js
+      #   the_script: cd scripts && sh before_apple.sh && node ci.js
 
       # On windows just using the host machine.
 
-      Visual_Studio_2019_CPP_17:
-        image_name: 'windows-2019'
-        build_generator: 'Visual Studio 16 2019'
-        install_command: cmake --build . --target install
-        cpp_standard: 17
-        verbose_makefile: OFF
-        before_script: ./scripts/before_windows.sh
-        the_script: ./scripts/ci.sh
-
-      Visual_Studio_2019_CPP_14:
-        image_name: 'windows-2019'
-        build_generator: 'Visual Studio 16 2019'
-        install_command: cmake --build . --target install
-        cpp_standard: 14
-        verbose_makefile: OFF
-        before_script: ./scripts/before_windows.sh
-        the_script: ./scripts/ci.sh
+      # Visual_Studio_2019_CPP_17:
+      #   image_name: 'windows-2019'
+      #   build_generator: 'Visual Studio 16 2019'
+      #   install_command: cmake --build . --target install
+      #   cpp_standard: 17
+      #   verbose_makefile: OFF
+      #   before_script: ./scripts/before_windows.sh
+      #   the_script: ./scripts/ci.sh
+      #
+      # Visual_Studio_2019_CPP_14:
+      #   image_name: 'windows-2019'
+      #   build_generator: 'Visual Studio 16 2019'
+      #   install_command: cmake --build . --target install
+      #   cpp_standard: 14
+      #   verbose_makefile: OFF
+      #   before_script: ./scripts/before_windows.sh
+      #   the_script: ./scripts/ci.sh
 
   pool:
     vmImage: $(image_name)
@@ -154,16 +154,16 @@ jobs:
     #   condition: contains(variables['Agent.JobName'], 'Visual_Studio')
     #   displayName: Install
 
-    - task: Bash@3
-      inputs:
-        filePath: $(before_script)
-      displayName: Before
+    # - task: Bash@3
+    #   inputs:
+    #     filePath: $(before_script)
+    #   displayName: Before
 
-    - task: Bash@3
-      inputs:
-        filePath: $(the_script)
+    # - task: Bash@3
+    #   inputs:
+    #     filePath: $(the_script)
+    #   displayName: Build
+
+    - script: $(the_script)
+      # condition: not(contains(variables['Agent.JobName'], 'Visual_Studio'))
       displayName: Build
-
-    # - script: $(command)
-    #   condition: not(contains(variables['Agent.JobName'], 'Visual_Studio'))
-    #   displayName: Build with CI

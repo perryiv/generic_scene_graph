@@ -114,7 +114,6 @@ protected:
 
   void _removeParent ( Node * );
 
-
 private:
 
   void _destroyNode();

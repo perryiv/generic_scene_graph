@@ -159,7 +159,7 @@ jobs:
     #     filePath: $(before_script)
     #   displayName: Before
 
-    # - task: Bash@3
+    - task: Bash@3
       inputs:
         script: $(the_script)
       displayName: Build

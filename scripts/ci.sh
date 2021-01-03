@@ -15,14 +15,8 @@ set -x
 
 : "---- Start of build script ----"
 
-# Make sure these environment variables exist.
-[ -z "${THIS_JOB_BUILD_GENERATOR}"  ] && echo "Empty environment variable: THIS_JOB_BUILD_GENERATOR"  && exit 1
-[ -z "${THIS_JOB_INSTALL_COMMAND}"  ] && echo "Empty environment variable: THIS_JOB_INSTALL_COMMAND"  && exit 1
-[ -z "${THIS_JOB_CPP_STANDARD}"     ] && echo "Empty environment variable: THIS_JOB_CPP_STANDARD"     && exit 1
-[ -z "${THIS_JOB_VERBOSE_MAKEFILE}" ] && echo "Empty environment variable: THIS_JOB_VERBOSE_MAKEFILE" && exit 1
-
 # Save the source directory.
-sourceDir=$(pwd)
+export SOURCE_DIR=$(pwd)
 
 # Help cmake find things.
 export CMAKE_MODULE_PATH=${CMAKE_MODULE_PATH}:/usr/local/lib/cmake/Catch2:/usr/local/lib/cmake/Immer:/usr/local/lib/cmake/usul
@@ -32,6 +26,12 @@ env | sort
 cmake --version
 echo "whoami = `whoami`"
 pwd
+
+# Make sure these environment variables exist.
+[ -z "${THIS_JOB_BUILD_GENERATOR}"  ] && echo "Empty environment variable: THIS_JOB_BUILD_GENERATOR"  && exit 1
+[ -z "${THIS_JOB_INSTALL_COMMAND}"  ] && echo "Empty environment variable: THIS_JOB_INSTALL_COMMAND"  && exit 1
+[ -z "${THIS_JOB_CPP_STANDARD}"     ] && echo "Empty environment variable: THIS_JOB_CPP_STANDARD"     && exit 1
+[ -z "${THIS_JOB_VERBOSE_MAKEFILE}" ] && echo "Empty environment variable: THIS_JOB_VERBOSE_MAKEFILE" && exit 1
 
 : "---- Catch2 ----"
 cd /tmp
@@ -87,7 +87,7 @@ cd .. && rm -rf build
 cd /tmp
 rm -rf gsg && mkdir -p gsg && cd gsg
 rm -rf build && mkdir build && cd build
-cmake ${sourceDir} \
+cmake ${SOURCE_DIR} \
   -G "${THIS_JOB_BUILD_GENERATOR}" \
   -DCMAKE_BUILD_TYPE=Debug \
   -DCMAKE_CXX_STANDARD=${THIS_JOB_CPP_STANDARD} \
@@ -99,7 +99,7 @@ ${THIS_JOB_INSTALL_COMMAND}
 cd bin && ./gsg_test_d --abort --use-colour=yes --durations=no
 cd ../..
 rm -rf build && mkdir build && cd build
-cmake ${sourceDir} \
+cmake ${SOURCE_DIR} \
   -G "${THIS_JOB_BUILD_GENERATOR}" \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_CXX_STANDARD=${THIS_JOB_CPP_STANDARD} \

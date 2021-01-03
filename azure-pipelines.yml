@@ -161,7 +161,13 @@ jobs:
 
     - task: Bash@3
       inputs:
+        targetType: 'inline'
         script: $(the_script)
+      env:
+        THIS_JOB_BUILD_GENERATOR: $(build_generator)
+        THIS_JOB_INSTALL_COMMAND: $(install_command)
+        THIS_JOB_CPP_STANDARD: $(cpp_standard)
+        THIS_JOB_VERBOSE_MAKEFILE: $(verbose_makefile)
       displayName: Build
 
     # condition: not(contains(variables['Agent.JobName'], 'Visual_Studio'))

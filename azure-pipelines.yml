@@ -160,10 +160,10 @@ jobs:
     #   displayName: Before
 
     # - task: Bash@3
-    #   inputs:
-    #     filePath: $(the_script)
-    #   displayName: Build
+      inputs:
+        script: $(the_script)
+      displayName: Build
 
     # condition: not(contains(variables['Agent.JobName'], 'Visual_Studio'))
-    - script: $(the_script)
-      displayName: Build
+    # - script: $(the_script)
+    #   displayName: Build

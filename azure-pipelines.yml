@@ -57,7 +57,7 @@ jobs:
         install_command: sudo ninja install
         cpp_standard: 17
         verbose_makefile: ON
-        the_script: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "cd scripts && sh before_ubuntu.sh && sh ci.sh"
+        the_script: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "sh scripts/before_ubuntu.sh && sh scripts/ci.sh"
 
       Linux_GCC_10_CPP_14:
         image_name: 'ubuntu-20.04'
@@ -65,7 +65,7 @@ jobs:
         install_command: sudo ninja install
         cpp_standard: 14
         verbose_makefile: ON
-        the_script: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "cd scripts && sh before_ubuntu.sh && sh ci.sh"
+        the_script: docker run --rm -v `pwd`:/home/conan conanio/gcc10 /bin/bash -c "sh scripts/before_ubuntu.sh && sh scripts/ci.sh"
 
       Linux_GCC_9_CPP_17:
         image_name: 'ubuntu-20.04'
@@ -73,7 +73,7 @@ jobs:
         install_command: sudo ninja install
         cpp_standard: 17
         verbose_makefile: ON
-        the_script: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "cd scripts && sh before_ubuntu.sh && sh ci.sh"
+        the_script: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "sh scripts/before_ubuntu.sh && sh scripts/ci.sh"
 
       Linux_GCC_9_CPP_14:
         image_name: 'ubuntu-20.04'
@@ -81,7 +81,7 @@ jobs:
         install_command: sudo ninja install
         cpp_standard: 14
         verbose_makefile: ON
-        the_script: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "cd scripts && sh before_ubuntu.sh && sh ci.sh"
+        the_script: docker run --rm -v `pwd`:/home/conan conanio/gcc9 /bin/bash -c "sh scripts/before_ubuntu.sh && sh scripts/ci.sh"
 
       Linux_GCC_8_CPP_17:
         image_name: 'ubuntu-20.04'
@@ -89,7 +89,7 @@ jobs:
         install_command: sudo ninja install
         cpp_standard: 17
         verbose_makefile: ON
-        the_script: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "cd scripts && sh before_ubuntu.sh && sh ci.sh"
+        the_script: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "sh scripts/before_ubuntu.sh && sh scripts/ci.sh"
 
       Linux_GCC_8_CPP_14:
         image_name: 'ubuntu-20.04'
@@ -97,7 +97,7 @@ jobs:
         install_command: sudo ninja install
         cpp_standard: 14
         verbose_makefile: ON
-        the_script: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "cd scripts && sh before_ubuntu.sh && sh ci.sh"
+        the_script: docker run --rm -v `pwd`:/home/conan conanio/gcc8 /bin/bash -c "sh scripts/before_ubuntu.sh && sh scripts/ci.sh"
 
       # All versions of macOS appear to be using clang 11, so just doing that.
 
@@ -159,11 +159,11 @@ jobs:
     #     filePath: $(before_script)
     #   displayName: Before
 
-    - task: Bash@3
-      inputs:
-        filePath: $(the_script)
-      displayName: Build
-
-    # - script: $(the_script)
-    #   # condition: not(contains(variables['Agent.JobName'], 'Visual_Studio'))
+    # - task: Bash@3
+    #   inputs:
+    #     filePath: $(the_script)
     #   displayName: Build
+
+    # condition: not(contains(variables['Agent.JobName'], 'Visual_Studio'))
+    - script: $(the_script)
+      displayName: Build

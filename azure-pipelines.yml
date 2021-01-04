@@ -172,7 +172,7 @@ jobs:
 
     - task: PowerShell@2
       inputs:
-        script: choco install boost-msvc-14.1
+        script: choco install --yes boost-msvc-14.1
         targetType: inline
       condition: contains(variables['Agent.JobName'], 'Visual_Studio')
       displayName: Install Boost on Windows

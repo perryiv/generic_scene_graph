@@ -147,8 +147,8 @@ jobs:
     - task: PowerShell@2
       inputs:
         script: |
-          C:
           cd C:\TEMP
+          cd
           Invoke-WebRequest -Uri 'https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.gz' -OutFile boost_1_75_0.tar.gz
           gzip -d .\boost_1_75_0.tar.gz
           tar xvf .\boost_1_75_0.tar

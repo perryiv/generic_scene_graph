@@ -86,24 +86,24 @@ jobs:
       #   verbose_makefile: ON
       #   before_script: scripts/before_ubuntu.sh
       #   the_script: scripts/ci_with_docker.sh
-
-      Apple_Clang_11_CPP_17:
-        virtual_machine_name: 'macOS-10.15'
-        build_generator: 'Unix Makefiles'
-        install_command: sudo make install
-        cpp_standard: 17
-        verbose_makefile: ON
-        before_script: ./scripts/before_apple.sh
-        the_script: ./scripts/ci.sh
-
-      Apple_Clang_11_CPP_14:
-        virtual_machine_name: 'macOS-10.15'
-        build_generator: 'Unix Makefiles'
-        install_command: sudo make install
-        cpp_standard: 14
-        verbose_makefile: ON
-        before_script: ./scripts/before_apple.sh
-        the_script: ./scripts/ci.sh
+      #
+      # Apple_Clang_11_CPP_17:
+      #   virtual_machine_name: 'macOS-10.15'
+      #   build_generator: 'Unix Makefiles'
+      #   install_command: sudo make install
+      #   cpp_standard: 17
+      #   verbose_makefile: ON
+      #   before_script: ./scripts/before_apple.sh
+      #   the_script: ./scripts/ci.sh
+      #
+      # Apple_Clang_11_CPP_14:
+      #   virtual_machine_name: 'macOS-10.15'
+      #   build_generator: 'Unix Makefiles'
+      #   install_command: sudo make install
+      #   cpp_standard: 14
+      #   verbose_makefile: ON
+      #   before_script: ./scripts/before_apple.sh
+      #   the_script: ./scripts/ci.sh
 
       Visual_Studio_2019_CPP_17:
         virtual_machine_name: 'windows-2019'
@@ -143,6 +143,22 @@ jobs:
         filePath: $(before_script)
       condition: not(contains(variables['Agent.JobName'], 'Linux'))
       displayName: Install
+
+    - task: PowerShell@2
+      inputs:
+        script: |
+          C:\
+          cd C:\TEMP
+          Invoke-WebRequest -Uri 'https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.gz' -OutFile boost_1_75_0.tar.gz
+          gzip -d .\boost_1_75_0.tar.gz
+          tar xvf .\boost_1_75_0.tar
+          cd boost_1_75_0
+          .\bootstrap --with-libraries=filesystem,stacktrace
+          .\b2 install
+        targetType: inline
+      condition: contains(variables['Agent.JobName'], 'Visual_Studio')
+      displayName: Install
+
 
     # Run the main script.
     - task: Bash@3

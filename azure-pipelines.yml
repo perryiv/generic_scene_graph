@@ -170,11 +170,24 @@ jobs:
     #   condition: contains(variables['Agent.JobName'], 'Visual_Studio')
     #   displayName: Install
 
-    - task: Bash@3
+    - task: PowerShell@2
       inputs:
-        filePath: $(before_script)
-      condition: not(contains(variables['Agent.JobName'], 'Linux'))
-      displayName: Before
+        script: choco install boost-msvc-14.1
+        targetType: inline
+      condition: contains(variables['Agent.JobName'], 'Visual_Studio')
+      displayName: Install Boost on Windows
+
+    - task: Bash@3
+        script: brew install boost
+        targetType: inline
+      condition: contains(variables['Agent.JobName'], 'Apple_Clang')
+      displayName: Install Boost on Mac
+
+    # - task: Bash@3
+    #   inputs:
+    #     filePath: $(before_script)
+    #   condition: contains(variables['Agent.JobName'], 'Apple')
+    #   displayName: Install Boost on Mac
 
     - task: Bash@3
       inputs:

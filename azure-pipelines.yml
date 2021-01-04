@@ -147,10 +147,11 @@ jobs:
     - task: PowerShell@2
       inputs:
         script: |
-          curl --output C:\TEMP\boost_1_75_0.tar.gz --url https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.gz
-          gzip -d C:\TEMP\boost_1_75_0.tar.gz
-          tar xvf C:\TEMP\boost_1_75_0.tar
-          cd C:\TEMP\boost_1_75_0
+          cd %TEMP%
+          curl --output boost_1_75_0.tar.gz --url https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.gz
+          gzip -d boost_1_75_0.tar.gz
+          tar xvf boost_1_75_0.tar
+          cd boost_1_75_0
           .\bootstrap --with-libraries=filesystem,stacktrace
           .\b2 install
         targetType: inline

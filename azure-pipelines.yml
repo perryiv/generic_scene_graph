@@ -58,6 +58,7 @@ jobs:
         install_command: sudo ninja install
         cpp_standard: 17
         verbose_makefile: ON
+        before_script: scripts/before_ubuntu.sh
         the_script: scripts/ci_with_docker.sh
 
       Linux_GCC_10_CPP_14:
@@ -67,6 +68,7 @@ jobs:
         install_command: sudo ninja install
         cpp_standard: 14
         verbose_makefile: ON
+        before_script: scripts/before_ubuntu.sh
         the_script: scripts/ci_with_docker.sh
 
       Linux_GCC_9_CPP_17:
@@ -76,6 +78,7 @@ jobs:
         install_command: sudo ninja install
         cpp_standard: 17
         verbose_makefile: ON
+        before_script: scripts/before_ubuntu.sh
         the_script: scripts/ci_with_docker.sh
 
       Linux_GCC_9_CPP_14:
@@ -85,6 +88,7 @@ jobs:
         install_command: sudo ninja install
         cpp_standard: 14
         verbose_makefile: ON
+        before_script: scripts/before_ubuntu.sh
         the_script: scripts/ci_with_docker.sh
 
       Linux_GCC_8_CPP_17:
@@ -94,6 +98,7 @@ jobs:
         install_command: sudo ninja install
         cpp_standard: 17
         verbose_makefile: ON
+        before_script: scripts/before_ubuntu.sh
         the_script: scripts/ci_with_docker.sh
 
       Linux_GCC_8_CPP_14:
@@ -103,6 +108,7 @@ jobs:
         install_command: sudo ninja install
         cpp_standard: 14
         verbose_makefile: ON
+        before_script: scripts/before_ubuntu.sh
         the_script: scripts/ci_with_docker.sh
 
       # All versions of macOS appear to be using clang 11, so just doing that.
@@ -113,7 +119,8 @@ jobs:
       #   install_command: sudo make install
       #   cpp_standard: 17
       #   verbose_makefile: ON
-      #   the_script: cd scripts && sh before_apple.sh && sh ci.sh
+      #   before_script: ./scripts/before_apple.sh
+      #   the_script: ./scripts/ci.sh
       #
       # Apple_Clang_11_CPP_14:
       #   virtual_machine_name: 'macOS-10.15'
@@ -121,7 +128,8 @@ jobs:
       #   install_command: sudo make install
       #   cpp_standard: 14
       #   verbose_makefile: ON
-      #   the_script: cd scripts && sh before_apple.sh && sh ci.sh
+      #   before_script: ./scripts/before_apple.sh
+      #   the_script: ./scripts/ci.sh
 
       # On windows just using the host machine.
 
@@ -148,6 +156,7 @@ jobs:
 
   variables:
     THIS_JOB_DOCKER_IMAGE_NAME: $(docker_image_name)
+    THIS_JOB_BEFORE_SCRIPT: $(before_script)
     THIS_JOB_BUILD_GENERATOR: $(build_generator)
     THIS_JOB_INSTALL_COMMAND: $(install_command)
     THIS_JOB_CPP_STANDARD: $(cpp_standard)

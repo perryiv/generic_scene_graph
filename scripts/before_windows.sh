@@ -16,6 +16,8 @@
 # Exit immediately if one of the following commands does not return zero.
 set -e
 
+echo "---- Start of script $0 ----"
+
 # Echo all the commands.
 set -x
 
@@ -40,3 +42,5 @@ cd boost_1_75_0
 
 ls /usr/local/include/boost-1_75
 export CMAKE_MODULE_PATH=${CMAKE_MODULE_PATH}:/usr/local/include/boost-1_75
+
+: "---- End of script $0 ----"

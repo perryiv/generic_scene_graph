@@ -16,6 +16,8 @@
 # Exit immediately if one of the following commands does not return zero.
 set -e
 
+echo "---- Start of script $0 ----"
+
 # Echo all the commands.
 set -x
 
@@ -26,3 +28,5 @@ curl -L https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.g
 cd boost_1_75_0
 ./bootstrap.sh --with-libraries=filesystem,stacktrace
 ./b2 install
+
+: "---- End of script $0 ----"

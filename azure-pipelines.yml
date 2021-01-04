@@ -138,25 +138,24 @@ jobs:
 
     # On linux we do not separately execute the before_script because it gets
     # called inside docker by the ci_with_docker script.
-    # - task: Bash@3
-    #   inputs:
-    #     filePath: $(before_script)
-    #   condition: not(contains(variables['Agent.JobName'], 'Linux'))
-    #   displayName: Install
-
-    - task: PowerShell@2
+    - task: Bash@3
       inputs:
-        script: |
-          curl https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.gz
-          gzip -d boost_1_75_0.tar.gz
-          tar xvf boost_1_75_0.tar
-          cd boost_1_75_0
-          .\bootstrap --with-libraries=filesystem,stacktrace
-          .\b2 install
-        targetType: inline
-      condition: contains(variables['Agent.JobName'], 'Visual_Studio')
+        filePath: $(before_script)
+      condition: not(contains(variables['Agent.JobName'], 'Linux'))
       displayName: Install
 
+    # - task: PowerShell@2
+    #   inputs:
+    #     script: |
+    #       curl https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.gz
+    #       gzip -d boost_1_75_0.tar.gz
+    #       tar xvf boost_1_75_0.tar
+    #       cd boost_1_75_0
+    #       .\bootstrap --with-libraries=filesystem,stacktrace
+    #       .\b2 install
+    #     targetType: inline
+    #   condition: contains(variables['Agent.JobName'], 'Visual_Studio')
+    #   displayName: Install
 
     # Run the main script.
     - task: Bash@3

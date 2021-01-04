@@ -27,7 +27,8 @@ rm -rf boost_1_75_0
 curl -L https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.gz | tar xz
 cd boost_1_75_0
 ./bootstrap.sh --with-libraries=filesystem,stacktrace
-./b2 install
+# ./b2 install
+export BOOST_ROOT=/tmp/boost_1_75_0
 
 # Install boost.
 # This will probably be faster but it hangs when running install_boost.

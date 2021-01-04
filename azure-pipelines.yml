@@ -15,30 +15,6 @@
 #
 #    https://dev.azure.com/perryiv/generic_scene_graph
 #
-#  Resources:
-#
-#    https://docs.conan.io/en/1.10/howtos/run_conan_in_docker.html
-#    https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/hosted
-#    https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables
-#    https://docs.microsoft.com/en-us/azure/devops/pipelines/process/container-phases
-#    https://docs.microsoft.com/en-us/azure/devops/pipelines/process/expressions
-#    https://docs.microsoft.com/en-us/azure/devops/pipelines/process/phases#timeouts
-#    https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables#secret-variables
-#    https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks
-#    https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/utility/shell-script
-#    https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema
-#    https://docs.microsoft.com/en-us/visualstudio/install/build-tools-container
-#    https://docs.microsoft.com/en-us/visualstudio/install/use-command-line-parameters-to-install-visual-studio
-#    https://github.com/actions/virtual-environments
-#    https://github.com/conan-io/conan-docker-tools/blob/master/azure-pipelines.yml
-#    https://github.com/jonico/libzengithub/blob/master/azure-pipelines.yml
-#    https://github.com/microsoft/azure-pipelines-agent/issues/2043
-#    https://github.com/microsoft/containerregistry
-#    https://hub.docker.com/_/microsoft-windows-servercore
-#    https://hub.docker.com/r/conanio/gcc8
-#    https://jaylee.org/archive/2019/03/21/azure-devops-wasm-build-container.html
-#    https://medium.com/@brentrobinson5/containerised-ci-cd-pipelines-with-azure-devops-74064c679f20
-#
 ################################################################################
 
 trigger:
@@ -160,25 +136,19 @@ jobs:
 
   steps:
 
-    # - task: PowerShell@2
-    - task: BatchScript@1
-      inputs:
-        script: choco install --yes --verbose boost-msvc-14.1
-        targetType: inline
-      condition: contains(variables['Agent.JobName'], 'Visual_Studio')
-      displayName: Boost on Windows
-
+    # On linux we do not separately execute the before_script because it gets
+    # called inside docker by the ci_with_docker script.
     - task: Bash@3
       inputs:
-        script: brew install boost
-        targetType: inline
-      condition: contains(variables['Agent.JobName'], 'Apple_Clang')
-      displayName: Boost on Mac
+        filePath: $(before_script)
+      condition: not(contains(variables['Agent.JobName'], 'Linux'))
+      displayName: Install
 
+    # Run the main script.
     - task: Bash@3
       inputs:
         filePath: $(the_script)
-      displayName: Build and Test
+      displayName: Build
 
     # - task: BatchScript@1
     #   inputs:
@@ -195,3 +165,38 @@ jobs:
     # - script: $(the_script)
     #   condition: not(contains(variables['Agent.JobName'], 'Visual_Studio'))
     #   displayName: Build
+
+    # - task: PowerShell@2
+    #   inputs:
+    #     script: choco install --yes --verbose boost-msvc-14.1
+    #     targetType: inline
+    #   condition: contains(variables['Agent.JobName'], 'Visual_Studio')
+    #   displayName: Boost on Windows
+
+################################################################################
+#
+#  Resources:
+#
+#    https://docs.conan.io/en/1.10/howtos/run_conan_in_docker.html
+#    https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/hosted
+#    https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables
+#    https://docs.microsoft.com/en-us/azure/devops/pipelines/process/container-phases
+#    https://docs.microsoft.com/en-us/azure/devops/pipelines/process/expressions
+#    https://docs.microsoft.com/en-us/azure/devops/pipelines/process/phases#timeouts
+#    https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables#secret-variables
+#    https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks
+#    https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/utility/shell-script
+#    https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema
+#    https://docs.microsoft.com/en-us/visualstudio/install/build-tools-container
+#    https://docs.microsoft.com/en-us/visualstudio/install/use-command-line-parameters-to-install-visual-studio
+#    https://github.com/actions/virtual-environments
+#    https://github.com/conan-io/conan-docker-tools/blob/master/azure-pipelines.yml
+#    https://github.com/jonico/libzengithub/blob/master/azure-pipelines.yml
+#    https://github.com/microsoft/azure-pipelines-agent/issues/2043
+#    https://github.com/microsoft/containerregistry
+#    https://hub.docker.com/_/microsoft-windows-servercore
+#    https://hub.docker.com/r/conanio/gcc8
+#    https://jaylee.org/archive/2019/03/21/azure-devops-wasm-build-container.html
+#    https://medium.com/@brentrobinson5/containerised-ci-cd-pipelines-with-azure-devops-74064c679f20
+#
+################################################################################

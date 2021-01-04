@@ -22,11 +22,13 @@ echo "---- Start of script $0 ----"
 set -x
 
 # Install boost.
-cd /tmp
-rm -rf boost_1_75_0
-curl -L https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.gz | tar xz
-cd boost_1_75_0
-./bootstrap.sh --with-libraries=filesystem,stacktrace
-sudo ./b2 install
+brew install boost
+
+# cd /tmp
+# rm -rf boost_1_75_0
+# curl -L https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.gz | tar xz
+# cd boost_1_75_0
+# ./bootstrap.sh --with-libraries=filesystem,stacktrace
+# sudo ./b2 install
 
 : "---- End of script $0 ----"

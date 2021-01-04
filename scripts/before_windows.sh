@@ -21,12 +21,24 @@ echo "---- Start of script $0 ----"
 # Echo all the commands.
 set -x
 
+# # Install conan.
+# python -m pip install --upgrade pip
+# pip install conan --upgrade
+# pip install conan_package_tools
+# conan user
+#
+# # Install boost.
+# conan install boost/1.74.0@
+# export BOOST_ROOT="/tmp/boost_1_75_0"
+# export BOOST_ROOT=${HOME}/.conan/data/boost/1.69.0/conan/stable/package/bbedb5f4230af77e2db8373bcf0ad22d4087edf4
+
 # Install boost.
 cd /tmp
 rm -rf boost_1_75_0
 curl -L https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.gz | tar xz
 cd boost_1_75_0
 ./bootstrap.sh --with-libraries=stacktrace
+find .
 # ./b2 install
 export BOOST_ROOT="/tmp/boost_1_75_0"
 

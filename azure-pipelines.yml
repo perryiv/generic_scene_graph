@@ -160,19 +160,20 @@ jobs:
 
   steps:
 
-    - task: PowerShell@2
+    # - task: PowerShell@2
+    - task: BatchScript@1
       inputs:
         script: choco install --yes --verbose boost-msvc-14.1
         targetType: inline
       condition: contains(variables['Agent.JobName'], 'Visual_Studio')
-      displayName: Install Boost on Windows
+      displayName: Boost on Windows
 
     - task: Bash@3
       inputs:
         script: brew install boost
         targetType: inline
       condition: contains(variables['Agent.JobName'], 'Apple_Clang')
-      displayName: Install Boost on Mac
+      displayName: Boost on Mac
 
     - task: Bash@3
       inputs:

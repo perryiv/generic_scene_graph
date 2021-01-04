@@ -113,43 +113,43 @@ jobs:
 
       # All versions of macOS appear to be using clang 11, so just doing that.
 
-      # Apple_Clang_11_CPP_17:
-      #   virtual_machine_name: 'macOS-10.15'
-      #   build_generator: 'Unix Makefiles'
-      #   install_command: sudo make install
-      #   cpp_standard: 17
-      #   verbose_makefile: ON
-      #   before_script: ./scripts/before_apple.sh
-      #   the_script: ./scripts/ci.sh
-      #
-      # Apple_Clang_11_CPP_14:
-      #   virtual_machine_name: 'macOS-10.15'
-      #   build_generator: 'Unix Makefiles'
-      #   install_command: sudo make install
-      #   cpp_standard: 14
-      #   verbose_makefile: ON
-      #   before_script: ./scripts/before_apple.sh
-      #   the_script: ./scripts/ci.sh
+      Apple_Clang_11_CPP_17:
+        virtual_machine_name: 'macOS-10.15'
+        build_generator: 'Unix Makefiles'
+        install_command: sudo make install
+        cpp_standard: 17
+        verbose_makefile: ON
+        before_script: ./scripts/before_apple.sh
+        the_script: ./scripts/ci.sh
+
+      Apple_Clang_11_CPP_14:
+        virtual_machine_name: 'macOS-10.15'
+        build_generator: 'Unix Makefiles'
+        install_command: sudo make install
+        cpp_standard: 14
+        verbose_makefile: ON
+        before_script: ./scripts/before_apple.sh
+        the_script: ./scripts/ci.sh
 
       # On windows just using the host machine.
 
-      # Visual_Studio_2019_CPP_17:
-      #   virtual_machine_name: 'windows-2019'
-      #   build_generator: 'Visual Studio 16 2019'
-      #   install_command: cmake --build . --target install
-      #   cpp_standard: 17
-      #   verbose_makefile: OFF
-      #   before_script: ./scripts/before_windows.sh
-      #   the_script: ./scripts/ci.sh
-      #
-      # Visual_Studio_2019_CPP_14:
-      #   virtual_machine_name: 'windows-2019'
-      #   build_generator: 'Visual Studio 16 2019'
-      #   install_command: cmake --build . --target install
-      #   cpp_standard: 14
-      #   verbose_makefile: OFF
-      #   before_script: ./scripts/before_windows.sh
-      #   the_script: ./scripts/ci.sh
+      Visual_Studio_2019_CPP_17:
+        virtual_machine_name: 'windows-2019'
+        build_generator: 'Visual Studio 16 2019'
+        install_command: cmake --build . --target install
+        cpp_standard: 17
+        verbose_makefile: OFF
+        before_script: ./scripts/before_windows.sh
+        the_script: ./scripts/ci.sh
+
+      Visual_Studio_2019_CPP_14:
+        virtual_machine_name: 'windows-2019'
+        build_generator: 'Visual Studio 16 2019'
+        install_command: cmake --build . --target install
+        cpp_standard: 14
+        verbose_makefile: OFF
+        before_script: ./scripts/before_windows.sh
+        the_script: ./scripts/ci.sh
 
   pool:
     vmImage: $(virtual_machine_name)

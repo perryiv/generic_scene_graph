@@ -52,7 +52,8 @@ jobs:
     matrix:
 
       Linux_GCC_10_CPP_17:
-        image_name: 'ubuntu-20.04'
+        virtual_machine_name: 'ubuntu-20.04',
+        docker_image_name: conanio/gcc10
         build_generator: Ninja
         install_command: sudo ninja install
         cpp_standard: 17
@@ -60,7 +61,8 @@ jobs:
         the_script: scripts/ci_with_docker.sh
 
       Linux_GCC_10_CPP_14:
-        image_name: 'ubuntu-20.04'
+        virtual_machine_name: 'ubuntu-20.04',
+        docker_image_name: conanio/gcc10
         build_generator: Ninja
         install_command: sudo ninja install
         cpp_standard: 14
@@ -68,7 +70,8 @@ jobs:
         the_script: scripts/ci_with_docker.sh
 
       Linux_GCC_9_CPP_17:
-        image_name: 'ubuntu-20.04'
+        virtual_machine_name: 'ubuntu-20.04',
+        docker_image_name: conanio/gcc9
         build_generator: Ninja
         install_command: sudo ninja install
         cpp_standard: 17
@@ -76,7 +79,8 @@ jobs:
         the_script: scripts/ci_with_docker.sh
 
       Linux_GCC_9_CPP_14:
-        image_name: 'ubuntu-20.04'
+        virtual_machine_name: 'ubuntu-20.04',
+        docker_image_name: conanio/gcc9
         build_generator: Ninja
         install_command: sudo ninja install
         cpp_standard: 14
@@ -84,7 +88,8 @@ jobs:
         the_script: scripts/ci_with_docker.sh
 
       Linux_GCC_8_CPP_17:
-        image_name: 'ubuntu-20.04'
+        virtual_machine_name: 'ubuntu-20.04',
+        docker_image_name: conanio/gcc8
         build_generator: Ninja
         install_command: sudo ninja install
         cpp_standard: 17
@@ -92,7 +97,8 @@ jobs:
         the_script: scripts/ci_with_docker.sh
 
       Linux_GCC_8_CPP_14:
-        image_name: 'ubuntu-20.04'
+        virtual_machine_name: 'ubuntu-20.04',
+        docker_image_name: conanio/gcc8
         build_generator: Ninja
         install_command: sudo ninja install
         cpp_standard: 14
@@ -102,7 +108,7 @@ jobs:
       # All versions of macOS appear to be using clang 11, so just doing that.
 
       # Apple_Clang_11_CPP_17:
-      #   image_name: 'macOS-10.15'
+      #   virtual_machine_name: 'macOS-10.15'
       #   build_generator: 'Unix Makefiles'
       #   install_command: sudo make install
       #   cpp_standard: 17
@@ -110,7 +116,7 @@ jobs:
       #   the_script: cd scripts && sh before_apple.sh && sh ci.sh
       #
       # Apple_Clang_11_CPP_14:
-      #   image_name: 'macOS-10.15'
+      #   virtual_machine_name: 'macOS-10.15'
       #   build_generator: 'Unix Makefiles'
       #   install_command: sudo make install
       #   cpp_standard: 14
@@ -120,7 +126,7 @@ jobs:
       # On windows just using the host machine.
 
       # Visual_Studio_2019_CPP_17:
-      #   image_name: 'windows-2019'
+      #   virtual_machine_name: 'windows-2019'
       #   build_generator: 'Visual Studio 16 2019'
       #   install_command: cmake --build . --target install
       #   cpp_standard: 17
@@ -129,7 +135,7 @@ jobs:
       #   the_script: ./scripts/ci.sh
       #
       # Visual_Studio_2019_CPP_14:
-      #   image_name: 'windows-2019'
+      #   virtual_machine_name: 'windows-2019'
       #   build_generator: 'Visual Studio 16 2019'
       #   install_command: cmake --build . --target install
       #   cpp_standard: 14
@@ -138,9 +144,10 @@ jobs:
       #   the_script: ./scripts/ci.sh
 
   pool:
-    vmImage: $(image_name)
+    vmImage: $(virtual_machine_name)
 
   variables:
+    THIS_JOB_DOCKER_IMAGE_NAME: $(docker_image_name)
     THIS_JOB_BUILD_GENERATOR: $(build_generator)
     THIS_JOB_INSTALL_COMMAND: $(install_command)
     THIS_JOB_CPP_STANDARD: $(cpp_standard)

@@ -170,10 +170,11 @@ jobs:
     #   condition: contains(variables['Agent.JobName'], 'Visual_Studio')
     #   displayName: Install
 
-    # - task: Bash@3
-    #   inputs:
-    #     filePath: $(before_script)
-    #   displayName: Before
+    - task: Bash@3
+      inputs:
+        filePath: $(before_script)
+      condition: not(contains(variables['Agent.JobName'], 'Linux'))
+      displayName: Before
 
     - task: Bash@3
       inputs:

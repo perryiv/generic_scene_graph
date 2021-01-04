@@ -138,11 +138,11 @@ jobs:
 
     # On linux we do not separately execute the before_script because it gets
     # called inside docker by the ci_with_docker script.
-    - task: Bash@3
-      inputs:
-        filePath: $(before_script)
-      condition: not(contains(variables['Agent.JobName'], 'Linux'))
-      displayName: Install
+    # - task: Bash@3
+    #   inputs:
+    #     filePath: $(before_script)
+    #   condition: not(contains(variables['Agent.JobName'], 'Linux'))
+    #   displayName: Install
 
     - task: PowerShell@2
       inputs:

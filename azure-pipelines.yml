@@ -178,6 +178,7 @@ jobs:
       displayName: Install Boost on Windows
 
     - task: Bash@3
+      inputs:
         script: brew install boost
         targetType: inline
       condition: contains(variables['Agent.JobName'], 'Apple_Clang')

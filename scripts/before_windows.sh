@@ -39,8 +39,8 @@ curl -L https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.g
 cd boost_1_75_0
 ./bootstrap.sh --with-libraries=stacktrace
 ./b2 install
-export BOOST_ROOT="/usr/local/include/boost-1_75"
-ls ${BOOST_ROOT}
+# export BOOST_ROOT="/usr/local/lib/cmake/boost-1_75"
+ls /usr/local/lib/cmake/boost-1.75.0
 
 # Install boost.
 # This will probably be faster but it hangs when running install_boost.
@@ -54,6 +54,6 @@ ls ${BOOST_ROOT}
 # rm -rf boost
 
 # ls /usr/local/include/boost-1_75
-# export CMAKE_MODULE_PATH=${CMAKE_MODULE_PATH}:/usr/local/include/boost-1_75
+export CMAKE_MODULE_PATH=${CMAKE_MODULE_PATH}:/usr/local/lib/cmake/boost-1.75.0
 
 : "---- End of script $0 ----"

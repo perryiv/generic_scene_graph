@@ -10,10 +10,13 @@
 # Exit immediately if one of the following commands does not return zero.
 set -e
 
-# Echo all the commands.
-set -x
+echo "---- Start of script $0 ----"
 
-: "---- Start of build script ----"
+# Make sure these environment variables exist.
+[ -z "${THIS_JOB_BUILD_GENERATOR}"  ] && env | sort && echo "Missing environment variable: THIS_JOB_BUILD_GENERATOR"  && exit 1
+[ -z "${THIS_JOB_INSTALL_COMMAND}"  ] && env | sort && echo "Missing environment variable: THIS_JOB_INSTALL_COMMAND"  && exit 1
+[ -z "${THIS_JOB_CPP_STANDARD}"     ] && env | sort && echo "Missing environment variable: THIS_JOB_CPP_STANDARD"     && exit 1
+[ -z "${THIS_JOB_VERBOSE_MAKEFILE}" ] && env | sort && echo "Missing environment variable: THIS_JOB_VERBOSE_MAKEFILE" && exit 1
 
 # Save the source directory.
 export SOURCE_DIR=$(pwd)
@@ -21,19 +24,18 @@ export SOURCE_DIR=$(pwd)
 # Help cmake find things.
 export CMAKE_MODULE_PATH=${CMAKE_MODULE_PATH}:/usr/local/lib/cmake/Catch2:/usr/local/lib/cmake/Immer:/usr/local/lib/cmake/usul
 
+# Echo all the commands.
+set -x
+
 # Useful information.
+: "---- Start of environment variables ----"
 env | sort
+: "---- End of environment variables ----"
 cmake --version
-echo "whoami = `whoami`"
+whoami
 pwd
 
-# Make sure these environment variables exist.
-[ -z "${THIS_JOB_BUILD_GENERATOR}"  ] && echo "Empty environment variable: THIS_JOB_BUILD_GENERATOR"  && exit 1
-[ -z "${THIS_JOB_INSTALL_COMMAND}"  ] && echo "Empty environment variable: THIS_JOB_INSTALL_COMMAND"  && exit 1
-[ -z "${THIS_JOB_CPP_STANDARD}"     ] && echo "Empty environment variable: THIS_JOB_CPP_STANDARD"     && exit 1
-[ -z "${THIS_JOB_VERBOSE_MAKEFILE}" ] && echo "Empty environment variable: THIS_JOB_VERBOSE_MAKEFILE" && exit 1
-
-: "---- Catch2 ----"
+: "---- Start of Catch2 ----"
 cd /tmp
 rm -rf Catch2-2.13.1
 curl -L https://github.com/catchorg/Catch2/archive/v2.13.1.tar.gz | tar xz
@@ -51,8 +53,9 @@ cmake ../ \
 cmake --build .
 ${THIS_JOB_INSTALL_COMMAND}
 cd .. && rm -rf build
+: "---- End of Catch2 ----"
 
-: "---- Immer ----"
+: "---- Start of Immer ----"
 cd /tmp
 rm -rf immer
 git clone https://github.com/arximboldi/immer.git
@@ -67,8 +70,9 @@ cmake ../ \
 cmake --build .
 ${THIS_JOB_INSTALL_COMMAND}
 cd .. && rm -rf build
+: "---- End of Immer ----"
 
-: "---- Usul ----"
+: "---- Start of Usul ----"
 cd /tmp
 rm -rf usul
 git clone https://github.com/perryiv/usul.git
@@ -82,8 +86,9 @@ cmake ../ \
 cmake --build .
 ${THIS_JOB_INSTALL_COMMAND}
 cd .. && rm -rf build
+: "---- End of Usul ----"
 
-: "---- GSG ----"
+: "---- Start of GSG ----"
 cd /tmp
 rm -rf gsg && mkdir -p gsg && cd gsg
 rm -rf build && mkdir build && cd build
@@ -110,5 +115,6 @@ cmake --build . --config Release
 ${THIS_JOB_INSTALL_COMMAND}
 cd bin && ./gsg_test --abort --use-colour=yes --durations=no
 cd
+: "---- End of GSG ----"
 
-: "---- End of build script ----"
+: "---- End of script $0 ----"

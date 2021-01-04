@@ -16,6 +16,8 @@
 # Exit immediately if one of the following commands does not return zero.
 set -e
 
+echo "---- Start of script $0 ----"
+
 # Echo all the commands.
 set -x
 
@@ -24,3 +26,5 @@ sudo apt-get update
 
 # Install boost.
 sudo apt-get -y install libboost-stacktrace-dev
+
+: "---- End of script $0 ----"

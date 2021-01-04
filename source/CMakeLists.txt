@@ -46,6 +46,8 @@ set ( SOURCE_FILES
   GSG/Scene/Primitives/DrawElements.cpp
   GSG/Scene/Primitives/PrimitiveSet.cpp
   GSG/Scene/State/Container.cpp
+  GSG/Scene/Visitors/Callbacks/Const.cpp
+  GSG/Scene/Visitors/Callbacks/Modify.cpp
   GSG/Scene/Visitors/Intersection/Intersect.cpp
   GSG/Scene/Visitors/Visitor.cpp
 )

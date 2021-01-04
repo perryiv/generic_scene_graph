@@ -46,6 +46,7 @@ namespace GSG
       namespace Groups
       {
         class Group;
+        class Transform;
       }
       namespace Shapes
       {

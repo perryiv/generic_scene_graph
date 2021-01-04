@@ -1,0 +1,44 @@
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Copyright (c) 2020, Perry L Miller IV
+//  All rights reserved.
+//  MIT License: https://opensource.org/licenses/mit-license.html
+//
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Test the scene visitors that call registered functions.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+#include "GSG/Scene/Visitors/Callbacks/Const.h"
+#include "GSG/Scene/Visitors/Callbacks/Modify.h"
+
+#include "catch2/catch.hpp"
+
+USUL_DEFINE_MAKE_PROPERTY_FUNCTION_SHORTCUT // mp
+
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Test the scene visitor.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+TEST_CASE ( "Scene visitor with callbacks" )
+{
+  typedef GSG::Scene::Visitors::Callbacks::Const ConstVisitor;
+  typedef GSG::Scene::Visitors::Callbacks::Modify ModifyVisitor;
+
+  SECTION ( "Constructors" )
+  {
+    {
+      ConstVisitor::RefPtr visitor = new ConstVisitor();
+    }
+    {
+      ModifyVisitor::RefPtr visitor = new ModifyVisitor();
+    }
+  }
+}

@@ -42,11 +42,13 @@ public:
   typedef GSG::Base::Objects::Object BaseClass;
   typedef Usul::Properties::Map PropertyMap;
 
+  virtual void visit ( const GSG::Scene::Nodes::Groups::Transform &, PropertyMap & );
   virtual void visit ( const GSG::Scene::Nodes::Groups::Group &, PropertyMap & );
   virtual void visit ( const GSG::Scene::Nodes::Node &, PropertyMap & );
   virtual void visit ( const GSG::Scene::Nodes::Shapes::Geometry &, PropertyMap & );
   virtual void visit ( const GSG::Scene::Nodes::Shapes::Shape &, PropertyMap & );
 
+  virtual void visit ( GSG::Scene::Nodes::Groups::Transform &, PropertyMap & );
   virtual void visit ( GSG::Scene::Nodes::Groups::Group &, PropertyMap & );
   virtual void visit ( GSG::Scene::Nodes::Node &, PropertyMap & );
   virtual void visit ( GSG::Scene::Nodes::Shapes::Geometry &, PropertyMap & );

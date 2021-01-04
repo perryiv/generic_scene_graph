@@ -9,12 +9,11 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-//  Base class for all scene visitors.
+//  Scene visitor that simply calls registered functions.
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#include "GSG/Scene/Visitors/Visitor.h"
-#include "GSG/Scene/Nodes/Groups/Transform.h"
+#include "GSG/Scene/Visitors/Callbacks/Modify.h"
 
 #include "Usul/Tools/NoThrow.h"
 
@@ -24,10 +23,11 @@
 namespace GSG {
 namespace Scene {
 namespace Visitors {
+namespace Callbacks {
 
 
 // Add the boilerplate code.
-GSG_IMPLEMENT_VISITOR_CLASS ( Visitor )
+GSG_IMPLEMENT_VISITOR_CLASS ( Modify )
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -36,7 +36,12 @@ GSG_IMPLEMENT_VISITOR_CLASS ( Visitor )
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-Visitor::Visitor() : BaseClass()
+Modify::Modify() : BaseClass(),
+  _transformCallback(),
+  _groupCallback(),
+  _geometryCallback(),
+  _shapeCallback(),
+  _nodeCallback()
 {
 }
 
@@ -47,9 +52,9 @@ Visitor::Visitor() : BaseClass()
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-Visitor::~Visitor()
+Modify::~Modify()
 {
-  USUL_TOOLS_NO_THROW ( 1592287229, std::bind ( &Visitor::_destroyVisitor, this ) );
+  USUL_TOOLS_NO_THROW ( 1609779503, std::bind ( &Modify::_destroyModify, this ) );
 }
 
 
@@ -59,7 +64,7 @@ Visitor::~Visitor()
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-void Visitor::_destroyVisitor()
+void Modify::_destroyModify()
 {
 }
 
@@ -70,42 +75,29 @@ void Visitor::_destroyVisitor()
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-void Visitor::visit ( const GSG::Scene::Nodes::Groups::Transform &trans, PropertyMap &pm )
+void Modify::visit ( GSG::Scene::Nodes::Groups::Transform &trans, PropertyMap &props )
 {
-  trans._traverseConst ( *this, pm );
+  BaseClass::visit ( trans, props );
 }
-void Visitor::visit ( const GSG::Scene::Nodes::Groups::Group &group, PropertyMap &pm )
+void Modify::visit ( GSG::Scene::Nodes::Groups::Group &group, PropertyMap &props )
 {
-  group._traverseConst ( *this, pm );
+  BaseClass::visit ( group, props );
 }
-void Visitor::visit ( GSG::Scene::Nodes::Groups::Transform &trans, PropertyMap &pm )
+void Modify::visit ( GSG::Scene::Nodes::Shapes::Geometry &geom, PropertyMap &props )
 {
-  trans._traverseModify ( *this, pm );
+  BaseClass::visit ( geom, props );
 }
-void Visitor::visit ( GSG::Scene::Nodes::Groups::Group &group, PropertyMap &pm )
+void Modify::visit ( GSG::Scene::Nodes::Shapes::Shape &shape, PropertyMap &props )
 {
-  group._traverseModify ( *this, pm );
+  BaseClass::visit ( shape, props );
 }
-void Visitor::visit ( const GSG::Scene::Nodes::Shapes::Geometry &, PropertyMap & )
+void Modify::visit ( GSG::Scene::Nodes::Node &node, PropertyMap &props )
 {
-}
-void Visitor::visit ( GSG::Scene::Nodes::Shapes::Geometry &, PropertyMap & )
-{
-}
-void Visitor::visit ( const GSG::Scene::Nodes::Shapes::Shape &, PropertyMap & )
-{
-}
-void Visitor::visit ( GSG::Scene::Nodes::Shapes::Shape &, PropertyMap & )
-{
-}
-void Visitor::visit ( const GSG::Scene::Nodes::Node &, PropertyMap & )
-{
-}
-void Visitor::visit ( GSG::Scene::Nodes::Node &, PropertyMap & )
-{
+  BaseClass::visit ( node, props );
 }
 
 
+} // namespace Callbacks
 } // namespace Visitors
 } // namespace Scene
 } // namespace GSG

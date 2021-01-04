@@ -32,6 +32,7 @@ public:
   GSG_DECLARE_VISITOR_CLASS ( Intersect );
 
   typedef GSG::Scene::Visitors::Visitor BaseClass;
+  typedef BaseClass::PropertyMap PropertyMap;
 
 protected:
 

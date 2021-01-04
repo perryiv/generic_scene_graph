@@ -51,67 +51,65 @@ jobs:
   strategy:
     matrix:
 
-      Linux_GCC_10_CPP_17:
-        virtual_machine_name: 'ubuntu-20.04'
-        docker_image_name: conanio/gcc10
-        build_generator: Ninja
-        install_command: sudo ninja install
-        cpp_standard: 17
-        verbose_makefile: ON
-        before_script: scripts/before_ubuntu.sh
-        the_script: scripts/ci_with_docker.sh
-
-      Linux_GCC_10_CPP_14:
-        virtual_machine_name: 'ubuntu-20.04'
-        docker_image_name: conanio/gcc10
-        build_generator: Ninja
-        install_command: sudo ninja install
-        cpp_standard: 14
-        verbose_makefile: ON
-        before_script: scripts/before_ubuntu.sh
-        the_script: scripts/ci_with_docker.sh
-
-      Linux_GCC_9_CPP_17:
-        virtual_machine_name: 'ubuntu-20.04'
-        docker_image_name: conanio/gcc9
-        build_generator: Ninja
-        install_command: sudo ninja install
-        cpp_standard: 17
-        verbose_makefile: ON
-        before_script: scripts/before_ubuntu.sh
-        the_script: scripts/ci_with_docker.sh
-
-      Linux_GCC_9_CPP_14:
-        virtual_machine_name: 'ubuntu-20.04'
-        docker_image_name: conanio/gcc9
-        build_generator: Ninja
-        install_command: sudo ninja install
-        cpp_standard: 14
-        verbose_makefile: ON
-        before_script: scripts/before_ubuntu.sh
-        the_script: scripts/ci_with_docker.sh
-
-      Linux_GCC_8_CPP_17:
-        virtual_machine_name: 'ubuntu-20.04'
-        docker_image_name: conanio/gcc8
-        build_generator: Ninja
-        install_command: sudo ninja install
-        cpp_standard: 17
-        verbose_makefile: ON
-        before_script: scripts/before_ubuntu.sh
-        the_script: scripts/ci_with_docker.sh
-
-      Linux_GCC_8_CPP_14:
-        virtual_machine_name: 'ubuntu-20.04'
-        docker_image_name: conanio/gcc8
-        build_generator: Ninja
-        install_command: sudo ninja install
-        cpp_standard: 14
-        verbose_makefile: ON
-        before_script: scripts/before_ubuntu.sh
-        the_script: scripts/ci_with_docker.sh
-
-      # All versions of macOS appear to be using clang 11, so just doing that.
+      # Linux_GCC_10_CPP_17:
+      #   virtual_machine_name: 'ubuntu-20.04'
+      #   docker_image_name: conanio/gcc10
+      #   build_generator: Ninja
+      #   install_command: sudo ninja install
+      #   cpp_standard: 17
+      #   verbose_makefile: ON
+      #   before_script: scripts/before_ubuntu.sh
+      #   the_script: scripts/ci_with_docker.sh
+      #
+      # Linux_GCC_10_CPP_14:
+      #   virtual_machine_name: 'ubuntu-20.04'
+      #   docker_image_name: conanio/gcc10
+      #   build_generator: Ninja
+      #   install_command: sudo ninja install
+      #   cpp_standard: 14
+      #   verbose_makefile: ON
+      #   before_script: scripts/before_ubuntu.sh
+      #   the_script: scripts/ci_with_docker.sh
+      #
+      # Linux_GCC_9_CPP_17:
+      #   virtual_machine_name: 'ubuntu-20.04'
+      #   docker_image_name: conanio/gcc9
+      #   build_generator: Ninja
+      #   install_command: sudo ninja install
+      #   cpp_standard: 17
+      #   verbose_makefile: ON
+      #   before_script: scripts/before_ubuntu.sh
+      #   the_script: scripts/ci_with_docker.sh
+      #
+      # Linux_GCC_9_CPP_14:
+      #   virtual_machine_name: 'ubuntu-20.04'
+      #   docker_image_name: conanio/gcc9
+      #   build_generator: Ninja
+      #   install_command: sudo ninja install
+      #   cpp_standard: 14
+      #   verbose_makefile: ON
+      #   before_script: scripts/before_ubuntu.sh
+      #   the_script: scripts/ci_with_docker.sh
+      #
+      # Linux_GCC_8_CPP_17:
+      #   virtual_machine_name: 'ubuntu-20.04'
+      #   docker_image_name: conanio/gcc8
+      #   build_generator: Ninja
+      #   install_command: sudo ninja install
+      #   cpp_standard: 17
+      #   verbose_makefile: ON
+      #   before_script: scripts/before_ubuntu.sh
+      #   the_script: scripts/ci_with_docker.sh
+      #
+      # Linux_GCC_8_CPP_14:
+      #   virtual_machine_name: 'ubuntu-20.04'
+      #   docker_image_name: conanio/gcc8
+      #   build_generator: Ninja
+      #   install_command: sudo ninja install
+      #   cpp_standard: 14
+      #   verbose_makefile: ON
+      #   before_script: scripts/before_ubuntu.sh
+      #   the_script: scripts/ci_with_docker.sh
 
       Apple_Clang_11_CPP_17:
         virtual_machine_name: 'macOS-10.15'
@@ -130,8 +128,6 @@ jobs:
         verbose_makefile: ON
         before_script: ./scripts/before_apple.sh
         the_script: ./scripts/ci.sh
-
-      # On windows just using the host machine.
 
       Visual_Studio_2019_CPP_17:
         virtual_machine_name: 'windows-2019'
@@ -164,12 +160,6 @@ jobs:
 
   steps:
 
-    # - task: BatchScript@1
-    #   inputs:
-    #     filename: scripts/before_windows.bat
-    #   condition: contains(variables['Agent.JobName'], 'Visual_Studio')
-    #   displayName: Install
-
     - task: PowerShell@2
       inputs:
         script: choco install --yes boost-msvc-14.1
@@ -184,17 +174,23 @@ jobs:
       condition: contains(variables['Agent.JobName'], 'Apple_Clang')
       displayName: Install Boost on Mac
 
+    - task: Bash@3
+      inputs:
+        filePath: $(the_script)
+      displayName: Build and Test
+
+    # - task: BatchScript@1
+    #   inputs:
+    #     filename: scripts/before_windows.bat
+    #   condition: contains(variables['Agent.JobName'], 'Visual_Studio')
+    #   displayName: Install
+
     # - task: Bash@3
     #   inputs:
     #     filePath: $(before_script)
     #   condition: contains(variables['Agent.JobName'], 'Apple')
     #   displayName: Install Boost on Mac
 
-    - task: Bash@3
-      inputs:
-        filePath: $(the_script)
-      displayName: Build
-
-    # condition: not(contains(variables['Agent.JobName'], 'Visual_Studio'))
     # - script: $(the_script)
+    #   condition: not(contains(variables['Agent.JobName'], 'Visual_Studio'))
     #   displayName: Build

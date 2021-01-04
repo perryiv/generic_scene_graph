@@ -147,7 +147,7 @@ jobs:
     - task: PowerShell@2
       inputs:
         script: |
-          curl -L https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.gz
+          curl https://dl.bintray.com/boostorg/release/1.75.0/source/boost_1_75_0.tar.gz
           gzip -d boost_1_75_0.tar.gz
           tar xvf boost_1_75_0.tar
           cd boost_1_75_0

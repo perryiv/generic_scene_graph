@@ -144,6 +144,12 @@ jobs:
       condition: not(contains(variables['Agent.JobName'], 'Linux'))
       displayName: Install
 
+    # Run the main script.
+    - task: Bash@3
+      inputs:
+        filePath: $(the_script)
+      displayName: Build
+
     # - task: PowerShell@2
     #   inputs:
     #     script: |
@@ -156,12 +162,6 @@ jobs:
     #     targetType: inline
     #   condition: contains(variables['Agent.JobName'], 'Visual_Studio')
     #   displayName: Install
-
-    # Run the main script.
-    - task: Bash@3
-      inputs:
-        filePath: $(the_script)
-      displayName: Build
 
     # - task: BatchScript@1
     #   inputs:

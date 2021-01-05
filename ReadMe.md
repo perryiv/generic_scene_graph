@@ -23,10 +23,13 @@ As of now, you will need
 [Boost](https://www.boost.org/), and
 [CMake](https://cmake.org/)
 installed.
-Eventually, in order to compile the renderers, you will need one or more of these:
-[OpenGL](https://www.khronos.org/opengl/),
-[Vulkan](https://vulkan.lunarg.com/sdk/home).
-However, that's not working yet.
+
+Eventually, in order to compile the renderers you will need
+[OpenGL](https://www.khronos.org/opengl/)
+and/or
+[Vulkan](https://vulkan.lunarg.com/sdk/home),
+but that's not working yet.
+
 Configuring and building looks like this:
 
     cd /your/path/to/generic_scene_graph

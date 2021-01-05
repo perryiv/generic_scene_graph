@@ -33,6 +33,23 @@ GSG_IMPLEMENT_NODE_CLASS ( Transform )
 
 ///////////////////////////////////////////////////////////////////////////////
 //
+//  Constants.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+namespace Details
+{
+  constexpr Transform::Matrix44d identity (
+    1, 0, 0, 0,
+    0, 1, 0, 0,
+    0, 0, 1, 0,
+    0, 0, 0, 1
+  );
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
 //  Constructors.
 //
 ///////////////////////////////////////////////////////////////////////////////
@@ -97,14 +114,14 @@ void Transform::setMatrix ( const Matrix44d &matrix )
 
 void Transform::_traverseConst ( GSG::Scene::Visitors::Visitor &visitor, PropertyMap &pm ) const
 {
-  const Matrix44d m1 = pm.require < Matrix44d > ( "viewMatrix" );
+  const Matrix44d m1 = pm.get < Matrix44d > ( "viewMatrix", Details::identity );
   pm.update ( "viewMatrix", ( m1 * _matrix ) );
   BaseClass::_traverseConst ( visitor, pm );
   pm.update ( "viewMatrix", m1 );
 }
 void Transform::_traverseModify ( GSG::Scene::Visitors::Visitor &visitor, PropertyMap &pm )
 {
-  const Matrix44d m1 = pm.require < Matrix44d > ( "viewMatrix" );
+  const Matrix44d m1 = pm.get < Matrix44d > ( "viewMatrix", Details::identity );
   pm.update ( "viewMatrix", ( m1 * _matrix ) );
   BaseClass::_traverseModify ( visitor, pm );
   pm.update ( "viewMatrix", m1 );

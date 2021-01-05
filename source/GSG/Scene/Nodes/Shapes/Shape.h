@@ -35,10 +35,9 @@ public:
 
   GSG_DECLARE_NODE_CLASS ( Shape );
 
-  Shape();
-
 protected:
 
+  Shape();
   virtual ~Shape();
 
 private:

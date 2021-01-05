@@ -17,14 +17,46 @@ However, modifying existing nodes (that are already part of the graph) in one th
 
 ## Building
 
-You will need
+As of now, you will need
 [Usul](https://github.com/perryiv/usul),
 [immer](https://github.com/arximboldi/immer),
-[Vulkan](https://vulkan.lunarg.com/sdk/home), and
+[Boost](https://www.boost.org/), and
 [CMake](https://cmake.org/)
-installed:
+installed.
+Eventually, in order to compile the renderers, you will need one or more of these:
+[OpenGL](https://www.khronos.org/opengl/),
+[Vulkan](https://vulkan.lunarg.com/sdk/home).
+However, that's not working yet.
+Configuring and building looks like this:
 
     cd /your/path/to/generic_scene_graph
     mkdir build
     cd build
-    cmake ..
+    cmake .. \
+      -DCMAKE_VERBOSE_MAKEFILE=ON \
+      -DGSG_BUILD_TESTS=ON \
+      -DGSG_ENABLE_CODE_COVERAGE=ON \
+      -DCMAKE_BUILD_TYPE=Debug",
+    cmake --build .
+
+Or, if you have node, you can do this:
+
+    npm run config-debug
+    npm run build-debug
+
+## Testing
+
+You can do this:
+
+    cd build/bin
+    gsg_test_d --abort --use-colour=yes --durations=no
+
+Or, again, if you have node, you can do this instead:
+
+    npm run test-debug
+
+## Developing
+
+To build and test every time a change is made to the source code:
+
+    npm run watch-debug

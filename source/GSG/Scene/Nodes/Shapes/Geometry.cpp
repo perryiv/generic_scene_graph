@@ -259,7 +259,7 @@ Geometry::Bounds Geometry::getBounds() const
     bounds.grow ( Bounds::Vec3 ( x, y, z ) );
   }
 
-  // Shoud be true.
+  // Should be true.
   USUL_CHECK_AND_THROW ( ( points.end() == i ),
     "Did not loop to the end of the points when growing geometry node bounds" );
 

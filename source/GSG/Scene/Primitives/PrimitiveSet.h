@@ -13,10 +13,14 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifndef _GENERIC_SCENE_GRAPH_PRIMITIVES_PRIMITIVE_SET_CLASS_H_
-#define _GENERIC_SCENE_GRAPH_PRIMITIVES_PRIMITIVE_SET_CLASS_H_
+#ifndef _GSG_PRIMITIVES_PRIMITIVE_SET_CLASS_H_
+#define _GSG_PRIMITIVES_PRIMITIVE_SET_CLASS_H_
+
+#include "GSG/Config.h"
 
 #include "GSG/Base/Objects/Object.h"
+
+#include "GSG/Scene/Export.h"
 
 #define GSG_DECLARE_PRIMITIVE_CLASS(class_name) \
   GSG_DECLARE_OBJECT_CLASS ( class_name )
@@ -30,7 +34,7 @@ namespace Scene {
 namespace Primitives {
 
 
-class GSG_EXPORT PrimitiveSet : public GSG::Base::Objects::Object
+class GSG_SCENE_EXPORT PrimitiveSet : public GSG::Base::Objects::Object
 {
 public:
 
@@ -54,4 +58,4 @@ private:
 } // namespace GSG
 
 
-#endif // _GENERIC_SCENE_GRAPH_PRIMITIVES_PRIMITIVE_SET_CLASS_H_
+#endif // _GSG_PRIMITIVES_PRIMITIVE_SET_CLASS_H_

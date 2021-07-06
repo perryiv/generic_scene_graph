@@ -82,8 +82,8 @@ else()
 endif()
 option ( ${PROJECT_NAME}_INSTALL "Able to install ${PROJECT_NAME}" ${${PROJECT_NAME}_INSTALL_DEFAULT} )
 
+# Install generated files wherever the user specified to install things.
 if ( ${PROJECT_NAME}_INSTALL )
-  # Install generated files wherever the user specified to install things.
   install (
     DIRECTORY ${GSG_CONFIG_DIR_OUTPUT}/GSG
     DESTINATION include
@@ -91,20 +91,7 @@ if ( ${PROJECT_NAME}_INSTALL )
   )
 endif()
 
-# Set this variable if there is a corresponding environment variable,
-# and if it's not already set.
-# if ( ( NOT DEFINED CMAKE_MODULE_PATH ) AND ( DEFINED ENV{CMAKE_MODULE_PATH} ) )
-#   set ( CMAKE_MODULE_PATH $ENV{CMAKE_MODULE_PATH} )
-# endif()
-
-# Append to the cmake variable from the environment.
-# if ( DEFINED ENV{DEVELOPMENT_DEPENDENCIES_DIR} )
-#   list ( APPEND CMAKE_MODULE_PATH $ENV{DEVELOPMENT_DEPENDENCIES_DIR} )
-# endif()
-
-# Find and use usul. Set usul_ROOT environment variable to:
-# 1) where it is installed, or
-# 2) it's build directory.
+# Find usul.
 find_package ( usul REQUIRED )
 
 # Find immer.
@@ -148,7 +135,7 @@ if ( NOT DEFINED CMAKE_DEBUG_POSTFIX )
   set ( CMAKE_DEBUG_POSTFIX "_d" )
 endif()
 
-# Now that we have all the configuration options we can write these file.
+# Now that we have all the configuration options we can write these files.
 configure_file (
   ${GSG_CONFIG_DIR_INPUT}/Version.h.in
   ${GSG_CONFIG_DIR_OUTPUT}/GSG/Version.h )
@@ -167,4 +154,4 @@ if ( GSG_BUILD_TESTS )
 endif()
 
 # Configure how this project gets imported into other cmake projects.
-include ( ${CMAKE_CURRENT_SOURCE_DIR}/cmake/export.cmake )
+# include ( ${CMAKE_CURRENT_SOURCE_DIR}/cmake/export.cmake )

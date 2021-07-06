@@ -13,15 +13,15 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifndef _GENERIC_SCENE_GRAPH_PRIMITIVES_DRAW_ELEMENTS_CLASS_H_
-#define _GENERIC_SCENE_GRAPH_PRIMITIVES_DRAW_ELEMENTS_CLASS_H_
+#ifndef _GSG_PRIMITIVES_DRAW_ELEMENTS_CLASS_H_
+#define _GSG_PRIMITIVES_DRAW_ELEMENTS_CLASS_H_
 
 #include "GSG/Scene/Primitives/PrimitiveSet.h"
 #include "GSG/Base/Containers/TypedArrays.h"
 
 
 #define GSG_DECLARE_DRAW_ELEMENTS_CLASS(class_name,indices_type) \
-  class GSG_EXPORT class_name : public DrawElements \
+  class GSG_SCENE_EXPORT class_name : public DrawElements \
   { \
   public: \
     typedef DrawElements BaseClass; \
@@ -54,7 +54,7 @@ namespace Scene {
 namespace Primitives {
 
 
-class GSG_EXPORT DrawElements : public PrimitiveSet
+class GSG_SCENE_EXPORT DrawElements : public PrimitiveSet
 {
 public:
 
@@ -84,4 +84,4 @@ GSG_DECLARE_DRAW_ELEMENTS_CLASS ( DrawElementsUint64, GSG::Base::Containers::Uin
 } // namespace GSG
 
 
-#endif // _GENERIC_SCENE_GRAPH_PRIMITIVES_DRAW_ELEMENTS_CLASS_H_
+#endif // _GSG_PRIMITIVES_DRAW_ELEMENTS_CLASS_H_

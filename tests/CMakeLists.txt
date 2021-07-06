@@ -17,9 +17,13 @@
 include_directories ( ${CMAKE_CURRENT_SOURCE_DIR} )
 
 # Define a variable that holds all the source files.
-set ( SOURCE_FILES
+set ( SOURCE_FILES_BASE
   ./GSG/Base/Containers/Array.cpp
   ./GSG/Base/Containers/TypedArrays.cpp
+  ./GSG/Main.cpp
+  ./GSG/Version.cpp
+)
+set ( SOURCE_FILES_SCENE
   ./GSG/Scene/Nodes/Groups/Group.cpp
   ./GSG/Scene/Nodes/Groups/Transform.cpp
   ./GSG/Scene/Nodes/Shapes/Geometry.cpp
@@ -31,19 +35,25 @@ set ( SOURCE_FILES
 )
 
 # Make an executable.
-add_executable ( ${PROJECT_NAME}_test ${SOURCE_FILES} )
+add_executable ( ${PROJECT_NAME}_base_test  ${SOURCE_FILES_BASE}  )
+add_executable ( ${PROJECT_NAME}_scene_test ${SOURCE_FILES_SCENE} )
 
 # Append a "d" to the file name if this is a debug build.
 # Unlike with the library files, this does not happen automatically.
 # if ( ( DEFINED CMAKE_DEBUG_POSTFIX ) AND ( NOT ${CMAKE_DEBUG_POSTFIX} STREQUAL "" ) )
 if ( CMAKE_BUILD_TYPE STREQUAL "Debug" )
-  set_target_properties ( ${PROJECT_NAME}_test PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX} )
+  set_target_properties ( ${PROJECT_NAME}_base_test  PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX} )
+  set_target_properties ( ${PROJECT_NAME}_scene_test PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX} )
 endif()
 
 # Tell cmake we are going to use these libraries.
 # It will automatically add -I, -L, and -D (etc) appropriately.
-target_link_libraries ( ${PROJECT_NAME}_test PRIVATE
-  ${PROJECT_NAME}
+target_link_libraries ( ${PROJECT_NAME}_base_test PRIVATE
+  ${PROJECT_NAME}_base
+  Catch2::Catch2
+)
+target_link_libraries ( ${PROJECT_NAME}_scene_test PRIVATE
+  ${PROJECT_NAME}_scene
   Catch2::Catch2
 )
 
@@ -52,7 +62,10 @@ target_link_libraries ( ${PROJECT_NAME}_test PRIVATE
 # This has to come after the target is declared above.
 if ( GSG_ENABLE_CODE_COVERAGE )
   if ( "${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" )
-    add_custom_command ( TARGET ${PROJECT_NAME}_test
+    add_custom_command ( TARGET ${PROJECT_NAME}_base_test
+      PRE_LINK COMMAND find . -name "*.gcda" -print0 | xargs -0 rm
+    )
+    add_custom_command ( TARGET ${PROJECT_NAME}_scene_test
       PRE_LINK COMMAND find . -name "*.gcda" -print0 | xargs -0 rm
     )
   endif()

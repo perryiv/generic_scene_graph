@@ -13,11 +13,16 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifndef _GENERIC_SCENE_GRAPH_NODES_NODE_CLASS_H_
-#define _GENERIC_SCENE_GRAPH_NODES_NODE_CLASS_H_
+#ifndef _GSG_NODES_NODE_CLASS_H_
+#define _GSG_NODES_NODE_CLASS_H_
+
+#include "GSG/Config.h"
 
 #include "GSG/Base/Objects/Object.h"
-#include "GSG/Forward.h"
+#include "GSG/Base/Forward.h"
+
+#include "GSG/Scene/Export.h"
+#include "GSG/Scene/Forward.h"
 
 #include "Usul/Bits/Bits.h"
 #include "Usul/Math/Box.h"
@@ -51,7 +56,7 @@ namespace Scene {
 namespace Nodes {
 
 
-class GSG_EXPORT Node : public GSG::Base::Objects::Object
+class GSG_SCENE_EXPORT Node : public GSG::Base::Objects::Object
 {
 public:
 
@@ -163,4 +168,4 @@ private:
   }
 
 
-#endif // _GENERIC_SCENE_GRAPH_NODES_NODE_CLASS_H_
+#endif // _GSG_NODES_NODE_CLASS_H_

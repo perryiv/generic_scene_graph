@@ -13,11 +13,15 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifndef _GENERIC_SCENE_GRAPH_VISITORS_VISITOR_CLASS_H_
-#define _GENERIC_SCENE_GRAPH_VISITORS_VISITOR_CLASS_H_
+#ifndef _GSG_VISITORS_VISITOR_CLASS_H_
+#define _GSG_VISITORS_VISITOR_CLASS_H_
+
+#include "GSG/Config.h"
 
 #include "GSG/Base/Objects/Object.h"
-#include "GSG/Forward.h"
+
+#include "GSG/Scene/Export.h"
+#include "GSG/Scene/Forward.h"
 
 #include "Usul/Properties/Map.h"
 
@@ -33,7 +37,7 @@ namespace Scene {
 namespace Visitors {
 
 
-class GSG_EXPORT Visitor : public GSG::Base::Objects::Object
+class GSG_SCENE_EXPORT Visitor : public GSG::Base::Objects::Object
 {
 public:
 
@@ -70,4 +74,4 @@ private:
 } // namespace GSG
 
 
-#endif // _GENERIC_SCENE_GRAPH_VISITORS_VISITOR_CLASS_H_
+#endif // _GSG_VISITORS_VISITOR_CLASS_H_

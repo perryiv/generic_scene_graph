@@ -13,8 +13,8 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifndef _GENERIC_SCENE_GRAPH_BASE_CONTAINERS_ARRAY_CLASS_H_
-#define _GENERIC_SCENE_GRAPH_BASE_CONTAINERS_ARRAY_CLASS_H_
+#ifndef _GSG_BASE_CONTAINERS_ARRAY_CLASS_H_
+#define _GSG_BASE_CONTAINERS_ARRAY_CLASS_H_
 
 #include "GSG/Base/Objects/Object.h"
 
@@ -287,4 +287,4 @@ template < class T > inline void Array<T>::swap ( Array &other )
 } // namespace GSG
 
 
-#endif // _GENERIC_SCENE_GRAPH_BASE_CONTAINERS_ARRAY_CLASS_H_
+#endif // _GSG_BASE_CONTAINERS_ARRAY_CLASS_H_

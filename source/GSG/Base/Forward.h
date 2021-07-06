@@ -13,8 +13,8 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifndef _GENERIC_SCENE_GRAPH_FORWARD_DECLARATIONS_H_
-#define _GENERIC_SCENE_GRAPH_FORWARD_DECLARATIONS_H_
+#ifndef _GSG_BASE_FORWARD_DECLARATIONS_H_
+#define _GSG_BASE_FORWARD_DECLARATIONS_H_
 
 
 namespace GSG
@@ -39,32 +39,7 @@ namespace GSG
       class Object;
     }
   }
-  namespace Scene
-  {
-    namespace Nodes
-    {
-      namespace Groups
-      {
-        class Group;
-        class Transform;
-      }
-      namespace Shapes
-      {
-        class Geometry;
-        class Shape;
-      }
-      class Node;
-    }
-    namespace Visitors
-    {
-      namespace Intersection
-      {
-        class Intersect;
-      }
-      class Visitor;
-    }
-  }
 }
 
 
-#endif // _GENERIC_SCENE_GRAPH_FORWARD_DECLARATIONS_H_
+#endif // _GSG_BASE_FORWARD_DECLARATIONS_H_

@@ -13,10 +13,14 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifndef _GENERIC_SCENE_GRAPH_STATE_CONTAINER_CLASS_H_
-#define _GENERIC_SCENE_GRAPH_STATE_CONTAINER_CLASS_H_
+#ifndef _GSG_STATE_CONTAINER_CLASS_H_
+#define _GSG_STATE_CONTAINER_CLASS_H_
+
+#include "GSG/Config.h"
 
 #include "GSG/Base/Objects/Object.h"
+
+#include "GSG/Scene/Export.h"
 
 #include "Usul/Properties/Map.h"
 #include "Usul/Strings/Format.h"
@@ -29,7 +33,7 @@ namespace Scene {
 namespace State {
 
 
-class GSG_EXPORT Container : public GSG::Base::Objects::Object
+class GSG_SCENE_EXPORT Container : public GSG::Base::Objects::Object
 {
 public:
 
@@ -93,4 +97,4 @@ private:
   )
 
 
-#endif // _GENERIC_SCENE_GRAPH_STATE_CONTAINER_CLASS_H_
+#endif // _GSG_STATE_CONTAINER_CLASS_H_

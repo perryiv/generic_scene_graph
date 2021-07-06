@@ -13,8 +13,8 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifndef _GENERIC_SCENE_GRAPH_NODES_GROUPS_GROUP_CLASS_H_
-#define _GENERIC_SCENE_GRAPH_NODES_GROUPS_GROUP_CLASS_H_
+#ifndef _GSG_NODES_GROUPS_GROUP_CLASS_H_
+#define _GSG_NODES_GROUPS_GROUP_CLASS_H_
 
 #include "GSG/Scene/Nodes/Node.h"
 
@@ -27,7 +27,7 @@ namespace Nodes {
 namespace Groups {
 
 
-class GSG_EXPORT Group : public GSG::Scene::Nodes::Node
+class GSG_SCENE_EXPORT Group : public GSG::Scene::Nodes::Node
 {
 public:
 
@@ -116,4 +116,4 @@ void Group::insert ( size_type pos, Itr first, Itr last)
 } // namespace GSG
 
 
-#endif // _GENERIC_SCENE_GRAPH_NODES_GROUPS_GROUP_CLASS_H_
+#endif // _GSG_NODES_GROUPS_GROUP_CLASS_H_

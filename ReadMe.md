@@ -52,7 +52,8 @@ Or, if you have node, you can do this:
 You can do this:
 
     cd build/bin
-    gsg_test_d --abort --use-colour=yes --durations=no
+    gsg_base_test_d --abort --use-colour=yes --durations=no
+    gsg_scene_test_d --abort --use-colour=yes --durations=no
 
 Or, again, if you have node, you can do this instead:
 

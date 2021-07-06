@@ -13,8 +13,8 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifndef _GENERIC_SCENE_GRAPH_VISITORS_CALLBACKS_CONST_VISITOR_CLASS_H_
-#define _GENERIC_SCENE_GRAPH_VISITORS_CALLBACKS_CONST_VISITOR_CLASS_H_
+#ifndef _GSG_VISITORS_CALLBACKS_CONST_VISITOR_CLASS_H_
+#define _GSG_VISITORS_CALLBACKS_CONST_VISITOR_CLASS_H_
 
 #include "GSG/Scene/Visitors/Visitor.h"
 
@@ -27,7 +27,7 @@ namespace Visitors {
 namespace Callbacks {
 
 
-class GSG_EXPORT Const : public GSG::Scene::Visitors::Visitor
+class GSG_SCENE_EXPORT Const : public GSG::Scene::Visitors::Visitor
 {
 public:
 
@@ -82,4 +82,4 @@ private:
 } // namespace GSG
 
 
-#endif // _GENERIC_SCENE_GRAPH_VISITORS_CALLBACKS_CONST_VISITOR_CLASS_H_
+#endif // _GSG_VISITORS_CALLBACKS_CONST_VISITOR_CLASS_H_

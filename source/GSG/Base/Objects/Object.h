@@ -13,11 +13,11 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifndef _GENERIC_SCENE_GRAPH_BASE_OBJECTS_OBJECT_CLASS_H_
-#define _GENERIC_SCENE_GRAPH_BASE_OBJECTS_OBJECT_CLASS_H_
+#ifndef _GSG_BASE_OBJECTS_OBJECT_CLASS_H_
+#define _GSG_BASE_OBJECTS_OBJECT_CLASS_H_
 
 #include "GSG/Config.h"
-#include "GSG/Export.h"
+#include "GSG/Base/Export.h"
 
 #include "Usul/Base/Referenced.h"
 #include "Usul/Pointers/Pointers.h"
@@ -44,7 +44,7 @@ namespace Base {
 namespace Objects {
 
 
-class GSG_EXPORT Object : public Usul::Base::Referenced,
+class GSG_BASE_EXPORT Object : public Usul::Base::Referenced,
   public Usul::Tools::NoCopying
 {
 public:
@@ -69,4 +69,4 @@ private:
 } // namespace GSG
 
 
-#endif // _GENERIC_SCENE_GRAPH_BASE_OBJECTS_OBJECT_CLASS_H_
+#endif // _GSG_BASE_OBJECTS_OBJECT_CLASS_H_

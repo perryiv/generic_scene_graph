@@ -13,8 +13,8 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifndef _GENERIC_SCENE_GRAPH_NODES_SHAPES_SHAPE_CLASS_H_
-#define _GENERIC_SCENE_GRAPH_NODES_SHAPES_SHAPE_CLASS_H_
+#ifndef _GSG_NODES_SHAPES_SHAPE_CLASS_H_
+#define _GSG_NODES_SHAPES_SHAPE_CLASS_H_
 
 #include "GSG/Scene/Nodes/Node.h"
 
@@ -25,7 +25,7 @@ namespace Nodes {
 namespace Shapes {
 
 
-class GSG_EXPORT Shape : public GSG::Scene::Nodes::Node
+class GSG_SCENE_EXPORT Shape : public GSG::Scene::Nodes::Node
 {
 public:
 
@@ -52,4 +52,4 @@ private:
 } // namespace GSG
 
 
-#endif // _GENERIC_SCENE_GRAPH_NODES_SHAPES_SHAPE_CLASS_H_
+#endif // _GSG_NODES_SHAPES_SHAPE_CLASS_H_

@@ -34,9 +34,11 @@ endif()
 set ( CMAKE_POSITION_INDEPENDENT_CODE ON )
 
 # Define a variable that holds all the source files.
-set ( SOURCE_FILES
+set ( SOURCE_FILES_BASE
   GSG/Base/Containers/TypedArrays.cpp
   GSG/Base/Objects/Object.cpp
+)
+set ( SOURCE_FILES_SCENE
   GSG/Scene/Nodes/Groups/Group.cpp
   GSG/Scene/Nodes/Groups/Projection.cpp
   GSG/Scene/Nodes/Groups/Transform.cpp
@@ -53,35 +55,53 @@ set ( SOURCE_FILES
   GSG/Scene/Visitors/Visitor.cpp
 )
 
-set ( THIS_LIBRARY_NAME ${PROJECT_NAME} )
+# Set the library names.
+set (  BASE_LIBRARY_NAME ${PROJECT_NAME}_base  )
+set ( SCENE_LIBRARY_NAME ${PROJECT_NAME}_scene )
 
-# Make the library using the source files.
-# Hey CMake, here is a library and all the stuff you need to know about it.
-add_library ( ${THIS_LIBRARY_NAME} ${SOURCE_FILES} )
+# Make the libraries using the source files.
+add_library (  ${BASE_LIBRARY_NAME} ${SOURCE_FILES_BASE}  )
+add_library ( ${SCENE_LIBRARY_NAME} ${SOURCE_FILES_SCENE} )
 
 # We are compling generic_scene_graph.
-target_compile_definitions ( ${THIS_LIBRARY_NAME} PRIVATE COMPILING_GSG )
+target_compile_definitions (  ${BASE_LIBRARY_NAME} PRIVATE COMPILING_GSG_BASE  )
+target_compile_definitions ( ${SCENE_LIBRARY_NAME} PRIVATE COMPILING_GSG_SCENE )
 
 if ( NOT BUILD_SHARED_LIBS )
-  target_compile_definitions ( ${THIS_LIBRARY_NAME} PUBLIC GSG_STATIC_DEFINE )
+  target_compile_definitions (  ${BASE_LIBRARY_NAME} PUBLIC GSG_BASE_STATIC_DEFINE  )
+  target_compile_definitions ( ${SCENE_LIBRARY_NAME} PUBLIC GSG_SCENE_STATIC_DEFINE )
 endif()
 
-# Tell cmake that other projects that use this one will need our header files.
+# Tell cmake that other projects that use these ones will need our header files.
 target_include_directories (
-  ${THIS_LIBRARY_NAME} PUBLIC
+  ${BASE_LIBRARY_NAME} PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+  $<BUILD_INTERFACE:${GSG_CONFIG_DIR_OUTPUT}>
+  $<INSTALL_INTERFACE:include>
+)
+target_include_directories (
+  ${SCENE_LIBRARY_NAME} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
   $<BUILD_INTERFACE:${GSG_CONFIG_DIR_OUTPUT}>
   $<INSTALL_INTERFACE:include>
 )
 
 # CMake will automatically add -I, -L, and -D (etc) appropriately.
-target_link_libraries ( ${THIS_LIBRARY_NAME} PUBLIC
+target_link_libraries ( ${BASE_LIBRARY_NAME} PUBLIC
+  usul
+)
+target_link_libraries ( ${SCENE_LIBRARY_NAME} PUBLIC
+  ${BASE_LIBRARY_NAME}
   usul
   immer
 )
 
 # Bake the version into the file name and create symlinks if appropriate.
-set_target_properties ( ${THIS_LIBRARY_NAME} PROPERTIES
+set_target_properties ( ${BASE_LIBRARY_NAME} PROPERTIES
+  VERSION ${PROJECT_VERSION}
+  SOVERSION ${PROJECT_VERSION_MAJOR}
+)
+set_target_properties ( ${SCENE_LIBRARY_NAME} PROPERTIES
   VERSION ${PROJECT_VERSION}
   SOVERSION ${PROJECT_VERSION_MAJOR}
 )
@@ -91,8 +111,8 @@ set_target_properties ( ${THIS_LIBRARY_NAME} PROPERTIES
 # directory prefix is /usr/local or "C:/Program Files", and can be changed
 # on the command line with -DCMAKE_INSTALL_PREFIX=/some/path.
 install (
-  TARGETS ${THIS_LIBRARY_NAME}
-  EXPORT ${THIS_LIBRARY_NAME}_targets
+  TARGETS ${BASE_LIBRARY_NAME} ${SCENE_LIBRARY_NAME}
+  EXPORT ${PROJECT_NAME}_targets
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin

@@ -1,0 +1,19 @@
+--------------------------------------------------------------------------------
+
+Need a way to mark the render-tree dirty.
+
+This is the tree that gets created during the cull traversal.
+
+If it's not dirty then it can just be rendered again, skipping the cull.
+
+--------------------------------------------------------------------------------
+
+Can the renderer handle the task of smartly packing the vertices?
+
+That way the application code doesn't have to think about an alternative
+organization of the data.
+
+It can organize it according to the original structure, follow the CAD
+hierarchy, for example.
+
+--------------------------------------------------------------------------------

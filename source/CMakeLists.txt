@@ -1,7 +1,7 @@
 
 ################################################################################
 #
-#  Copyright (c) 2020, Perry L Miller IV
+#  Copyright (c) 2021, Perry L Miller IV
 #  All rights reserved.
 #  MIT License: https://opensource.org/licenses/mit-license.html
 #
@@ -9,7 +9,7 @@
 
 ################################################################################
 #
-#  CMake file for the library.
+#  CMake file for the libraries.
 #
 ################################################################################
 
@@ -33,78 +33,10 @@ endif()
 # We want position independent code.
 set ( CMAKE_POSITION_INDEPENDENT_CODE ON )
 
-# Define a variable that holds all the source files.
-set ( SOURCE_FILES_BASE
-  GSG/Base/Containers/TypedArrays.cpp
-  GSG/Base/Objects/Object.cpp
-)
-set ( SOURCE_FILES_SCENE
-  GSG/Scene/Nodes/Groups/Group.cpp
-  GSG/Scene/Nodes/Groups/Projection.cpp
-  GSG/Scene/Nodes/Groups/Transform.cpp
-  GSG/Scene/Nodes/Node.cpp
-  GSG/Scene/Nodes/Shapes/Geometry.cpp
-  GSG/Scene/Nodes/Shapes/Shape.cpp
-  GSG/Scene/Primitives/DrawArrays.cpp
-  GSG/Scene/Primitives/DrawElements.cpp
-  GSG/Scene/Primitives/PrimitiveSet.cpp
-  GSG/Scene/State/Container.cpp
-  GSG/Scene/Visitors/Callbacks/Const.cpp
-  GSG/Scene/Visitors/Callbacks/Modify.cpp
-  GSG/Scene/Visitors/Intersection/Intersect.cpp
-  GSG/Scene/Visitors/Visitor.cpp
-)
-
-# Set the library names.
-set (  BASE_LIBRARY_NAME ${PROJECT_NAME}_base  )
-set ( SCENE_LIBRARY_NAME ${PROJECT_NAME}_scene )
-
-# Make the libraries using the source files.
-add_library (  ${BASE_LIBRARY_NAME} ${SOURCE_FILES_BASE}  )
-add_library ( ${SCENE_LIBRARY_NAME} ${SOURCE_FILES_SCENE} )
-
-# We are compling generic_scene_graph.
-target_compile_definitions (  ${BASE_LIBRARY_NAME} PRIVATE COMPILING_GSG_BASE  )
-target_compile_definitions ( ${SCENE_LIBRARY_NAME} PRIVATE COMPILING_GSG_SCENE )
-
-if ( NOT BUILD_SHARED_LIBS )
-  target_compile_definitions (  ${BASE_LIBRARY_NAME} PUBLIC GSG_BASE_STATIC_DEFINE  )
-  target_compile_definitions ( ${SCENE_LIBRARY_NAME} PUBLIC GSG_SCENE_STATIC_DEFINE )
-endif()
-
-# Tell cmake that other projects that use these ones will need our header files.
-target_include_directories (
-  ${BASE_LIBRARY_NAME} PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-  $<BUILD_INTERFACE:${GSG_CONFIG_DIR_OUTPUT}>
-  $<INSTALL_INTERFACE:include>
-)
-target_include_directories (
-  ${SCENE_LIBRARY_NAME} PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-  $<BUILD_INTERFACE:${GSG_CONFIG_DIR_OUTPUT}>
-  $<INSTALL_INTERFACE:include>
-)
-
-# CMake will automatically add -I, -L, and -D (etc) appropriately.
-target_link_libraries ( ${BASE_LIBRARY_NAME} PUBLIC
-  usul
-)
-target_link_libraries ( ${SCENE_LIBRARY_NAME} PUBLIC
-  ${BASE_LIBRARY_NAME}
-  usul
-  immer
-)
-
-# Bake the version into the file name and create symlinks if appropriate.
-set_target_properties ( ${BASE_LIBRARY_NAME} PROPERTIES
-  VERSION ${PROJECT_VERSION}
-  SOVERSION ${PROJECT_VERSION_MAJOR}
-)
-set_target_properties ( ${SCENE_LIBRARY_NAME} PROPERTIES
-  VERSION ${PROJECT_VERSION}
-  SOVERSION ${PROJECT_VERSION_MAJOR}
-)
+# Also process the CMakeLists.txt files found in these directories.
+add_subdirectory ( GSG/Base )
+add_subdirectory ( GSG/Scene )
+add_subdirectory ( GSG/Renderers )
 
 # Tell cmake how to install the headers and binaries if the user types
 # "make install" or compiles the Visual C++ INSTALL project. The default

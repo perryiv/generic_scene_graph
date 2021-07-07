@@ -13,12 +13,16 @@
     "coverage-debug":   "cd build/`hostname` && gcovr",
     "coverage-release": "cd build/`hostname` && gcovr",
     "echo": "for n in {1..20}; do echo; done",
+    "install-debug":   "cd build/`hostname`/Debug   && sudo cmake --install . && echo Install succeeded",
+    "install-release": "cd build/`hostname`/Release && sudo cmake --install . && echo Install succeeded",
     "test-debug":   "cd build/`hostname`/Debug/bin         && gsg_base_test_d --abort --use-colour=yes --durations=no && gsg_scene_test_d --abort --use-colour=yes --durations=no",
     "test-release": "cd build/`hostname`/Release/bin       && gsg_base_test   --abort --use-colour=yes --durations=no && gsg_scene_test   --abort --use-colour=yes --durations=no",
     "test-xcode":   "cd build/`hostname`/Xcode/bin/Debug   && gsg_base_test_d --abort --use-colour=yes --durations=no && gsg_scene_test_d --abort --use-colour=yes --durations=no",
-    "watch-debug":   "watch \"npm run echo && npm run build-debug   && npm run test-debug   && npm run coverage-debug   && echo watching ...\" ./ --filter=./watch_filter.js",
-    "watch-release": "watch \"npm run echo && npm run build-release && npm run test-release && npm run coverage-release && echo watching ...\" ./ --filter=./watch_filter.js",
-    "watch-xcode":   "watch \"npm run echo && npm run build-xcode   && npm run test-xcode                               && echo watching ...\" ./ --filter=./watch_filter.js"
+    "uninstall-debug":   "cd build/`hostname`/Debug   && sudo xargs rm -fv < install_manifest.txt && echo Uninstall succeeded",
+    "uninstall-release": "cd build/`hostname`/Release && sudo xargs rm -fv < install_manifest.txt && echo Uninstall succeeded",
+    "watch-debug":   "watch \"npm run echo && npm run build-debug   && npm run test-debug   && echo watching ...\" ./ --filter=./watch_filter.js",
+    "watch-release": "watch \"npm run echo && npm run build-release && npm run test-release && echo watching ...\" ./ --filter=./watch_filter.js",
+    "watch-xcode":   "watch \"npm run echo && npm run build-xcode   && npm run test-xcode   && echo watching ...\" ./ --filter=./watch_filter.js"
   },
   "repository": {
     "type": "git",

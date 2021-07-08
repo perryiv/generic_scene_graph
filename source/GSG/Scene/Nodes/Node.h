@@ -75,6 +75,7 @@ public:
     VISIBLE =              0x00000001,
     INTERSECTABLE =        0x00000002,
     CONTRIBUTE_TO_BOUNDS = 0x00000004,
+    RENDER_TREE_DIRTY    = 0x00000008,
   };
 
   // Dirty/get the bounds.
@@ -95,6 +96,10 @@ public:
   // Get/set the intersectable state.
   bool getIntersectable() const { return Usul::Bits::has < unsigned int > ( _flags, INTERSECTABLE ); }
   void setIntersectable ( bool state ) { _flags = Usul::Bits::set < unsigned int > ( _flags, INTERSECTABLE, state ); }
+
+  // Dirty the render-tree, or see if it is.
+  bool getRenderTreeDirty() const { return Usul::Bits::has < unsigned int > ( _flags, RENDER_TREE_DIRTY ); }
+  void dirtyRenderTree();
 
   // Get/set the visible state.
   bool getVisible() const { return Usul::Bits::has < unsigned int > ( _flags, VISIBLE ); }

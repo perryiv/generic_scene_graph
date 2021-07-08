@@ -197,6 +197,28 @@ void Node::dirtyBounds()
 }
 
 
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Dirty the render-tree.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+void Node::dirtyRenderTree()
+{
+  // Guard the whole thing.
+  Guard guard ( _mutex );
+
+  // Set our flag.
+  _flags = Usul::Bits::set < unsigned int > ( _flags, RENDER_TREE_DIRTY, true );
+
+  // Do the same to the parents.
+  for ( Parents::iterator i = _parents.begin(); i != _parents.end(); ++i )
+  {
+    i->second->dirtyRenderTree();
+  }
+}
+
+
 } // namespace Nodes
 } // namespace Scene
 } // namespace GSG

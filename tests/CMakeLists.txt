@@ -54,6 +54,7 @@ target_link_libraries ( ${PROJECT_NAME}_base_test PRIVATE
 )
 target_link_libraries ( ${PROJECT_NAME}_scene_test PRIVATE
   ${PROJECT_NAME}_scene
+  ${PROJECT_NAME}_base
   Catch2::Catch2
 )
 

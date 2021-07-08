@@ -27,6 +27,26 @@ jobs:
   strategy:
     matrix:
 
+      Linux_GCC_11_CPP_17:
+        virtual_machine_name: 'ubuntu-20.04'
+        docker_image_name: conanio/gcc11
+        build_generator: Ninja
+        install_command: sudo ninja install
+        cpp_standard: 17
+        verbose_makefile: ON
+        before_script: scripts/before_ubuntu.sh
+        the_script: scripts/ci_with_docker.sh
+
+      Linux_GCC_11_CPP_14:
+        virtual_machine_name: 'ubuntu-20.04'
+        docker_image_name: conanio/gcc11
+        build_generator: Ninja
+        install_command: sudo ninja install
+        cpp_standard: 14
+        verbose_makefile: ON
+        before_script: scripts/before_ubuntu.sh
+        the_script: scripts/ci_with_docker.sh
+
       Linux_GCC_10_CPP_17:
         virtual_machine_name: 'ubuntu-20.04'
         docker_image_name: conanio/gcc10

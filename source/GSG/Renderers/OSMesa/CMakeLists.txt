@@ -41,8 +41,8 @@ target_include_directories (
 
 # CMake will automatically add -I, -L, and -D (etc) appropriately.
 target_link_libraries ( ${LIBRARY_NAME_OSMESA_RENDERER} PUBLIC
-  ${LIBRARY_NAME_SCENE}
-  ${LIBRARY_NAME_BASE}
+  ${PROJECT_NAME}_scene
+  ${PROJECT_NAME}_base
   usul
 )
 

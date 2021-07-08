@@ -102,7 +102,7 @@ cmake ${SOURCE_DIR} \
 cmake --build . --config Debug
 ${THIS_JOB_INSTALL_COMMAND}
 cd bin && \
-  ./gsg_base_test_d  --abort --use-colour=yes --durations=no \
+  ./gsg_base_test_d  --abort --use-colour=yes --durations=no && \
   ./gsg_scene_test_d --abort --use-colour=yes --durations=no
 cd ../..
 rm -rf build && mkdir build && cd build
@@ -116,7 +116,7 @@ cmake ${SOURCE_DIR} \
 cmake --build . --config Release
 ${THIS_JOB_INSTALL_COMMAND}
 cd bin && \
-  ./gsg_base_test  --abort --use-colour=yes --durations=no \
+  ./gsg_base_test  --abort --use-colour=yes --durations=no && \
   ./gsg_scene_test --abort --use-colour=yes --durations=no \
 cd
 : "---- End of GSG ----"

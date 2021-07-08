@@ -91,6 +91,11 @@ if ( ${PROJECT_NAME}_INSTALL )
   )
 endif()
 
+# Append to the cmake variables from the environment.
+if ( DEFINED ENV{DEVELOPMENT_DEPENDENCIES_DIR} )
+  list ( APPEND CMAKE_MODULE_PATH $ENV{DEVELOPMENT_DEPENDENCIES_DIR} )
+endif()
+
 # Find usul.
 find_package ( usul REQUIRED )
 

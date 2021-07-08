@@ -33,7 +33,7 @@ endif()
 # We want position independent code.
 set ( CMAKE_POSITION_INDEPENDENT_CODE ON )
 
-# Also process the CMakeLists.txt files found in these directories.
+# Process the CMakeLists.txt files found in these directories.
 add_subdirectory ( GSG/Base )
 add_subdirectory ( GSG/Scene )
 add_subdirectory ( GSG/Renderers )

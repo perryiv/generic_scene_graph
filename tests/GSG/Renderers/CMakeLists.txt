@@ -9,14 +9,9 @@
 
 ################################################################################
 #
-#  CMake file for the test programs.
+#  CMake file for the test program.
 #
 ################################################################################
 
-# Need to include files from this directory.
-include_directories ( ${CMAKE_CURRENT_SOURCE_DIR} )
-
 # Process the CMakeLists.txt files found in these directories.
-add_subdirectory ( GSG/Base )
-add_subdirectory ( GSG/Scene )
-add_subdirectory ( GSG/Renderers )
+add_subdirectory ( OSMesa )

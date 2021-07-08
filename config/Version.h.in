@@ -24,10 +24,10 @@ namespace GSG
 {
   namespace Version
   {
-    const unsigned short MAJOR = @PROJECT_VERSION_MAJOR@;
-    const unsigned short MINOR = @PROJECT_VERSION_MINOR@;
-    const unsigned short PATCH = @PROJECT_VERSION_PATCH@;
-    const char *STRING = "@PROJECT_VERSION@";
+    constexpr unsigned short MAJOR = @PROJECT_VERSION_MAJOR@;
+    constexpr unsigned short MINOR = @PROJECT_VERSION_MINOR@;
+    constexpr unsigned short PATCH = @PROJECT_VERSION_PATCH@;
+    constexpr char STRING[] = "@PROJECT_VERSION@";
   }
 }
 

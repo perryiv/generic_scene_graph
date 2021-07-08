@@ -13,6 +13,12 @@
 #
 ################################################################################
 
+# Turn on testing.
+enable_testing()
+
+# The arguments passed to the test programs.
+set ( TEST_ARGUMENTS --abort --use-colour=yes --durations=no )
+
 # Need to include files from this directory.
 include_directories ( ${CMAKE_CURRENT_SOURCE_DIR} )
 

@@ -46,3 +46,9 @@ if ( GSG_ENABLE_CODE_COVERAGE )
     )
   endif()
 endif()
+
+# Add a test.
+add_test (
+  NAME ${PROJECT_NAME}_renderer_osmesa_test
+  COMMAND ${PROJECT_NAME}_renderer_osmesa_test ${TEST_ARGUMENTS}
+)

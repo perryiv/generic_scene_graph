@@ -53,3 +53,9 @@ if ( GSG_ENABLE_CODE_COVERAGE )
     )
   endif()
 endif()
+
+# Add a test.
+add_test (
+  NAME ${PROJECT_NAME}_scene_test
+  COMMAND ${PROJECT_NAME}_scene_test ${TEST_ARGUMENTS}
+)

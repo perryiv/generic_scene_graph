@@ -16,7 +16,7 @@
 #ifndef _GSG_SCENE_DLL_EXPORT_H_
 #define _GSG_SCENE_DLL_EXPORT_H_
 
-#ifndef GAG_BASE_STATIC_DEFINE
+#ifndef GSG_BASE_STATIC_DEFINE
 # ifdef _WIN32
 #  ifdef COMPILING_GSG_SCENE
 #   define GSG_SCENE_EXPORT __declspec ( dllexport ) // We are compiling this library so the classes are exported.

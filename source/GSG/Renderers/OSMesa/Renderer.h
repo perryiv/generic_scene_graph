@@ -18,6 +18,13 @@
 
 #include "GSG/Renderers/OSMesa/Export.h"
 #include "GSG/Scene/Visitors/Visitor.h"
+#include "GSG/Scene/Forward.h"
+
+#include "Usul/Math/Vector2.h"
+
+#include "GL/osmesa.h"
+
+#include <vector>
 
 
 namespace GSG {
@@ -25,24 +32,41 @@ namespace Renderers {
 namespace OSMesa {
 
 
-class GSG_RENDERER_OSMESA_EXPORT Visitor : public GSG::Scene::Visitors::Visitor
+class GSG_RENDERER_OSMESA_EXPORT Renderer : public GSG::Scene::Visitors::Visitor
 {
 public:
 
-  GSG_DECLARE_VISITOR_CLASS ( Visitor );
+  GSG_DECLARE_VISITOR_CLASS ( Renderer );
 
   typedef GSG::Scene::Visitors::Visitor BaseClass;
   typedef BaseClass::PropertyMap PropertyMap;
+  typedef std::vector < unsigned char > Buffer;
+  typedef Usul::Math::Vec2ui Size;
 
-  Visitor();
+  // Constructor.
+  Renderer();
+
+  // Resize the in-memory canvas.
+  void resize ( unsigned int width, unsigned int height );
+
+  // Render the scene.
+  void render ( GSG::Scene::Nodes::Node * );
+
+  // Get the buffer.
+  const Buffer &getBuffer() const { return _buffer; }
 
 protected:
 
-  virtual ~Visitor();
+  // Use reference counting.
+  virtual ~Renderer();
 
 private:
 
-  void _destroyVisitor();
+  void _destroyRenderer();
+
+  ::OSMesaContext _context;
+  Buffer _buffer;
+  Size _size;
 };
 
 

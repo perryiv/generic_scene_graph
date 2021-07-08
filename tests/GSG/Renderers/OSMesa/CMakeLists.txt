@@ -15,7 +15,7 @@
 
 # Define a variable that holds all the source files.
 set ( SOURCE_FILES_RENDERER_OSMESA_TEST
-  Visitor.cpp
+  Renderer.cpp
   ../../Main.cpp
   ../../Version.cpp
 )

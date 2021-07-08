@@ -15,7 +15,7 @@
 
 # Define a variable that holds all the source files.
 set ( SOURCE_FILES_RENDERER_OSMESA
-  Visitor.cpp
+  Renderer.cpp
 )
 
 # Set the library names.
@@ -39,11 +39,15 @@ target_include_directories (
   $<INSTALL_INTERFACE:include>
 )
 
+# Find OSMesa.
+find_package ( OSMesa REQUIRED )
+
 # CMake will automatically add -I, -L, and -D (etc) appropriately.
 target_link_libraries ( ${LIBRARY_NAME_OSMESA_RENDERER} PUBLIC
   ${PROJECT_NAME}_scene
   ${PROJECT_NAME}_base
   usul
+  OSMesa::OSMesa
 )
 
 # Bake the version into the file name and create symlinks if appropriate.

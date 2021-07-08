@@ -91,7 +91,8 @@ if ( ${PROJECT_NAME}_INSTALL )
   )
 endif()
 
-# Append to the cmake variables from the environment.
+# Append to the cmake module path to help it find some packages.
+list ( APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake )
 if ( DEFINED ENV{DEVELOPMENT_DEPENDENCIES_DIR} )
   list ( APPEND CMAKE_MODULE_PATH $ENV{DEVELOPMENT_DEPENDENCIES_DIR} )
 endif()

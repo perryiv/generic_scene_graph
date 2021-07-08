@@ -14,13 +14,14 @@
 ################################################################################
 
 # Define a variable that holds all the source files.
-set ( SOURCE_FILES_SCENE
+set ( SOURCE_FILES_RENDERER_OSMESA_TEST
+  Visitor.cpp
   ../../Main.cpp
   ../../Version.cpp
 )
 
 # Make an executable.
-add_executable ( ${PROJECT_NAME}_renderer_osmesa_test ${SOURCE_FILES_SCENE} )
+add_executable ( ${PROJECT_NAME}_renderer_osmesa_test ${SOURCE_FILES_RENDERER_OSMESA_TEST} )
 
 # Append a "d" to the file name if this is a debug build.
 # Unlike with the library files, this does not happen automatically.

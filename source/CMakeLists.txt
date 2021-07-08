@@ -43,7 +43,7 @@ add_subdirectory ( GSG/Renderers )
 # directory prefix is /usr/local or "C:/Program Files", and can be changed
 # on the command line with -DCMAKE_INSTALL_PREFIX=/some/path.
 install (
-  TARGETS ${BASE_LIBRARY_NAME} ${SCENE_LIBRARY_NAME}
+  TARGETS ${LIBRARY_NAME_BASE} ${LIBRARY_NAME_SCENE}
   EXPORT ${PROJECT_NAME}_targets
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib

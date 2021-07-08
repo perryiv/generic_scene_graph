@@ -32,35 +32,35 @@ set ( SOURCE_FILES_SCENE
 )
 
 # Set the library names.
-set ( SCENE_LIBRARY_NAME ${PROJECT_NAME}_scene )
+set ( LIBRARY_NAME_SCENE ${PROJECT_NAME}_scene )
 
 # Make the libraries using the source files.
-add_library ( ${SCENE_LIBRARY_NAME} ${SOURCE_FILES_SCENE} )
+add_library ( ${LIBRARY_NAME_SCENE} ${SOURCE_FILES_SCENE} )
 
 # We are compling generic_scene_graph.
-target_compile_definitions ( ${SCENE_LIBRARY_NAME} PRIVATE COMPILING_GSG_SCENE )
+target_compile_definitions ( ${LIBRARY_NAME_SCENE} PRIVATE COMPILING_GSG_SCENE )
 
 if ( NOT BUILD_SHARED_LIBS )
-  target_compile_definitions ( ${SCENE_LIBRARY_NAME} PUBLIC GSG_SCENE_STATIC_DEFINE )
+  target_compile_definitions ( ${LIBRARY_NAME_SCENE} PUBLIC GSG_SCENE_STATIC_DEFINE )
 endif()
 
 # Tell cmake that other projects that use these ones will need our header files.
 target_include_directories (
-  ${SCENE_LIBRARY_NAME} PUBLIC
+  ${LIBRARY_NAME_SCENE} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../>
   $<BUILD_INTERFACE:${GSG_CONFIG_DIR_OUTPUT}>
   $<INSTALL_INTERFACE:include>
 )
 
 # CMake will automatically add -I, -L, and -D (etc) appropriately.
-target_link_libraries ( ${SCENE_LIBRARY_NAME} PUBLIC
-  ${PROJECT_NAME}_base
+target_link_libraries ( ${LIBRARY_NAME_SCENE} PUBLIC
+  ${LIBRARY_NAME_BASE}
   usul
   immer
 )
 
 # Bake the version into the file name and create symlinks if appropriate.
-set_target_properties ( ${SCENE_LIBRARY_NAME} PROPERTIES
+set_target_properties ( ${LIBRARY_NAME_SCENE} PROPERTIES
   VERSION ${PROJECT_VERSION}
   SOVERSION ${PROJECT_VERSION_MAJOR}
 )

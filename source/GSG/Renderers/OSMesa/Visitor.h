@@ -16,6 +16,7 @@
 #ifndef _GSG_RENDERERS_OSMESA_VISITOR_CLASS_H_
 #define _GSG_RENDERERS_OSMESA_VISITOR_CLASS_H_
 
+#include "GSG/Renderers/OSMesa/Export.h"
 #include "GSG/Scene/Visitors/Visitor.h"
 
 
@@ -24,7 +25,7 @@ namespace Renderers {
 namespace OSMesa {
 
 
-class GSG_SCENE_EXPORT Visitor : public GSG::Scene::Visitors::Visitor
+class GSG_RENDERER_OSMESA_EXPORT Visitor : public GSG::Scene::Visitors::Visitor
 {
 public:
 
@@ -33,9 +34,10 @@ public:
   typedef GSG::Scene::Visitors::Visitor BaseClass;
   typedef BaseClass::PropertyMap PropertyMap;
 
+  Visitor();
+
 protected:
 
-  Visitor();
   virtual ~Visitor();
 
 private:

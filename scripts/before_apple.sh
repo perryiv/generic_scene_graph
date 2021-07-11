@@ -31,4 +31,8 @@ brew install boost
 # ./bootstrap.sh --with-libraries=filesystem,stacktrace
 # sudo ./b2 install
 
+# Install OSMesa.
+# https://github.com/vizlab-kobe/KVS.osmesa
+brew install --cask xquartz
+
 : "---- End of script $0 ----"

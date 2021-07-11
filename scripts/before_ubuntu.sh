@@ -27,4 +27,7 @@ sudo apt-get update
 # Install boost.
 sudo apt-get -y install libboost-stacktrace-dev
 
+# Install OSMesa.
+sudo apt-get -y install libosmesa
+
 : "---- End of script $0 ----"

@@ -35,7 +35,8 @@ GSG_IMPLEMENT_PRIMITIVE_CLASS ( PrimitiveSet )
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-PrimitiveSet::PrimitiveSet() : BaseClass()
+PrimitiveSet::PrimitiveSet ( unsigned int mode ) : BaseClass(),
+  _mode ( mode )
 {
 }
 

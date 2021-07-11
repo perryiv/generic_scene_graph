@@ -115,10 +115,18 @@ Geometry::Float32ArrayPtr Geometry::getNormals()
   Guard guard ( this->mutex() );
   return _normals;
 }
-void Geometry::setNormals ( Float32ArrayPtr normals )
+void Geometry::setNormals ( Float32Array *normals )
 {
   Guard guard ( this->mutex() );
   _normals = normals;
+}
+void Geometry::setNormals ( Float32ArrayPtr normals )
+{
+  this->setNormals ( normals.get() );
+}
+void Geometry::setNormals ( const std::initializer_list < float > &normals )
+{
+  this->setNormals ( new Float32Array ( normals ) );
 }
 
 
@@ -138,10 +146,18 @@ Geometry::Float32ArrayPtr Geometry::getPoints()
   Guard guard ( this->mutex() );
   return _points;
 }
-void Geometry::setPoints ( Float32ArrayPtr points )
+void Geometry::setPoints ( Float32Array *points )
 {
   Guard guard ( this->mutex() );
   _points = points;
+}
+void Geometry::setPoints ( Float32ArrayPtr points )
+{
+  this->setPoints ( points.get() );
+}
+void Geometry::setPoints ( const std::initializer_list < float > &points )
+{
+  this->setPoints ( new Float32Array ( points ) );
 }
 
 
@@ -174,26 +190,29 @@ void Geometry::setTexCoords ( Float32ArrayPtr texCoords )
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-void Geometry::addPrimitives ( PrimitiveSetPtr primitives )
+void Geometry::addPrimitives ( PrimitiveSet *primitives )
 {
-  if ( true == primitives.valid() )
+  if ( nullptr != primitives )
   {
     Guard guard ( this->mutex() );
-    _primitives = _primitives.push_back ( primitives );
+    _primitives.push_back ( PrimitiveSetPtr ( primitives ) );
   }
+}
+void Geometry::addPrimitives ( PrimitiveSetPtr primitives )
+{
+  this->addPrimitives ( primitives.get() );
+}
+void Geometry::removePrimitives ( PrimitiveSet *primitives )
+{
+  Guard guard ( this->mutex() );
+  _primitives.erase ( std::remove_if ( _primitives.begin(), _primitives.end(), [ primitives ] ( auto p )
+  {
+    return ( p.get() != primitives );
+  } ), _primitives.end() );
 }
 void Geometry::removePrimitives ( PrimitiveSetPtr primitives )
 {
-  Guard guard ( this->mutex() );
-  PrimitiveSets v;
-  for ( auto i = _primitives.begin(); i != _primitives.end(); ++i )
-  {
-    if ( i->get() != primitives.get() )
-    {
-      v = v.push_back ( *i );
-    }
-  }
-  _primitives = v;
+  this->removePrimitives ( primitives.get() );
 }
 Geometry::PrimitiveSets Geometry::getPrimitives() const
 {

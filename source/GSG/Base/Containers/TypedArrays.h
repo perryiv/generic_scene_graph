@@ -25,6 +25,7 @@
   { \
   public: \
     typedef Array < number_type > BaseClass; \
+    typedef BaseClass::value_type value_type; \
     typedef BaseClass::initializer_list initializer_list; \
     typedef BaseClass::InternalVectorType InternalVectorType; \
     GSG_DECLARE_OBJECT_CLASS ( class_name ); \

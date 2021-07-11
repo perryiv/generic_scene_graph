@@ -35,7 +35,7 @@ GSG_IMPLEMENT_PRIMITIVE_CLASS ( DrawElements )
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-DrawElements::DrawElements() : BaseClass()
+DrawElements::DrawElements ( unsigned int mode ) : BaseClass ( mode )
 {
 }
 

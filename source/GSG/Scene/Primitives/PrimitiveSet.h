@@ -21,6 +21,7 @@
 #include "GSG/Base/Objects/Object.h"
 
 #include "GSG/Scene/Export.h"
+#include "GSG/Scene/Constants/Mode.h"
 
 #define GSG_DECLARE_PRIMITIVE_CLASS(class_name) \
   GSG_DECLARE_OBJECT_CLASS ( class_name )
@@ -42,14 +43,19 @@ public:
 
   GSG_DECLARE_PRIMITIVE_CLASS ( PrimitiveSet );
 
+  // Get the mode.
+  unsigned int getMode() const { return _mode; }
+
 protected:
 
-  PrimitiveSet();
+  PrimitiveSet ( unsigned int mode = 0 );
   virtual ~PrimitiveSet();
 
 private:
 
   void _destroyPrimitiveSet();
+
+  const unsigned int _mode;
 };
 
 

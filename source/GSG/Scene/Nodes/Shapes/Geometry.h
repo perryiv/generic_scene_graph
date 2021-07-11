@@ -20,7 +20,8 @@
 #include "GSG/Base/Containers/TypedArrays.h"
 #include "GSG/Scene/Primitives/PrimitiveSet.h"
 
-#include <immer/vector.hpp>
+#include <initializer_list>
+#include <vector>
 
 
 namespace GSG {
@@ -40,7 +41,7 @@ public:
   typedef Float32Array::ValidAccessRefPtr Float32ArrayPtr;
   typedef GSG::Scene::Primitives::PrimitiveSet PrimitiveSet;
   typedef PrimitiveSet::ValidAccessRefPtr PrimitiveSetPtr;
-  typedef immer::vector < PrimitiveSetPtr > PrimitiveSets;
+  typedef std::vector < PrimitiveSetPtr > PrimitiveSets;
 
   GSG_DECLARE_NODE_CLASS ( Geometry );
 
@@ -52,25 +53,35 @@ public:
   // Get/set the colors.
   const Float32ArrayPtr getColors() const;
   Float32ArrayPtr       getColors();
+  void                  setColors ( Float32Array * );
   void                  setColors ( Float32ArrayPtr );
+  void                  setColors ( const std::initializer_list < float > & );
 
   // Get/set the normals.
   const Float32ArrayPtr getNormals() const;
   Float32ArrayPtr       getNormals();
+  void                  setNormals ( Float32Array * );
   void                  setNormals ( Float32ArrayPtr );
+  void                  setNormals ( const std::initializer_list < float > & );
 
   // Get/set the points.
   const Float32ArrayPtr getPoints() const;
   Float32ArrayPtr       getPoints();
+  void                  setPoints ( Float32Array * );
   void                  setPoints ( Float32ArrayPtr );
+  void                  setPoints ( const std::initializer_list < float > & );
 
   // Get/set the texture coordinates.
   const Float32ArrayPtr getTexCoords() const;
   Float32ArrayPtr       getTexCoords();
+  void                  setTexCoords ( Float32Array * );
   void                  setTexCoords ( Float32ArrayPtr );
+  void                  setTexCoords ( const std::initializer_list < float > & );
 
   // Add/remove/get the primitives.
+  void          addPrimitives    ( PrimitiveSet * );
   void          addPrimitives    ( PrimitiveSetPtr );
+  void          removePrimitives ( PrimitiveSet * );
   void          removePrimitives ( PrimitiveSetPtr );
   PrimitiveSets getPrimitives() const;
 

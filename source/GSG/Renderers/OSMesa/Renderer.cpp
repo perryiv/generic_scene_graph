@@ -43,7 +43,7 @@ Renderer::Renderer() : BaseClass(),
   _buffer(),
   _size ( 0, 0 )
 {
-  static_assert ( std::is_same_v < int, GLsizei >, "GLsizei is not an int" );
+  static_assert ( std::is_same < int, GLsizei > ::value, "GLsizei is not an int" );
 }
 
 

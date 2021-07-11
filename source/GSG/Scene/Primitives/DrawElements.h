@@ -19,6 +19,8 @@
 #include "GSG/Scene/Primitives/PrimitiveSet.h"
 #include "GSG/Base/Containers/TypedArrays.h"
 
+#include <initializer_list>
+
 
 #define GSG_DECLARE_DRAW_ELEMENTS_CLASS(class_name,indices_type) \
   class GSG_SCENE_EXPORT class_name : public DrawElements \
@@ -26,9 +28,12 @@
   public: \
     typedef DrawElements BaseClass; \
     typedef indices_type IndicesType; \
+    typedef IndicesType::value_type value_type; \
     typedef IndicesType::ValidAccessRefPtr IndicesTypePtr; \
     GSG_DECLARE_PRIMITIVE_CLASS ( class_name ); \
-    class_name() : BaseClass(), _indices() {} \
+    class_name ( unsigned int mode, IndicesType *indices ) : BaseClass ( mode ), _indices ( indices ) {} \
+    class_name ( unsigned int mode, IndicesTypePtr indices ) : BaseClass ( mode ), _indices ( indices ) {} \
+    class_name ( unsigned int mode, const std::initializer_list < value_type > &indices ) : BaseClass ( mode ), _indices ( new IndicesType ( indices ) ) {} \
   protected: \
     virtual ~class_name(); \
   private: \
@@ -64,7 +69,7 @@ public:
 
 protected:
 
-  DrawElements();
+  DrawElements ( unsigned int mode = 0 );
   virtual ~DrawElements();
 
 private:

@@ -41,7 +41,7 @@ TEMPLATE_TEST_CASE ( "Primitive set for drawing elements", "",
 
   SECTION ( "Default constructor" )
   {
-    DrawElementsPtr de = new DrawElementsType;
+    DrawElementsPtr de = new DrawElementsType ( GSG::Constants::Mode::TRIANGLES, { 0, 1, 2, 1, 3, 2 } );
     REQUIRE ( 1 == de->getReferenceCount() );
   }
 }

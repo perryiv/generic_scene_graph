@@ -99,6 +99,7 @@ endif()
 
 # Find usul.
 find_package ( usul REQUIRED )
+message ( "-- Found usul ${usul_VERSION}" )
 
 # Find immer.
 find_package ( Immer REQUIRED )

@@ -28,6 +28,6 @@ sudo apt-get update
 sudo apt-get -y install libboost-stacktrace-dev
 
 # Install OSMesa.
-sudo apt-get -y install libosmesa6
+sudo apt-get -y install libosmesa6-dev
 
 : "---- End of script $0 ----"

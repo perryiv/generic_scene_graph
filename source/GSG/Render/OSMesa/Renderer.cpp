@@ -13,7 +13,7 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#include "GSG/Renderers/OSMesa/Renderer.h"
+#include "GSG/Render/OSMesa/Renderer.h"
 #include "GSG/Scene/Nodes/Node.h"
 
 #include "Usul/Tools/NoThrow.h"
@@ -106,11 +106,49 @@ void Renderer::resize ( unsigned int width, unsigned int height )
 
 void Renderer::render ( GSG::Scene::Nodes::Node *node )
 {
+  PropertyMap pm;
+  this->render ( node, pm );
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Render the scene.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+void Renderer::render ( GSG::Scene::Nodes::Node *node, PropertyMap &pm )
+{
+  this->_cull ( node, pm );
+  this->_draw ( pm );
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Cull the scene and build the render-tree.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+void Renderer::_cull ( GSG::Scene::Nodes::Node *node, PropertyMap &pm )
+{
   if ( nullptr == node )
   {
     return;
   }
 
+  node->accept ( *this, pm );
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Draw the render-tree.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+void Renderer::_draw ( PropertyMap & )
+{
   if ( nullptr == _context )
   {
     return;
@@ -125,7 +163,46 @@ void Renderer::render ( GSG::Scene::Nodes::Node *node )
     static_cast < GLsizei > ( _size[0] ),
     static_cast < GLsizei > ( _size[1] ) );
 
-  node->accept ( *this );
+  this->_processLayers();
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Process the layers.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+void Renderer::_processLayers()
+{
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Visit the node.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+void Renderer::visit ( GSG::Scene::Nodes::Groups::Transform &node, PropertyMap &pm )
+{
+  BaseClass::visit ( node, pm );
+}
+void Renderer::visit ( GSG::Scene::Nodes::Groups::Group &node, PropertyMap &pm )
+{
+  BaseClass::visit ( node, pm );
+}
+void Renderer::visit ( GSG::Scene::Nodes::Shapes::Geometry &node, PropertyMap &pm )
+{
+  BaseClass::visit ( node, pm );
+}
+void Renderer::visit ( GSG::Scene::Nodes::Shapes::Shape &node, PropertyMap &pm )
+{
+  BaseClass::visit ( node, pm );
+}
+void Renderer::visit ( GSG::Scene::Nodes::Node &node, PropertyMap &pm )
+{
+  BaseClass::visit ( node, pm );
 }
 
 

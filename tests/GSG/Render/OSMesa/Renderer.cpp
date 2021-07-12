@@ -13,7 +13,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-#include "GSG/Renderers/OSMesa/Renderer.h"
+#include "GSG/Render/OSMesa/Renderer.h"
 #include "GSG/Scene/Nodes/Groups/Transform.h"
 #include "GSG/Scene/Nodes/Shapes/Geometry.h"
 #include "GSG/Scene/Primitives/DrawElements.h"

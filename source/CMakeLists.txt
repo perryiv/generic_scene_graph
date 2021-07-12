@@ -36,7 +36,7 @@ set ( CMAKE_POSITION_INDEPENDENT_CODE ON )
 # Process the CMakeLists.txt files found in these directories.
 add_subdirectory ( GSG/Base )
 add_subdirectory ( GSG/Scene )
-add_subdirectory ( GSG/Renderers )
+add_subdirectory ( GSG/Render )
 
 # Tell cmake how to install the headers and binaries if the user types
 # "make install" or compiles the Visual C++ INSTALL project. The default

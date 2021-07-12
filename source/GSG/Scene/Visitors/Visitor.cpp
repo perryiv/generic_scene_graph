@@ -74,13 +74,13 @@ void Visitor::visit ( const GSG::Scene::Nodes::Groups::Transform &trans, Propert
 {
   trans._traverseConst ( *this, pm );
 }
-void Visitor::visit ( const GSG::Scene::Nodes::Groups::Group &group, PropertyMap &pm )
-{
-  group._traverseConst ( *this, pm );
-}
 void Visitor::visit ( GSG::Scene::Nodes::Groups::Transform &trans, PropertyMap &pm )
 {
   trans._traverseModify ( *this, pm );
+}
+void Visitor::visit ( const GSG::Scene::Nodes::Groups::Group &group, PropertyMap &pm )
+{
+  group._traverseConst ( *this, pm );
 }
 void Visitor::visit ( GSG::Scene::Nodes::Groups::Group &group, PropertyMap &pm )
 {

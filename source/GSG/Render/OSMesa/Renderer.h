@@ -16,7 +16,7 @@
 #ifndef _GSG_RENDERERS_OSMESA_VISITOR_CLASS_H_
 #define _GSG_RENDERERS_OSMESA_VISITOR_CLASS_H_
 
-#include "GSG/Renderers/OSMesa/Export.h"
+#include "GSG/Render/OSMesa/Export.h"
 #include "GSG/Scene/Visitors/Visitor.h"
 #include "GSG/Scene/Forward.h"
 
@@ -51,6 +51,7 @@ public:
 
   // Render the scene.
   void render ( GSG::Scene::Nodes::Node * );
+  void render ( GSG::Scene::Nodes::Node *, PropertyMap & );
 
   // Get the buffer.
   const Buffer &getBuffer() const { return _buffer; }
@@ -59,6 +60,17 @@ protected:
 
   // Use reference counting.
   virtual ~Renderer();
+
+  virtual void visit ( GSG::Scene::Nodes::Groups::Transform &, PropertyMap & ) override;
+  virtual void visit ( GSG::Scene::Nodes::Groups::Group &, PropertyMap & ) override;
+  virtual void visit ( GSG::Scene::Nodes::Node &, PropertyMap & ) override;
+  virtual void visit ( GSG::Scene::Nodes::Shapes::Geometry &, PropertyMap & ) override;
+  virtual void visit ( GSG::Scene::Nodes::Shapes::Shape &, PropertyMap & ) override;
+
+  void _cull ( GSG::Scene::Nodes::Node *, PropertyMap & );
+  void _draw ( PropertyMap & );
+
+  void _processLayers();
 
 private:
 

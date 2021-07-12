@@ -17,3 +17,13 @@ It can organize it according to the original structure, follow the CAD
 hierarchy, for example.
 
 --------------------------------------------------------------------------------
+
+GSG/Viewers/Canvas
+GSG/Viewers/Examiner
+
+GSG/Render/Pipeline
+GSG/Render/Update
+GSG/Render/Cull
+GSG/Render/Draw
+
+GSG/Render/OSMesa/Draw

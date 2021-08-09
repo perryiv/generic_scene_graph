@@ -14,7 +14,7 @@
 ################################################################################
 
 # Define a variable that holds all the source files.
-set ( SOURCE_FILES_BASE
+set ( SOURCE_FILES
   Containers/Array.cpp
   Containers/TypedArrays.cpp
   ../Main.cpp
@@ -22,7 +22,7 @@ set ( SOURCE_FILES_BASE
 )
 
 # Make an executable.
-add_executable ( ${PROJECT_NAME}_base_test  ${SOURCE_FILES_BASE}  )
+add_executable ( ${PROJECT_NAME}_base_test  ${SOURCE_FILES}  )
 
 # Append a "d" to the file name if this is a debug build.
 # Unlike with the library files, this does not happen automatically.

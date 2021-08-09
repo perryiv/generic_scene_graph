@@ -15,6 +15,8 @@
 
 #include "GSG/Render/OSMesa/Renderer.h"
 #include "GSG/Scene/Nodes/Node.h"
+#include "GSG/Tools/Visitors/Cull/Visitor.h"
+#include "GSG/Tools/Visitors/Update/Visitor.h"
 
 #include "Usul/Tools/NoThrow.h"
 
@@ -98,18 +100,6 @@ void Renderer::resize ( unsigned int width, unsigned int height )
 }
 
 
-///////////////////////////////////////////////////////////////////////////////
-//
-//  Render the scene.
-//
-///////////////////////////////////////////////////////////////////////////////
-
-void Renderer::render ( GSG::Scene::Nodes::Node *node )
-{
-  PropertyMap pm;
-  this->render ( node, pm );
-}
-
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -119,8 +109,39 @@ void Renderer::render ( GSG::Scene::Nodes::Node *node )
 
 void Renderer::render ( GSG::Scene::Nodes::Node *node, PropertyMap &pm )
 {
+  this->_update ( node, pm );
   this->_cull ( node, pm );
   this->_draw ( pm );
+}
+void Renderer::render ( GSG::Scene::Nodes::Node *node, PropertyMap::Values &values )
+{
+  PropertyMap pm ( values );
+  this->render ( node, pm );
+}
+void Renderer::render ( GSG::Scene::Nodes::Node *node )
+{
+  PropertyMap pm;
+  this->render ( node, pm );
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Update the scene.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+void Renderer::_update ( GSG::Scene::Nodes::Node *node, PropertyMap &pm )
+{
+  typedef GSG::Tools::Visitors::Update::Visitor UpdateVisitor;
+
+  if ( nullptr == node )
+  {
+    return;
+  }
+
+  UpdateVisitor::RefPtr uv = new UpdateVisitor();
+  uv->update ( node, pm );
 }
 
 
@@ -132,12 +153,15 @@ void Renderer::render ( GSG::Scene::Nodes::Node *node, PropertyMap &pm )
 
 void Renderer::_cull ( GSG::Scene::Nodes::Node *node, PropertyMap &pm )
 {
+  typedef GSG::Tools::Visitors::Cull::Visitor CullVisitor;
+
   if ( nullptr == node )
   {
     return;
   }
 
-  node->accept ( *this, pm );
+  CullVisitor::RefPtr cv = new CullVisitor();
+  cv->cull ( node, pm );
 }
 
 

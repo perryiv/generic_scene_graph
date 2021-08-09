@@ -13,8 +13,8 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-#include "GSG/Scene/Visitors/Callbacks/Const.h"
-#include "GSG/Scene/Visitors/Callbacks/Modify.h"
+#include "GSG/Tools/Visitors/Callbacks/Const.h"
+#include "GSG/Tools/Visitors/Callbacks/Modify.h"
 #include "GSG/Scene/Nodes/Groups/Transform.h"
 #include "GSG/Scene/Nodes/Shapes/Geometry.h"
 
@@ -29,8 +29,8 @@ typedef GSG::Scene::Nodes::Groups::Group Group;
 typedef GSG::Scene::Nodes::Groups::Transform Transform;
 typedef GSG::Scene::Nodes::Node Node;
 typedef GSG::Scene::Nodes::Shapes::Geometry Geometry;
-typedef GSG::Scene::Visitors::Callbacks::Const ConstVisitor;
-typedef GSG::Scene::Visitors::Callbacks::Modify ModifyVisitor;
+typedef GSG::Tools::Visitors::Callbacks::Const ConstVisitor;
+typedef GSG::Tools::Visitors::Callbacks::Modify ModifyVisitor;
 typedef std::map < unsigned long, Node::RefPtr > IDS;
 
 

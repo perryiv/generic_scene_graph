@@ -13,19 +13,21 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifndef _GSG_VISITORS_INTERSECTION_VISITOR_CLASS_H_
-#define _GSG_VISITORS_INTERSECTION_VISITOR_CLASS_H_
+#ifndef _GSG_TOOLS_VISITORS_INTERSECTION_VISITOR_CLASS_H_
+#define _GSG_TOOLS_VISITORS_INTERSECTION_VISITOR_CLASS_H_
 
+#include "GSG/Config.h"
 #include "GSG/Scene/Visitors/Visitor.h"
+#include "GSG/Tools/Export.h"
 
 
 namespace GSG {
-namespace Scene {
+namespace Tools {
 namespace Visitors {
 namespace Intersection {
 
 
-class GSG_SCENE_EXPORT Intersect : public GSG::Scene::Visitors::Visitor
+class GSG_TOOLS_EXPORT Intersect : public GSG::Scene::Visitors::Visitor
 {
 public:
 
@@ -47,8 +49,8 @@ private:
 
 } // namespace Intersection
 } // namespace Visitors
-} // namespace Scene
+} // namespace Tools
 } // namespace GSG
 
 
-#endif // _GSG_VISITORS_INTERSECTION_VISITOR_CLASS_H_
+#endif // _GSG_TOOLS_VISITORS_INTERSECTION_VISITOR_CLASS_H_

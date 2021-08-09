@@ -18,12 +18,24 @@ hierarchy, for example.
 
 --------------------------------------------------------------------------------
 
+_layers[layer][bin][state][projection][viewMatrix][shape]
+
+--------------------------------------------------------------------------------
+
 GSG/Viewers/Canvas
 GSG/Viewers/Examiner
 
+GSG/Scene/Visitors/Update/Visitor
+GSG/Scene/Visitors/Cull/Visitor
+GSG/Scene/Visitors/Cull/Tree
+GSG/Scene/Visitors/Cull/Layer
+GSG/Scene/Visitors/Cull/Bin
+GSG/Scene/Visitors/Cull/State
+GSG/Scene/Visitors/Cull/Projection
+GSG/Scene/Visitors/Cull/ViewMatrix
+GSG/Scene/Visitors/Cull/Element
+
 GSG/Render/Pipeline
-GSG/Render/Update
-GSG/Render/Cull
 GSG/Render/Draw
 
 GSG/Render/OSMesa/Draw

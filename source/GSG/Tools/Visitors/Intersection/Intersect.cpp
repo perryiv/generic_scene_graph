@@ -9,12 +9,11 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-//  Base class for all scene-graph shape nodes.
+//  Base class for all scene intersection visitors.
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#include "GSG/Scene/Nodes/Shapes/Shape.h"
-#include "GSG/Scene/Visitors/Visitor.h"
+#include "GSG/Tools/Visitors/Intersection/Intersect.h"
 
 #include "Usul/Tools/NoThrow.h"
 
@@ -22,13 +21,13 @@
 
 
 namespace GSG {
-namespace Scene {
-namespace Nodes {
-namespace Shapes {
+namespace Tools {
+namespace Visitors {
+namespace Intersection {
 
 
 // Add the boilerplate code.
-GSG_IMPLEMENT_NODE_CLASS ( Shape )
+GSG_IMPLEMENT_VISITOR_CLASS ( Intersect )
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -37,9 +36,7 @@ GSG_IMPLEMENT_NODE_CLASS ( Shape )
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-Shape::Shape() : BaseClass(),
-  _layer ( 0 ),
-  _state()
+Intersect::Intersect() : BaseClass()
 {
 }
 
@@ -50,9 +47,9 @@ Shape::Shape() : BaseClass(),
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-Shape::~Shape()
+Intersect::~Intersect()
 {
-  USUL_TOOLS_NO_THROW ( 1608015018, std::bind ( &Shape::_destroyShape, this ) );
+  USUL_TOOLS_NO_THROW ( 1608769716, std::bind ( &Intersect::_destroyIntersect, this ) );
 }
 
 
@@ -62,13 +59,12 @@ Shape::~Shape()
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-void Shape::_destroyShape()
+void Intersect::_destroyIntersect()
 {
-  _state = nullptr;
 }
 
 
-} // namespace Shapes
-} // namespace Nodes
-} // namespace Scene
+} // namespace Intersection
+} // namespace Visitors
+} // namespace Tools
 } // namespace GSG

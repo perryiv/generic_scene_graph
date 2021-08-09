@@ -36,6 +36,7 @@ set ( CMAKE_POSITION_INDEPENDENT_CODE ON )
 # Process the CMakeLists.txt files found in these directories.
 add_subdirectory ( GSG/Base )
 add_subdirectory ( GSG/Scene )
+add_subdirectory ( GSG/Tools )
 add_subdirectory ( GSG/Render )
 
 # Tell cmake how to install the headers and binaries if the user types
@@ -43,7 +44,7 @@ add_subdirectory ( GSG/Render )
 # directory prefix is /usr/local or "C:/Program Files", and can be changed
 # on the command line with -DCMAKE_INSTALL_PREFIX=/some/path.
 install (
-  TARGETS ${LIBRARY_NAME_BASE} ${LIBRARY_NAME_SCENE}
+  TARGETS ${PROJECT_NAME}_base ${PROJECT_NAME}_scene
   EXPORT ${PROJECT_NAME}_targets
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib

@@ -13,7 +13,7 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#include "GSG/Scene/Visitors/Callbacks/Modify.h"
+#include "GSG/Tools/Visitors/Callbacks/Const.h"
 #include "GSG/Scene/Nodes/Groups/Transform.h"
 #include "GSG/Scene/Nodes/Shapes/Geometry.h"
 
@@ -23,13 +23,13 @@
 
 
 namespace GSG {
-namespace Scene {
+namespace Tools {
 namespace Visitors {
 namespace Callbacks {
 
 
 // Add the boilerplate code.
-GSG_IMPLEMENT_VISITOR_CLASS ( Modify )
+GSG_IMPLEMENT_VISITOR_CLASS ( Const )
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -38,7 +38,7 @@ GSG_IMPLEMENT_VISITOR_CLASS ( Modify )
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-Modify::Modify() : BaseClass(),
+Const::Const() : BaseClass(),
   _transformCallbackBefore(),
   _transformCallbackAfter(),
   _groupCallbackBefore(),
@@ -56,9 +56,9 @@ Modify::Modify() : BaseClass(),
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-Modify::~Modify()
+Const::~Const()
 {
-  USUL_TOOLS_NO_THROW ( 1609779503, std::bind ( &Modify::_destroyModify, this ) );
+  USUL_TOOLS_NO_THROW ( 1609779504, std::bind ( &Const::_destroyConst, this ) );
 }
 
 
@@ -68,7 +68,7 @@ Modify::~Modify()
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-void Modify::_destroyModify()
+void Const::_destroyConst()
 {
   _transformCallbackBefore = nullptr;
   _transformCallbackAfter = nullptr;
@@ -89,7 +89,7 @@ void Modify::_destroyModify()
 namespace Details
 {
   template < class CallbackType, class NodeType >
-  inline void call ( CallbackType cb, NodeType &node, Modify::PropertyMap &props )
+  inline void call ( CallbackType cb, const NodeType &node, Const::PropertyMap &props )
   {
     if ( cb )
     {
@@ -105,29 +105,29 @@ namespace Details
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-void Modify::visit ( GSG::Scene::Nodes::Groups::Transform &trans, PropertyMap &props )
+void Const::visit ( const GSG::Scene::Nodes::Groups::Transform &trans, PropertyMap &props )
 {
   Details::call ( _transformCallbackBefore, trans, props );
   BaseClass::visit ( trans, props );
   Details::call ( _transformCallbackAfter, trans, props );
 }
-void Modify::visit ( GSG::Scene::Nodes::Groups::Group &group, PropertyMap &props )
+void Const::visit ( const GSG::Scene::Nodes::Groups::Group &group, PropertyMap &props )
 {
   Details::call ( _groupCallbackBefore, group, props );
   BaseClass::visit ( group, props );
   Details::call ( _groupCallbackAfter, group, props );
 }
-void Modify::visit ( GSG::Scene::Nodes::Shapes::Geometry &geom, PropertyMap &props )
+void Const::visit ( const GSG::Scene::Nodes::Shapes::Geometry &geom, PropertyMap &props )
 {
   Details::call ( _geometryCallback, geom, props );
   BaseClass::visit ( geom, props );
 }
-void Modify::visit ( GSG::Scene::Nodes::Shapes::Shape &shape, PropertyMap &props )
+void Const::visit ( const GSG::Scene::Nodes::Shapes::Shape &shape, PropertyMap &props )
 {
   Details::call ( _shapeCallback, shape, props );
   BaseClass::visit ( shape, props );
 }
-void Modify::visit ( GSG::Scene::Nodes::Node &node, PropertyMap &props )
+void Const::visit ( const GSG::Scene::Nodes::Node &node, PropertyMap &props )
 {
   Details::call ( _nodeCallback, node, props );
   BaseClass::visit ( node, props );
@@ -140,7 +140,7 @@ void Modify::visit ( GSG::Scene::Nodes::Node &node, PropertyMap &props )
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-void Modify::setTransformCallback ( TransformCallback cb, When when )
+void Const::setTransformCallback ( TransformCallback cb, When when )
 {
   if ( BEFORE_TRAVERSAL == when )
   {
@@ -151,7 +151,7 @@ void Modify::setTransformCallback ( TransformCallback cb, When when )
     _transformCallbackAfter = cb;
   }
 }
-void Modify::setGroupCallback ( GroupCallback cb, When when )
+void Const::setGroupCallback ( GroupCallback cb, When when )
 {
   if ( BEFORE_TRAVERSAL == when )
   {
@@ -162,15 +162,15 @@ void Modify::setGroupCallback ( GroupCallback cb, When when )
     _groupCallbackAfter = cb;
   }
 }
-void Modify::setGeometryCallback ( GeometryCallback cb )
+void Const::setGeometryCallback ( GeometryCallback cb )
 {
   _geometryCallback = cb;
 }
-void Modify::setShapeCallback ( ShapeCallback cb )
+void Const::setShapeCallback ( ShapeCallback cb )
 {
   _shapeCallback = cb;
 }
-void Modify::setNodeCallback ( NodeCallback cb )
+void Const::setNodeCallback ( NodeCallback cb )
 {
   _nodeCallback = cb;
 }
@@ -178,5 +178,5 @@ void Modify::setNodeCallback ( NodeCallback cb )
 
 } // namespace Callbacks
 } // namespace Visitors
-} // namespace Scene
+} // namespace Tools
 } // namespace GSG

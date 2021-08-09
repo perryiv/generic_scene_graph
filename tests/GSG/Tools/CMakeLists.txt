@@ -15,29 +15,26 @@
 
 # Define a variable that holds all the source files.
 set ( SOURCE_FILES
-  Nodes/Groups/Group.cpp
-  Nodes/Groups/Transform.cpp
-  Nodes/Shapes/Geometry.cpp
-  Primitives/DrawElements.cpp
-  State/Container.cpp
+  Visitors/Callbacks.cpp
+  Visitors/Cull.cpp
   ../Main.cpp
   ../Version.cpp
 )
 
 # Make an executable.
-add_executable ( ${PROJECT_NAME}_scene_test ${SOURCE_FILES} )
+add_executable ( ${PROJECT_NAME}_tools_test ${SOURCE_FILES} )
 
 # Append a "d" to the file name if this is a debug build.
 # Unlike with the library files, this does not happen automatically.
 # if ( ( DEFINED CMAKE_DEBUG_POSTFIX ) AND ( NOT ${CMAKE_DEBUG_POSTFIX} STREQUAL "" ) )
 if ( CMAKE_BUILD_TYPE STREQUAL "Debug" )
-  set_target_properties ( ${PROJECT_NAME}_scene_test PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX} )
+  set_target_properties ( ${PROJECT_NAME}_tools_test PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX} )
 endif()
 
 # Tell cmake we are going to use these libraries.
 # It will automatically add -I, -L, and -D (etc) appropriately.
-target_link_libraries ( ${PROJECT_NAME}_scene_test PRIVATE
-  ${PROJECT_NAME}_scene
+target_link_libraries ( ${PROJECT_NAME}_tools_test PRIVATE
+  ${PROJECT_NAME}_tools
   Catch2::Catch2
 )
 
@@ -46,7 +43,7 @@ target_link_libraries ( ${PROJECT_NAME}_scene_test PRIVATE
 # This has to come after the target is declared above.
 if ( GSG_ENABLE_CODE_COVERAGE )
   if ( "${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" )
-    add_custom_command ( TARGET ${PROJECT_NAME}_scene_test
+    add_custom_command ( TARGET ${PROJECT_NAME}_tools_test
       PRE_LINK COMMAND find . -name "*.gcda" -print0 | xargs -0 rm
     )
   endif()
@@ -54,6 +51,6 @@ endif()
 
 # Add a test.
 add_test (
-  NAME ${PROJECT_NAME}_scene_test
-  COMMAND ${PROJECT_NAME}_scene_test ${TEST_ARGUMENTS}
+  NAME ${PROJECT_NAME}_tools_test
+  COMMAND ${PROJECT_NAME}_tools_test ${TEST_ARGUMENTS}
 )

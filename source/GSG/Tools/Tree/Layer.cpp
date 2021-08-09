@@ -9,11 +9,12 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-//  Base class for all scene intersection visitors.
+//  A layer in the render-tree.
+//  The depth buffer should be cleared before rendering its children.
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#include "GSG/Scene/Visitors/Intersection/Intersect.h"
+#include "GSG/Tools/Tree/Layer.h"
 
 #include "Usul/Tools/NoThrow.h"
 
@@ -21,13 +22,12 @@
 
 
 namespace GSG {
-namespace Scene {
-namespace Visitors {
-namespace Intersection {
+namespace Tools {
+namespace Tree {
 
 
 // Add the boilerplate code.
-GSG_IMPLEMENT_VISITOR_CLASS ( Intersect )
+GSG_IMPLEMENT_OBJECT_CLASS ( Layer )
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -36,7 +36,7 @@ GSG_IMPLEMENT_VISITOR_CLASS ( Intersect )
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-Intersect::Intersect() : BaseClass()
+Layer::Layer() : BaseClass()
 {
 }
 
@@ -47,9 +47,9 @@ Intersect::Intersect() : BaseClass()
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-Intersect::~Intersect()
+Layer::~Layer()
 {
-  USUL_TOOLS_NO_THROW ( 1608769716, std::bind ( &Intersect::_destroyIntersect, this ) );
+  USUL_TOOLS_NO_THROW ( 1626111563, std::bind ( &Layer::_destroyLayer, this ) );
 }
 
 
@@ -59,12 +59,11 @@ Intersect::~Intersect()
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-void Intersect::_destroyIntersect()
+void Layer::_destroyLayer()
 {
 }
 
 
-} // namespace Intersection
-} // namespace Visitors
-} // namespace Scene
+} // namespace Tree
+} // namespace Tools
 } // namespace GSG

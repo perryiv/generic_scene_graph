@@ -13,8 +13,8 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifndef _GSG_RENDERERS_OSMESA_VISITOR_CLASS_H_
-#define _GSG_RENDERERS_OSMESA_VISITOR_CLASS_H_
+#ifndef _GSG_RENDER_OSMESA_RENDERER_VISITOR_CLASS_H_
+#define _GSG_RENDER_OSMESA_RENDERER_VISITOR_CLASS_H_
 
 #include "GSG/Render/OSMesa/Export.h"
 #include "GSG/Scene/Visitors/Visitor.h"
@@ -52,6 +52,7 @@ public:
   // Render the scene.
   void render ( GSG::Scene::Nodes::Node * );
   void render ( GSG::Scene::Nodes::Node *, PropertyMap & );
+  void render ( GSG::Scene::Nodes::Node *, PropertyMap::Values & );
 
   // Get the buffer.
   const Buffer &getBuffer() const { return _buffer; }
@@ -67,6 +68,7 @@ protected:
   virtual void visit ( GSG::Scene::Nodes::Shapes::Geometry &, PropertyMap & ) override;
   virtual void visit ( GSG::Scene::Nodes::Shapes::Shape &, PropertyMap & ) override;
 
+  void _update ( GSG::Scene::Nodes::Node *, PropertyMap & );
   void _cull ( GSG::Scene::Nodes::Node *, PropertyMap & );
   void _draw ( PropertyMap & );
 
@@ -87,4 +89,4 @@ private:
 } // namespace GSG
 
 
-#endif // _GSG_RENDERERS_OSMESA_VISITOR_CLASS_H_
+#endif // _GSG_RENDER_OSMESA_RENDERER_VISITOR_CLASS_H_
